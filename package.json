@@ -1,0 +1,38 @@
+{
+  "name": "lp-web",
+  "version": "0.1.0",
+  "author": "Michael Macias <zaeleus@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "proxy": "http://localhost:8000",
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "dependencies": {
+    "apollo-client": "^0.8.1",
+    "classnames": "^2.2.5",
+    "graphql-tag": "^1.2.4",
+    "moment": "^2.17.1",
+    "normalize.css": "^5.0.0",
+    "react": "^15.4.2",
+    "react-apollo": "^0.10.0",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "react-router5": "^4.0.1",
+    "redux": "^3.6.0",
+    "redux-router5": "^4.2.3",
+    "router5": "^4.4.1"
+  },
+  "devDependencies": {
+    "@types/classnames": "^0.0.32",
+    "@types/jest": "^18.1.0",
+    "@types/node": "^7.0.4",
+    "@types/react": "^15.0.5",
+    "@types/react-dom": "^0.14.22",
+    "@types/react-redux": "^4.4.36",
+    "react-scripts-ts": "^1.0.6"
+  }
+}

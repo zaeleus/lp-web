@@ -1,0 +1,26 @@
+#header {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+#header h1 {
+    display: inline-block;
+    font-size: inherit;
+    font-weight: normal;
+    margin: 0;
+}
+
+#header a {
+    display: block;
+    padding: 0.5em 1.25em;
+}
+
+#header ul {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#header ul li {
+    display: inline-block;
+}

@@ -1,0 +1,38 @@
+import * as React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators, Dispatch } from "redux";
+import { actions } from "redux-router5";
+
+import Link from "./Link";
+import SearchBox from "./SearchBox";
+
+import "./Header.css";
+
+interface IDispatchProps {
+    navigateTo: typeof actions.navigateTo;
+}
+
+class Header extends React.Component<IDispatchProps, {}> {
+    public search = (query: string): void => {
+        this.props.navigateTo("search", { query });
+    }
+
+    public render() {
+        return (
+            <header id="header">
+                <h1><Link to="home">LP</Link></h1>
+
+                <ul>
+                    <li><Link to="calendar">Calendar</Link></li>
+                    <li><SearchBox onSubmit={this.search} /></li>
+                </ul>
+            </header>
+        );
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<any>) => (
+    bindActionCreators({ navigateTo: actions.navigateTo }, dispatch)
+);
+
+export default connect(() => ({}), mapDispatchToProps)(Header);

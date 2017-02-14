@@ -1,0 +1,12 @@
+.monthly-calendar header {
+    text-align: center;
+}
+
+.monthly-calendar header h3 {
+    display: inline-block;
+}
+
+.monthly-calendar header a {
+    display: inline-block;
+    padding: 1em;
+}
