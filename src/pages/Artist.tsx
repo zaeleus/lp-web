@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
+import Albums from "../components/Artist/Albums";
 import Memberships from "../components/Artist/Memberships";
 import { IArtist } from "../models/Artist";
 import * as Nameable from "../models/Nameable";
@@ -46,7 +47,8 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
                 </div>
 
                 <div className="primary">
-                    <p>Nothing here.</p>
+                    <h3>Albums</h3>
+                    <Albums albums={artist.albums} />
                 </div>
             </div>
         </div>
@@ -73,6 +75,14 @@ const FindArtist = gql`
                             id
                         }
                     }
+                }
+            }
+            albums {
+                id
+                names {
+                    name
+                    isDefault
+                    isOriginal
                 }
             }
         }
