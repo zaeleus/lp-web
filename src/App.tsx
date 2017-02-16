@@ -1,3 +1,4 @@
+import * as moment from "moment";
 import * as React from "react";
 import { connect } from "react-redux";
 import { routeNodeSelector } from "redux-router5";
@@ -33,7 +34,8 @@ class App extends React.Component<IProps, {}> {
                 content = <Release id={params.id} />;
                 break;
             case "calendar":
-                content = <Calendar date={params.date} />;
+                const date = params.date || moment.utc().format("YYYY-MM");
+                content = <Calendar date={date} />;
                 break;
             case "search":
                 content = <Search query={params.query} />;

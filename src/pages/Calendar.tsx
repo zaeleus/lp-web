@@ -1,15 +1,32 @@
-import * as moment from "moment";
+import gql from "graphql-tag";
 import * as React from "react";
+import { graphql, InjectedGraphQLProps } from "react-apollo";
 
+import MonthlyAlbums from "../components/MonthlyAlbums";
 import MonthlyCalendar from "../components/MonthlyCalendar";
+import { IAlbum } from "../models/Album";
 
-interface IProps {
-    date?: string;
+interface IComponentProps {
+    date: string;
 }
+
+interface IDataProps {
+    albumsByReleaseMonth: IAlbum[];
+}
+
+type IProps = IComponentProps & InjectedGraphQLProps<IDataProps>;
 
 class Calendar extends React.Component<IProps, {}> {
     public render() {
-        const date = this.props.date || moment.utc().format("YYYY-MM");
+        if (!this.props.data) {
+            return <h2>Not found</h2>;
+        }
+
+        if (this.props.data.loading) {
+            return <h2>Loading...</h2>;
+        }
+
+        const albums = this.props.data.albumsByReleaseMonth;
 
         return (
             <div>
@@ -17,11 +34,11 @@ class Calendar extends React.Component<IProps, {}> {
 
                 <div id="content">
                     <div className="secondary">
-                        <MonthlyCalendar date={date} />
+                        <MonthlyCalendar date={this.props.date} />
                     </div>
 
                     <div className="primary">
-                        <p>Nothing here.</p>
+                        <MonthlyAlbums albums={albums} />
                     </div>
                 </div>
             </div>
@@ -29,4 +46,21 @@ class Calendar extends React.Component<IProps, {}> {
     }
 }
 
-export default Calendar;
+const AlbumsByReleaseMonth = gql`
+    query AlbumsByReleaseMonth($date: String!) {
+        albumsByReleaseMonth(date: $date) {
+            id
+            names {
+                name
+                isDefault
+                isOriginal
+            }
+            defaultRelease {
+                id
+                releasedOn
+            }
+        }
+    }
+`;
+
+export default graphql(AlbumsByReleaseMonth)(Calendar);
