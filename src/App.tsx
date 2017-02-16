@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Artist from "./pages/Artist";
 import Calendar from "./pages/Calendar";
 import Home from "./pages/Home";
+import Release from "./pages/Release";
 import Search from "./pages/Search";
 
 interface IProps {
@@ -27,6 +28,9 @@ class App extends React.Component<IProps, {}> {
                 break;
             case "artist":
                 content = <Artist id={params.id} />;
+                break;
+            case "release":
+                content = <Release id={params.id} />;
                 break;
             case "calendar":
                 content = <Calendar date={params.date} />;

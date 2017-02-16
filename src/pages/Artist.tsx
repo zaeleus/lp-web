@@ -84,6 +84,10 @@ const FindArtist = gql`
                     isDefault
                     isOriginal
                 }
+                defaultRelease {
+                    id
+                    releasedOn
+                }
             }
         }
     }
