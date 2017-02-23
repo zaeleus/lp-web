@@ -1,4 +1,5 @@
 import { IAlbumName } from "./AlbumName";
+import { IArtistCredit } from "./ArtistCredit";
 import { IRelease } from "./Release";
 
 export enum AlbumKind {
@@ -12,4 +13,5 @@ export interface IAlbum {
     kind: AlbumKind;
     names: IAlbumName[];
     defaultRelease: IRelease;
+    artistCredit: IArtistCredit;
 }

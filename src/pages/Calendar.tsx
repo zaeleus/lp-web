@@ -59,6 +59,21 @@ const AlbumsByReleaseMonth = gql`
                 id
                 releasedOn
             }
+            artistCredit {
+                id
+                names {
+                    id
+                    position
+                    name
+                    locale
+                    isDefault
+                    isOriginal
+                    separator
+                    artist {
+                        id
+                    }
+                }
+            }
         }
     }
 `;
