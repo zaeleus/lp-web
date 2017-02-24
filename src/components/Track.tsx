@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { ITrack } from "../models/Track";
 import ArtistCredit from "./ArtistCredit";
+import Duration from "./Duration";
 import Name from "./Name";
 
 interface IProps {
@@ -13,7 +14,7 @@ const Track: React.StatelessComponent<IProps> = ({ track }) => (
         <td>{track.position}</td>
         <td><Name names={track.names} /></td>
         <td><ArtistCredit artistCredit={track.artistCredit} /></td>
-        <td>{track.duration}</td>
+        <td><Duration duration={track.duration} /></td>
     </tr>
 );
 

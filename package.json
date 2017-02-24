@@ -28,11 +28,14 @@
   },
   "devDependencies": {
     "@types/classnames": "^0.0.32",
+    "@types/enzyme": "^2.7.5",
     "@types/jest": "^18.1.0",
     "@types/node": "^7.0.4",
     "@types/react": "^15.0.5",
     "@types/react-dom": "^0.14.22",
     "@types/react-redux": "^4.4.36",
+    "enzyme": "^2.7.1",
+    "react-addons-test-utils": "^15.4.2",
     "react-scripts-ts": "^1.0.6"
   }
 }
