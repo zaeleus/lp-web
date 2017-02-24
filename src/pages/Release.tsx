@@ -2,6 +2,9 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
+import ArtistCredit from "../components/ArtistCredit";
+import Media from "../components/Media";
+import Name from "../components/Name";
 import Urls from "../components/Release/Urls";
 import { IRelease } from "../models/Release";
 
@@ -28,7 +31,11 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
 
     return (
         <div>
-            <h2>Release {release.id}</h2>
+            <h2><Name names={release.album.names} /></h2>
+            <ArtistCredit artistCredit={release.album.artistCredit} />
+
+            <h3>Tracklist</h3>
+            <Media media={release.media} />
 
             <h3>External Links</h3>
             <Urls urls={release.urls} />
@@ -40,9 +47,62 @@ const FindRelease = gql`
     query FindRelease($id: ID!) {
         release(id: $id) {
             id
+            album {
+                id
+                artistCredit {
+                    id
+                    names {
+                        id
+                        position
+                        name
+                        locale
+                        isDefault
+                        isOriginal
+                        separator
+                        artist {
+                            id
+                        }
+                    }
+                }
+                names {
+                    id
+                    name
+                    isDefault
+                    isOriginal
+                }
+            }
             urls {
                 name
                 url
+            }
+            media {
+                id
+                tracks {
+                    id
+                    position
+                    duration
+                    artistCredit {
+                        id
+                        names {
+                            id
+                            position
+                            name
+                            locale
+                            isDefault
+                            isOriginal
+                            separator
+                            artist {
+                                id
+                            }
+                        }
+                    }
+                    names {
+                        id
+                        name
+                        isDefault
+                        isOriginal
+                    }
+                }
             }
         }
     }
