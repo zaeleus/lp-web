@@ -1,8 +1,8 @@
 import * as React from "react";
 
 import Link from "../../components/Link";
+import Name from "../../components/Name";
 import { IMembership } from "../../models/Membership";
-import * as Nameable from "../../models/Nameable";
 
 interface IProps {
     membership: IMembership;
@@ -13,7 +13,7 @@ const Membership: React.StatelessComponent<IProps> = ({ membership }) => {
     return (
         <li>
             <Link to="artist" params={{ id: artistCredit.names[0].artist.id }}>
-                {Nameable.defaultName(artistCredit.names)}
+                <Name names={artistCredit.names} />
             </Link>
         </li>
     );

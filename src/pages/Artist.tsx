@@ -4,8 +4,8 @@ import { graphql, InjectedGraphQLProps } from "react-apollo";
 
 import Albums from "../components/Artist/Albums";
 import Memberships from "../components/Artist/Memberships";
+import Name from "../components/Name";
 import { IArtist } from "../models/Artist";
-import * as Nameable from "../models/Nameable";
 
 interface IComponentProps {
     id: string;
@@ -31,7 +31,7 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
     return (
         <div>
             <header className="page">
-                <h2>Artist {Nameable.defaultName(artist.names)}</h2>
+                <h2><Name names={artist.names} /></h2>
             </header>
 
             <div id="content">

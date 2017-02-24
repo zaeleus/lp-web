@@ -3,6 +3,7 @@ import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
 import Link from "../components/Link";
+import Name from "../components/Name";
 import { IArtist } from "../models/Artist";
 
 interface IComponentProps {
@@ -25,10 +26,11 @@ const Search: React.StatelessComponent<IProps> = ({ data }) => {
     }
 
     const items = data.artists.map((d: any, i: number) => {
-        const name = d.names.find((n: any) => n.isDefault);
         return (
             <li key={i}>
-                <Link to="artist" params={{ id: d.id }}>{name.name}</Link>
+                <Link to="artist" params={{ id: d.id }}>
+                    <Name names={d.names} />
+                </Link>
             </li>
         );
     });
