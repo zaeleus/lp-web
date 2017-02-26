@@ -2,9 +2,11 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
+import Birthdays from "../components/Calendar/Birthdays";
 import MonthlyAlbums from "../components/MonthlyAlbums";
 import MonthlyCalendar from "../components/MonthlyCalendar";
 import { IAlbum } from "../models/Album";
+import { IArtist } from "../models/Artist";
 
 interface IComponentProps {
     date: string;
@@ -12,6 +14,7 @@ interface IComponentProps {
 
 interface IDataProps {
     albumsByReleaseMonth: IAlbum[];
+    artistsByStartMonth: IArtist[];
 }
 
 type IProps = IComponentProps & InjectedGraphQLProps<IDataProps>;
@@ -27,6 +30,7 @@ class Calendar extends React.Component<IProps, {}> {
         }
 
         const albums = this.props.data.albumsByReleaseMonth;
+        const artists = this.props.data.artistsByStartMonth;
 
         return (
             <div>
@@ -35,6 +39,7 @@ class Calendar extends React.Component<IProps, {}> {
                 <div id="content">
                     <div className="secondary">
                         <MonthlyCalendar date={this.props.date} />
+                        <Birthdays artists={artists} />
                     </div>
 
                     <div className="primary">
@@ -73,6 +78,15 @@ const AlbumsByReleaseMonth = gql`
                         id
                     }
                 }
+            }
+        }
+
+        artistsByStartMonth(date: $date) {
+            id
+            names {
+                id
+                name
+                isDefault
             }
         }
     }
