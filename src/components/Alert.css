@@ -1,0 +1,9 @@
+.alert {
+  background: #f8f8f8;
+  border: 1px solid #e8e8e8;
+  border-radius: 2px;
+  color: #585858;
+  font-size: 0.8em;
+  padding: 0.5em;
+  margin: 1em 0;
+}

@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
+import Alert from "../components/Alert";
 import Birthdays from "../components/Calendar/Birthdays";
 import MonthlyAlbums from "../components/MonthlyAlbums";
 import MonthlyCalendar from "../components/MonthlyCalendar";
@@ -32,6 +33,14 @@ class Calendar extends React.Component<IProps, {}> {
         const albums = this.props.data.albumsByReleaseMonth;
         const artists = this.props.data.artistsByStartMonth;
 
+        let monthlyAlbums;
+
+        if (albums.length === 0) {
+            monthlyAlbums = <Alert>No albums.</Alert>;
+        } else {
+            monthlyAlbums = <MonthlyAlbums albums={albums} />;
+        }
+
         return (
             <div>
                 <h2>Calendar</h2>
@@ -43,7 +52,7 @@ class Calendar extends React.Component<IProps, {}> {
                     </div>
 
                     <div className="primary">
-                        <MonthlyAlbums albums={albums} />
+                        {monthlyAlbums}
                     </div>
                 </div>
             </div>

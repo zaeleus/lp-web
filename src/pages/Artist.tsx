@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
+import Alert from "../components/Alert";
 import Albums from "../components/Artist/Albums";
 import Memberships from "../components/Artist/Memberships";
 import Name from "../components/Name";
@@ -28,6 +29,14 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
 
     const artist = data.artist;
 
+    let albums;
+
+    if (artist.albums.length === 0) {
+        albums = <Alert>No albums.</Alert>;
+    } else {
+        albums = <Albums albums={artist.albums} />;
+    }
+
     return (
         <div>
             <header className="page">
@@ -48,7 +57,7 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
 
                 <div className="primary">
                     <h3>Albums</h3>
-                    <Albums albums={artist.albums} />
+                    {albums}
                 </div>
             </div>
         </div>
