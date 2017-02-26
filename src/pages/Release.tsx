@@ -77,6 +77,8 @@ const FindRelease = gql`
             }
             media {
                 id
+                position
+                kind
                 tracks {
                     id
                     position

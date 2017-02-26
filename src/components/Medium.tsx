@@ -9,11 +9,20 @@ interface IProps {
 }
 
 const Media: React.StatelessComponent<IProps> = ({ medium }) => {
+    let tracklist;
+
     if (medium.tracks.length === 0) {
-        return <Alert>No tracks.</Alert>;
+        tracklist = <Alert>No tracks.</Alert>;
     } else {
-        return <Tracklist tracks={medium.tracks} />;
+        tracklist = <Tracklist tracks={medium.tracks} />;
     }
+
+    return (
+        <div>
+            <h4>{medium.kind} {medium.position}</h4>
+            {tracklist}
+        </div>
+    );
 };
 
 export default Media;
