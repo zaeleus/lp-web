@@ -1,4 +1,5 @@
 import gql from "graphql-tag";
+import * as moment from "moment";
 import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
@@ -32,6 +33,8 @@ class Calendar extends React.Component<IProps, {}> {
 
         const albums = this.props.data.albumsByReleaseMonth;
         const artists = this.props.data.artistsByStartMonth;
+        const date = this.props.date;
+        const endOfMonth = moment(date, "YYYY-MM").endOf("month").format("YYYY-MM-DD");
 
         let monthlyAlbums;
 
@@ -47,8 +50,8 @@ class Calendar extends React.Component<IProps, {}> {
 
                 <div id="content">
                     <div className="secondary">
-                        <MonthlyCalendar date={this.props.date} />
-                        <Birthdays artists={artists} />
+                        <MonthlyCalendar date={date} />
+                        <Birthdays artists={artists} date={endOfMonth} />
                     </div>
 
                     <div className="primary">
@@ -92,6 +95,7 @@ const AlbumsByReleaseMonth = gql`
 
         artistsByStartMonth(date: $date) {
             id
+            startedOn
             names {
                 id
                 name

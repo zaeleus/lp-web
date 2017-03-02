@@ -5,6 +5,8 @@ import { IMembership } from "./Membership";
 export interface IArtist {
     id: number;
     country: string;
+    startedOn: string;
+    endedOn: string;
     albums: IAlbum[];
     names: IArtistName[];
     memberships: IMembership[];
