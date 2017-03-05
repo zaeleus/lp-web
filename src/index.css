@@ -33,6 +33,11 @@ img {
   width: 960px;
 }
 
+#content .full {
+  flex: 1;
+  margin: 0 6px;
+}
+
 #content .primary {
   flex: 2;
   margin: 0 6px;

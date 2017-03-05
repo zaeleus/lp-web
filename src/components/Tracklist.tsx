@@ -3,6 +3,8 @@ import * as React from "react";
 import { ITrack } from "../models/Track";
 import Track from "./Track";
 
+import "./Tracklist.css";
+
 interface IProps {
     tracks: ITrack[];
 }
@@ -13,7 +15,7 @@ const Tracklist: React.StatelessComponent<IProps> = ({ tracks }) => {
     ));
 
     return (
-        <table>
+        <table className="tracklist">
             <tbody>
                 {rows}
             </tbody>

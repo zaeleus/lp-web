@@ -30,15 +30,17 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
     const release = data.release;
 
     return (
-        <div>
-            <h2><Name names={release.album.names} /></h2>
-            <ArtistCredit artistCredit={release.album.artistCredit} />
+        <div id="content">
+            <div className="full">
+                <h2><Name names={release.album.names} /></h2>
+                <ArtistCredit artistCredit={release.album.artistCredit} />
 
-            <h3>Tracklist</h3>
-            <Media media={release.media} />
+                <h3>Tracklist</h3>
+                <Media media={release.media} />
 
-            <h3>External Links</h3>
-            <Urls urls={release.urls} />
+                <h3>External Links</h3>
+                <Urls urls={release.urls} />
+            </div>
         </div>
     );
 };

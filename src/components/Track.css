@@ -1,0 +1,12 @@
+.tracklist .position, .tracklist .duration {
+    text-align: right;
+    width: 5%;
+}
+
+.tracklist .name {
+    width: 60%;
+}
+
+.tracklist .artist {
+    width: 30%;
+}
