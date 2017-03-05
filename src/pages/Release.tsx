@@ -29,6 +29,8 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
 
     const release = data.release;
 
+    const catalogNumber = release.catalogNumber ? release.catalogNumber : "—";
+
     return (
         <div id="content">
             <div className="full">
@@ -39,6 +41,12 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
 
                 <div><ArtistCredit artistCredit={release.album.artistCredit} /></div>
                 <div><ArtistCredit artistCredit={release.album.artistCredit} original={true} /></div>
+
+                <dt>Release Date</dt>
+                <dd>[{release.country}] {release.releasedOn}</dd>
+
+                <dt>Catalog Number</dt>
+                <dd>{catalogNumber}</dd>
 
                 <h3>Tracklist</h3>
                 <Media media={release.media} />
@@ -54,8 +62,12 @@ const FindRelease = gql`
     query FindRelease($id: ID!) {
         release(id: $id) {
             id
+            releasedOn
+            country
+            catalogNumber
             album {
                 id
+                kind
                 artistCredit {
                     id
                     names {
