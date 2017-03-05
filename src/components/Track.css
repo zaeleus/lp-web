@@ -1,3 +1,7 @@
+.tracklist td {
+    vertical-align: top;
+}
+
 .tracklist .position, .tracklist .duration {
     text-align: right;
     width: 5%;
