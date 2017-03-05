@@ -14,8 +14,14 @@ interface IProps {
 const Track: React.StatelessComponent<IProps> = ({ track }) => (
     <tr>
         <td className="position">{track.position}</td>
-        <td className="name"><Name names={track.names} /></td>
-        <td className="artist"><ArtistCredit artistCredit={track.artistCredit} /></td>
+        <td className="name">
+            <div><Name names={track.names} /></div>
+            <div><Name names={track.names} original={true} /></div>
+        </td>
+        <td className="artist">
+            <div><ArtistCredit artistCredit={track.artistCredit} /></div>
+            <div><ArtistCredit artistCredit={track.artistCredit} original={true} /></div>
+        </td>
         <td className="duration"><Duration duration={track.duration} /></td>
     </tr>
 );

@@ -6,11 +6,12 @@ import { IArtistCreditName } from "../models/ArtistCreditName";
 
 interface IProps {
     artistCredit: IArtistCredit;
+    original?: boolean;
 }
 
-const ArtistCredit: React.StatelessComponent<IProps> = ({ artistCredit }) => {
+const ArtistCredit: React.StatelessComponent<IProps> = ({ artistCredit, original }) => {
     const names = artistCredit.names
-        .filter((n) => n.isDefault)
+        .filter((n) => original ? n.isOriginal : n.isDefault)
         .sort((a, b) => a.position - b.position)
         .map((n: IArtistCreditName, i: number) => (
             <span key={i}>
