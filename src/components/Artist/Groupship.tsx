@@ -5,16 +5,16 @@ import Name from "../../components/Name";
 import { IMembership } from "../../models/Membership";
 
 interface IProps {
-    membership: IMembership;
+    groupship: IMembership;
 }
 
-const Membership: React.StatelessComponent<IProps> = ({ membership }) => {
-    const artistCredit = membership.artistCredit;
+const Membership: React.StatelessComponent<IProps> = ({ groupship }) => {
+    const group = groupship.group;
 
     return (
         <li>
-            <Link to="artist" params={{ id: artistCredit.names[0].artist.id }}>
-                <Name names={artistCredit.names} />
+            <Link to="artist" params={{ id: group.id }}>
+                <Name names={group.names} />
             </Link>
         </li>
     );

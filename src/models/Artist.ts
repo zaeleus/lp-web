@@ -4,10 +4,12 @@ import { IMembership } from "./Membership";
 
 export interface IArtist {
     id: number;
+    kind: string;
     country: string;
     startedOn: string;
     endedOn: string;
     albums: IAlbum[];
     names: IArtistName[];
+    groupships: IMembership[];
     memberships: IMembership[];
 }

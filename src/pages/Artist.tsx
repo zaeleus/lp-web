@@ -4,6 +4,7 @@ import { graphql, InjectedGraphQLProps } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Albums from "../components/Artist/Albums";
+import Groupships from "../components/Artist/Groupships";
 import Memberships from "../components/Artist/Memberships";
 import Name from "../components/Name";
 import { IArtist } from "../models/Artist";
@@ -30,6 +31,23 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
     const artist = data.artist;
 
     let albums;
+    let memberships;
+
+    if (artist.kind === "GROUP") {
+        memberships = (
+            <div>
+                <h3>Members</h3>
+                <Memberships memberships={artist.memberships} />
+            </div>
+        );
+    } else {
+        memberships = (
+            <div>
+                <h3>Groups</h3>
+                <Groupships groupships={artist.groupships} />
+            </div>
+        );
+    }
 
     if (artist.albums.length === 0) {
         albums = <Alert>No albums.</Alert>;
@@ -50,9 +68,7 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
                         <dd>{artist.country}</dd>
                     </dl>
 
-                    <h3>Memberships</h3>
-
-                    <Memberships memberships={artist.memberships} />
+                    {memberships}
                 </div>
 
                 <div className="primary">
@@ -68,11 +84,22 @@ const FindArtist = gql`
     query FindArtist($id: ID!) {
         artist(id: $id) {
             id
+            kind
             country
             names {
                 name
                 isDefault
                 isOriginal
+            }
+            groupships {
+                group {
+                    id
+                    names {
+                        name
+                        isDefault
+                        isOriginal
+                    }
+                }
             }
             memberships {
                 artistCredit {
