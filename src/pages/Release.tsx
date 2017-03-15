@@ -8,6 +8,8 @@ import Name from "../components/Name";
 import Urls from "../components/Release/Urls";
 import { IRelease } from "../models/Release";
 
+import "./Release.css";
+
 interface IComponentProps {
     id: string;
 }
@@ -34,6 +36,8 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
     return (
         <div id="content">
             <div className="full">
+                <img className="artwork" src={release.artworkUrl} />
+
                 <h2>
                     <div><Name names={release.album.names} /></div>
                     <div><Name names={release.album.names} original={true} /></div>
@@ -65,6 +69,7 @@ const FindRelease = gql`
             releasedOn
             country
             catalogNumber
+            artworkUrl
             album {
                 id
                 kind
