@@ -2,13 +2,10 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
-import ArtistCredit from "../components/ArtistCredit";
 import Media from "../components/Media";
-import Name from "../components/Name";
+import Header from "../components/Release/Header";
 import Urls from "../components/Release/Urls";
 import { IRelease } from "../models/Release";
-
-import "./Release.css";
 
 interface IComponentProps {
     id: string;
@@ -36,15 +33,7 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
     return (
         <div id="content">
             <div className="full">
-                <img className="artwork" src={release.artworkUrl} />
-
-                <h2>
-                    <div><Name names={release.album.names} /></div>
-                    <div><Name names={release.album.names} original={true} /></div>
-                </h2>
-
-                <div><ArtistCredit artistCredit={release.album.artistCredit} /></div>
-                <div><ArtistCredit artistCredit={release.album.artistCredit} original={true} /></div>
+                <Header release={release} />
 
                 <dt>Release Date</dt>
                 <dd>[{release.country}] {release.releasedOn}</dd>

@@ -1,0 +1,17 @@
+header.release {
+    display: flex;
+    margin: 1em 0;
+}
+
+header.release .artwork {
+    flex: 1;
+    margin-right: 1em;
+}
+
+header.release .info {
+    flex: 7;
+}
+
+header.release h2 {
+    margin: 0;
+}
