@@ -8,8 +8,10 @@ export interface IRelease {
     releasedOn: string;
     country: string;
     catalogNumber: string;
+    disambiguation: string;
     artworkUrl: string;
     media: IMedium[];
     album: IAlbum;
+    siblings: IRelease[];
     urls: IReleaseUrl[];
 }

@@ -2,8 +2,10 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
+import Alert from "../components/Alert";
 import Media from "../components/Media";
 import Header from "../components/Release/Header";
+import Siblings from "../components/Release/Siblings";
 import Urls from "../components/Release/Urls";
 import { IRelease } from "../models/Release";
 
@@ -27,8 +29,15 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
     }
 
     const release = data.release;
-
     const catalogNumber = release.catalogNumber ? release.catalogNumber : "—";
+
+    let siblings;
+
+    if (release.siblings.length === 0) {
+        siblings = <Alert>No other releases.</Alert>;
+    } else {
+        siblings = <Siblings releases={release.siblings} />;
+    }
 
     return (
         <div id="content">
@@ -43,6 +52,9 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
 
                 <h3>Tracklist</h3>
                 <Media media={release.media} />
+
+                <h3>Other Releases</h3>
+                {siblings}
 
                 <h3>External Links</h3>
                 <Urls urls={release.urls} />
@@ -118,6 +130,10 @@ const FindRelease = gql`
                         isOriginal
                     }
                 }
+            }
+            siblings {
+                id
+                disambiguation
             }
         }
     }
