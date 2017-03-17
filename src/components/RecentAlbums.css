@@ -1,0 +1,22 @@
+.recent-albums {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.recent-albums li {
+    align-self: flex-end;
+    flex: 1;
+    width: 0;
+}
+
+.recent-albums .released-on {
+    font-size: 0.75em;
+}
+
+.recent-albums .name, .recent-albums .artist {
+    font-size: 0.875em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

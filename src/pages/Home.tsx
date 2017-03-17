@@ -23,11 +23,13 @@ const Home: React.StatelessComponent<IProps> = ({ data }) => {
     const albums = data.recentAlbums;
 
     return (
-        <div>
-            <h2>Hello, LP</h2>
+        <div id="content">
+            <div className="full">
+                <h2>Hello, LP</h2>
 
-            <h3>Recent Albums</h3>
-            <RecentAlbums albums={albums} />
+                <h3>Recent Albums</h3>
+                <RecentAlbums albums={albums} />
+            </div>
         </div>
     );
 };
@@ -60,6 +62,7 @@ const GetRecentAlbums = gql`
             defaultRelease {
                 id
                 releasedOn
+                artworkUrl
             }
         }
     }
