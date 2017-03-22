@@ -5,6 +5,7 @@ import { graphql, InjectedGraphQLProps } from "react-apollo";
 import Alert from "../components/Alert";
 import Media from "../components/Media";
 import Header from "../components/Release/Header";
+import Meta from "../components/Release/Meta";
 import Siblings from "../components/Release/Siblings";
 import Urls from "../components/Release/Urls";
 import { IRelease } from "../models/Release";
@@ -29,7 +30,6 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
     }
 
     const release = data.release;
-    const catalogNumber = release.catalogNumber ? release.catalogNumber : "—";
 
     let siblings;
 
@@ -44,11 +44,7 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
             <div className="full">
                 <Header release={release} />
 
-                <dt>Release Date</dt>
-                <dd>[{release.country}] {release.releasedOn}</dd>
-
-                <dt>Catalog Number</dt>
-                <dd>{catalogNumber}</dd>
+                <Meta release={release} />
 
                 <h3>Tracklist</h3>
                 <Media media={release.media} />
@@ -70,6 +66,7 @@ const FindRelease = gql`
             releasedOn
             country
             catalogNumber
+            disambiguation
             artworkUrl
             album {
                 id

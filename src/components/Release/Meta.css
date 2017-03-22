@@ -1,0 +1,17 @@
+.meta {
+  display: flex;
+  line-height: 1.5em;
+}
+
+.meta dt {
+    font-weight: bold;
+}
+
+.meta dd {
+    margin: 0;
+}
+
+.meta > div {
+    flex: 1;
+    text-align: center;
+}
