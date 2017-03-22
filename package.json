@@ -12,13 +12,13 @@
     "eject": "react-scripts-ts eject"
   },
   "dependencies": {
-    "apollo-client": "^0.8.1",
+    "apollo-client": "1.0.0-rc.6",
     "classnames": "^2.2.5",
     "graphql-tag": "^1.2.4",
     "moment": "^2.17.1",
     "normalize.css": "^5.0.0",
     "react": "^15.4.2",
-    "react-apollo": "^0.10.0",
+    "react-apollo": "1.0.0-rc.3",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
     "react-router5": "^4.0.1",
@@ -29,13 +29,13 @@
   "devDependencies": {
     "@types/classnames": "^0.0.32",
     "@types/enzyme": "^2.7.5",
-    "@types/jest": "^18.1.0",
-    "@types/node": "^7.0.4",
-    "@types/react": "^15.0.5",
-    "@types/react-dom": "^0.14.22",
+    "@types/jest": "^19.2.2",
+    "@types/node": "^7.0.8",
+    "@types/react": "^15.0.18",
+    "@types/react-dom": "^0.14.23",
     "@types/react-redux": "^4.4.36",
     "enzyme": "^2.7.1",
     "react-addons-test-utils": "^15.4.2",
-    "react-scripts-ts": "^1.0.6"
+    "react-scripts-ts": "^1.1.8"
   }
 }
