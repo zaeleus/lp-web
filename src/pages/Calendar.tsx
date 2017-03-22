@@ -45,17 +45,19 @@ class Calendar extends React.Component<IProps, {}> {
         }
 
         return (
-            <div>
-                <h2>Calendar</h2>
+            <div id="content">
+                <div className="full">
+                    <h2>Calendar</h2>
 
-                <div id="content">
-                    <div className="secondary">
-                        <MonthlyCalendar date={date} />
-                        <Birthdays artists={artists} date={endOfMonth} />
-                    </div>
+                    <div id="content">
+                        <div className="secondary">
+                            <MonthlyCalendar date={date} />
+                            <Birthdays artists={artists} date={endOfMonth} />
+                        </div>
 
-                    <div className="primary">
-                        {monthlyAlbums}
+                        <div className="primary">
+                            {monthlyAlbums}
+                        </div>
                     </div>
                 </div>
             </div>
