@@ -15,6 +15,10 @@ const Meta: React.StatelessComponent<IProps> = ({ release }) => {
     return (
         <div className="meta alert">
             <div>
+                <dt>Kind</dt>
+                <dd>{release.album.kind}</dd>
+            </div>
+            <div>
                 <dt>Release Date</dt>
                 <dd>[{release.country}] {release.releasedOn}</dd>
             </div>
