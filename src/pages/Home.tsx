@@ -62,7 +62,9 @@ const GetRecentAlbums = gql`
             defaultRelease {
                 id
                 releasedOn
-                artworkUrl
+                artworkUrls {
+                    thumbnail
+                }
             }
         }
     }

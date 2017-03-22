@@ -13,7 +13,9 @@ interface IProps {
 const Header: React.StatelessComponent<IProps> = ({ release }) => (
     <header className="release">
         <div className="artwork">
-            <img src={release.artworkUrl} />
+            <a href={release.artworkUrls.original}>
+                <img src={release.artworkUrls.thumbnail} />
+            </a>
         </div>
 
         <div className="info">

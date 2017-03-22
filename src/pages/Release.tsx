@@ -67,7 +67,10 @@ const FindRelease = gql`
             country
             catalogNumber
             disambiguation
-            artworkUrl
+            artworkUrls {
+                original
+                thumbnail
+            }
             album {
                 id
                 kind

@@ -9,7 +9,7 @@ export interface IRelease {
     country: string;
     catalogNumber: string;
     disambiguation: string;
-    artworkUrl: string;
+    artworkUrls: any;
     media: IMedium[];
     album: IAlbum;
     siblings: IRelease[];
