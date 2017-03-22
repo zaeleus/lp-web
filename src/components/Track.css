@@ -1,5 +1,6 @@
 .tracklist td {
     vertical-align: top;
+    padding: 0 0.5em;
 }
 
 .tracklist .position, .tracklist .duration {
