@@ -5,8 +5,8 @@ import { graphql, InjectedGraphQLProps } from "react-apollo";
 import Alert from "../components/Alert";
 import Albums from "../components/Artist/Albums";
 import Groupships from "../components/Artist/Groupships";
+import Header from "../components/Artist/Header";
 import Memberships from "../components/Artist/Memberships";
-import Name from "../components/Name";
 import { IArtist } from "../models/Artist";
 
 interface IComponentProps {
@@ -56,24 +56,24 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
     }
 
     return (
-        <div>
-            <header className="page">
-                <h2><Name names={artist.names} /></h2>
-            </header>
+        <div id="content">
+            <div className="full">
+                <Header artist={artist} />
 
-            <div id="content">
-                <div className="secondary">
-                    <dl>
-                        <dt>Country</dt>
-                        <dd>{artist.country}</dd>
-                    </dl>
+                <div id="content">
+                    <div className="secondary">
+                        <dl>
+                            <dt>Country</dt>
+                            <dd>{artist.country}</dd>
+                        </dl>
 
-                    {memberships}
-                </div>
+                        {memberships}
+                    </div>
 
-                <div className="primary">
-                    <h3>Albums</h3>
-                    {albums}
+                    <div className="primary">
+                        <h3>Albums</h3>
+                        {albums}
+                    </div>
                 </div>
             </div>
         </div>
