@@ -1,0 +1,7 @@
+.search-results {
+    display: flex;
+}
+
+.search-results > div {
+    flex: 1;
+}

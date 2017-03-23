@@ -2,8 +2,8 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
-import Link from "../components/Link";
-import Name from "../components/Name";
+import Results from "../components/Search/Results";
+import { IAlbum } from "../models/Album";
 import { IArtist } from "../models/Artist";
 
 interface IComponentProps {
@@ -12,6 +12,7 @@ interface IComponentProps {
 
 interface IDataProps {
     artists: IArtist[];
+    albums: IAlbum[];
 }
 
 type IProps = IComponentProps & InjectedGraphQLProps<IDataProps>;
@@ -25,23 +26,15 @@ const Search: React.StatelessComponent<IProps> = ({ data }) => {
         return <h2>Loading...</h2>;
     }
 
-    const items = data.artists.map((d: any, i: number) => {
-        return (
-            <li key={i}>
-                <Link to="artist" params={{ id: d.id }}>
-                    <Name names={d.names} />
-                </Link>
-            </li>
-        );
-    });
+    const albums = data.albums;
+    const artists = data.artists;
 
     return (
-        <div>
-            <h2>Search</h2>
-
-            <ul>
-                {items}
-            </ul>
+        <div id="content">
+            <div className="full">
+                <h2>Search</h2>
+                <Results artists={artists} albums={albums} />
+            </div>
         </div>
     );
 };
@@ -51,8 +44,22 @@ const SearchArtists = gql`
         artists(query: $query) {
             id
             names {
+                id
                 name
                 isDefault
+            }
+        }
+
+        albums(query: $query) {
+            id
+            names {
+                id
+                name
+                isDefault
+            }
+            defaultRelease {
+                id
+                releasedOn
             }
         }
     }
