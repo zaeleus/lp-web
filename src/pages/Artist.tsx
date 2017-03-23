@@ -123,6 +123,9 @@ const FindArtist = gql`
                 defaultRelease {
                     id
                     releasedOn
+                    artworkUrls {
+                        thumbnail
+                    }
                 }
             }
         }

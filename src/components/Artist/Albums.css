@@ -1,0 +1,26 @@
+.artist-albums {
+    list-style: none;
+    padding: 0;
+}
+
+.artist-albums li {
+    display: flex;
+}
+
+.artist-albums .artwork {
+    flex: 1;
+    margin-right: 0.5em;
+}
+
+.artist-albums .info {
+    flex: 7;
+    align-self: center;
+}
+
+.artist-albums .info a {
+    display: block;
+}
+
+.artist-albums .released-on {
+    font-size: 0.75em;
+}

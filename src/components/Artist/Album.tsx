@@ -9,11 +9,24 @@ interface IProps {
 }
 
 const Album: React.StatelessComponent<IProps> = ({ album }) => {
+    const release = album.defaultRelease;
+
     return (
         <li>
-            <Link to="release" params={{ id: album.defaultRelease.id }}>
-                <Name names={album.names} />
-            </Link>
+            <div className="artwork">
+                <Link to="release" params={{ id: release.id }}>
+                    <img src={release.artworkUrls.thumbnail} />
+                </Link>
+            </div>
+            <div className="info">
+                <div className="released-on">{release.releasedOn}</div>
+                <Link to="release" params={{ id: release.id }}>
+                    <Name names={album.names} />
+                </Link>
+                <Link to="release" params={{ id: release.id }}>
+                    <Name names={album.names} original={true} />
+                </Link>
+            </div>
         </li>
     );
 };
