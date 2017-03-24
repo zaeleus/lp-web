@@ -1,5 +1,6 @@
 import { IAlbum } from "./Album";
 import { IArtistName } from "./ArtistName";
+import { IArtistUrl } from "./ArtistUrl";
 import { IMembership } from "./Membership";
 
 export interface IArtist {
@@ -12,4 +13,5 @@ export interface IArtist {
     names: IArtistName[];
     groupships: IMembership[];
     memberships: IMembership[];
+    urls: IArtistUrl[];
 }

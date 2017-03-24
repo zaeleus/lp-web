@@ -8,6 +8,7 @@ import Groupships from "../components/Artist/Groupships";
 import Header from "../components/Artist/Header";
 import Memberships from "../components/Artist/Memberships";
 import Meta from "../components/Artist/Meta";
+import Urls from "../components/Artist/Urls";
 import { IArtist } from "../models/Artist";
 
 interface IComponentProps {
@@ -33,6 +34,7 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
 
     let albums;
     let memberships;
+    let urls;
 
     if (artist.kind === "GROUP") {
         let members;
@@ -72,6 +74,12 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
         albums = <Albums albums={artist.albums} />;
     }
 
+    if (artist.urls.length === 0) {
+        urls = <Alert>No external links.</Alert>;
+    } else {
+        urls = <Urls urls={artist.urls} />;
+    }
+
     return (
         <div id="content">
             <div className="full">
@@ -81,6 +89,9 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
                     <div className="secondary">
                         <Meta artist={artist} />
                         {memberships}
+
+                        <h3>External Links</h3>
+                        {urls}
                     </div>
 
                     <div className="primary">
@@ -142,6 +153,11 @@ const FindArtist = gql`
                         thumbnail
                     }
                 }
+            }
+            urls {
+                id
+                url
+                name
             }
         }
     }
