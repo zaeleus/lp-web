@@ -35,17 +35,33 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
     let memberships;
 
     if (artist.kind === "GROUP") {
+        let members;
+
+        if (artist.memberships.length === 0) {
+            members = <div className="alert">No members.</div>;
+        } else {
+            members = <Memberships memberships={artist.memberships} />;
+        }
+
         memberships = (
             <div>
                 <h3>Members</h3>
-                <Memberships memberships={artist.memberships} />
+                {members}
             </div>
         );
     } else {
+        let groups;
+
+        if (artist.groupships.length === 0) {
+            groups = <div className="alert">No groups.</div>;
+        } else {
+            groups = <Groupships groupships={artist.groupships} />;
+        }
+
         memberships = (
             <div>
                 <h3>Groups</h3>
-                <Groupships groupships={artist.groupships} />
+                {groups}
             </div>
         );
     }
