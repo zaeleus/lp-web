@@ -15,6 +15,10 @@ const Meta: React.StatelessComponent<IProps> = ({ artist }) => {
     return (
         <div className="artist-meta">
             <dl>
+                <dt>Kind</dt>
+                <dd>{artist.kind}</dd>
+            </dl>
+            <dl>
                 <dt>Country</dt>
                 <dd>{artist.country}</dd>
             </dl>
