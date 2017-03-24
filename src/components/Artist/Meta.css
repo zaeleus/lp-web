@@ -1,0 +1,11 @@
+.artist-meta dl {
+    margin: 0;
+}
+
+.artist-meta dt {
+    font-weight: bold;
+}
+
+.artist-meta dd {
+    margin: 0;
+}

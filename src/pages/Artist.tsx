@@ -7,6 +7,7 @@ import Albums from "../components/Artist/Albums";
 import Groupships from "../components/Artist/Groupships";
 import Header from "../components/Artist/Header";
 import Memberships from "../components/Artist/Memberships";
+import Meta from "../components/Artist/Meta";
 import { IArtist } from "../models/Artist";
 
 interface IComponentProps {
@@ -62,11 +63,7 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
 
                 <div id="content">
                     <div className="secondary">
-                        <dl>
-                            <dt>Country</dt>
-                            <dd>{artist.country}</dd>
-                        </dl>
-
+                        <Meta artist={artist} />
                         {memberships}
                     </div>
 
@@ -86,6 +83,8 @@ const FindArtist = gql`
             id
             kind
             country
+            startedOn
+            endedOn
             names {
                 name
                 isDefault
