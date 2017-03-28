@@ -27,7 +27,7 @@ const Results: React.StatelessComponent<IProps> = ({ albums, artists }) => {
         return (
             <li key={i}>
                 [{a.defaultRelease.releasedOn}]{" "}
-                <Link to="artist" params={{ id: a.id }}>
+                <Link to="release" params={{ id: a.defaultRelease.id }}>
                     <Name names={a.names} />
                 </Link>
             </li>
