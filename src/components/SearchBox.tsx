@@ -32,7 +32,7 @@ class SearchBox extends React.Component<IProps, IState> {
             <form className="search-box" onSubmit={this.onSubmit}>
                 <input
                     type="search"
-                    placeholder="Search for artists"
+                    placeholder="Search for artists and albums"
                     value={this.state.query}
                     onChange={this.onChange} />
             </form>
