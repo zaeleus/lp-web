@@ -129,6 +129,9 @@ const FindRelease = gql`
                         isDefault
                         isOriginal
                     }
+                    song {
+                        id
+                    }
                 }
             }
             siblings {

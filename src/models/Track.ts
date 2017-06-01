@@ -1,4 +1,5 @@
 import { IArtistCredit } from "./ArtistCredit";
+import { ISong } from "./Song";
 import { ITrackName } from "./TrackName";
 
 export interface ITrack {
@@ -6,4 +7,5 @@ export interface ITrack {
     duration: number;
     artistCredit: IArtistCredit;
     names: ITrackName[];
+    song: ISong;
 }

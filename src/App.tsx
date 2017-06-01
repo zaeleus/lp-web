@@ -11,6 +11,7 @@ import Calendar from "./pages/Calendar";
 import Home from "./pages/Home";
 import Release from "./pages/Release";
 import Search from "./pages/Search";
+import Song from "./pages/Song";
 
 interface IProps {
     route: State;
@@ -32,6 +33,9 @@ class App extends React.Component<IProps, {}> {
                 break;
             case "release":
                 content = <Release id={params.id} />;
+                break;
+            case "song":
+                content = <Song id={params.id} />;
                 break;
             case "calendar":
                 const date = params.date || moment.utc().format("YYYY-MM");
