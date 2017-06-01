@@ -12,30 +12,30 @@
     "eject": "react-scripts-ts eject"
   },
   "dependencies": {
-    "apollo-client": "^1.0.1",
+    "apollo-client": "~1.3.0",
     "classnames": "^2.2.5",
-    "graphql-tag": "^2.0.0",
+    "graphql-tag": "~2.2.1",
     "moment": "^2.17.1",
     "normalize.css": "^6.0.0",
-    "react": "^15.4.2",
-    "react-apollo": "^1.0.0",
-    "react-dom": "^15.4.2",
-    "react-redux": "^5.0.2",
-    "react-router5": "^4.0.1",
-    "redux": "^3.6.0",
-    "redux-router5": "^4.2.3",
-    "router5": "^4.4.1"
+    "react": "~15.5.4",
+    "react-apollo": "~1.2.0",
+    "react-dom": "~15.5.4",
+    "react-redux": "~5.0.5",
+    "react-router5": "~4.2.1",
+    "redux": "~3.6.0",
+    "redux-router5": "~4.2.3",
+    "router5": "~4.5.2"
   },
   "devDependencies": {
-    "@types/classnames": "^0.0.32",
-    "@types/enzyme": "^2.7.5",
-    "@types/jest": "^19.2.2",
-    "@types/node": "^7.0.8",
-    "@types/react": "^15.0.18",
-    "@types/react-dom": "^0.14.23",
-    "@types/react-redux": "^4.4.36",
-    "enzyme": "^2.7.1",
-    "react-addons-test-utils": "^15.4.2",
-    "react-scripts-ts": "^1.1.8"
+    "@types/classnames": "~2.2.0",
+    "@types/enzyme": "~2.8.0",
+    "@types/jest": "~19.2.3",
+    "@types/node": "~7.0.23",
+    "@types/react": "~15.0.25",
+    "@types/react-dom": "~15.5.0",
+    "@types/react-redux": "~4.4.40",
+    "enzyme": "~2.8.2",
+    "react-addons-test-utils": "~15.5.1",
+    "react-scripts-ts": "~2.2.0"
   }
 }
