@@ -42,7 +42,7 @@ const Results: React.StatelessComponent<IProps> = ({ albums, artists }) => {
             </div>
             <div>
                 <h3>Albums</h3>
-                <ul>{albumsItems}</ul>  
+                <ul>{albumsItems}</ul>
             </div>
         </div>
     );

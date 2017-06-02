@@ -32,18 +32,12 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
 
     const artist = data.artist;
 
-    let albums;
     let memberships;
-    let urls;
 
     if (artist.kind === "GROUP") {
-        let members;
-
-        if (artist.memberships.length === 0) {
-            members = <div className="alert">No members.</div>;
-        } else {
-            members = <Memberships memberships={artist.memberships} />;
-        }
+        const members = (artist.memberships.length === 0)
+            ? <div className="alert">No members.</div>
+            : <Memberships memberships={artist.memberships} />;
 
         memberships = (
             <div>
@@ -52,13 +46,9 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
             </div>
         );
     } else {
-        let groups;
-
-        if (artist.groupships.length === 0) {
-            groups = <div className="alert">No groups.</div>;
-        } else {
-            groups = <Groupships groupships={artist.groupships} />;
-        }
+        const groups = (artist.groupships.length === 0)
+            ? <div className="alert">No groups.</div>
+            : <Groupships groupships={artist.groupships} />;
 
         memberships = (
             <div>
@@ -68,17 +58,13 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
         );
     }
 
-    if (artist.albums.length === 0) {
-        albums = <Alert>No albums.</Alert>;
-    } else {
-        albums = <Albums albums={artist.albums} />;
-    }
+    const albums = (artist.albums.length === 0)
+        ? <Alert>No albums.</Alert>
+        : <Albums albums={artist.albums} />;
 
-    if (artist.urls.length === 0) {
-        urls = <Alert>No external links.</Alert>;
-    } else {
-        urls = <Urls urls={artist.urls} />;
-    }
+    const urls = (artist.urls.length === 0)
+        ? <Alert>No external links.</Alert>
+        : <Urls urls={artist.urls} />;
 
     return (
         <div id="content">

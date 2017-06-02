@@ -9,13 +9,9 @@ interface IProps {
 }
 
 const Media: React.StatelessComponent<IProps> = ({ medium }) => {
-    let tracklist;
-
-    if (medium.tracks.length === 0) {
-        tracklist = <Alert>No tracks.</Alert>;
-    } else {
-        tracklist = <Tracklist tracks={medium.tracks} />;
-    }
+    const tracklist = (medium.tracks.length === 0)
+        ? <Alert>No tracks.</Alert>
+        : <Tracklist tracks={medium.tracks} />;
 
     return (
         <div>

@@ -36,13 +36,9 @@ class Calendar extends React.Component<IProps, {}> {
         const date = this.props.date;
         const endOfMonth = moment(date, "YYYY-MM").endOf("month").format("YYYY-MM-DD");
 
-        let monthlyAlbums;
-
-        if (albums.length === 0) {
-            monthlyAlbums = <Alert>No albums.</Alert>;
-        } else {
-            monthlyAlbums = <MonthlyAlbums albums={albums} />;
-        }
+        const monthlyAlbums = (albums.length === 0)
+            ? <Alert>No albums.</Alert>
+            : <MonthlyAlbums albums={albums} />;
 
         return (
             <div id="content">

@@ -28,20 +28,13 @@ const ShowSong: React.StatelessComponent<IProps> = ({ data }) => {
 
     const song = data.song;
 
-    let contributions;
-    let urls;
+    const contributions = (song.contributions.length === 0)
+        ? <div className="alert">No contributions.</div>
+        : <Contributions contributions={song.contributions} />;
 
-    if (song.urls.length === 0) {
-        urls = <div className="alert">No external links.</div>;
-    } else {
-        urls = <Urls urls={song.urls} />;
-    }
-
-    if (song.contributions.length === 0) {
-        contributions = <div className="alert">No contributions.</div>
-    } else {
-        contributions = <Contributions contributions={song.contributions} />;
-    }
+    const urls = (song.urls.length === 0)
+        ? <div className="alert">No external links.</div>
+        : <Urls urls={song.urls} />;
 
     return (
         <div id="content">

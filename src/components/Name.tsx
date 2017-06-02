@@ -6,13 +6,9 @@ interface IProps {
 }
 
 const Name: React.StatelessComponent<IProps> = ({ names, original }) => {
-    let name;
-
-    if (original) {
-        name = names.find((n: any) => n.isOriginal);
-    } else {
-        name = names.find((n: any) => n.isDefault);
-    }
+    const name = (original)
+        ? names.find((n: any) => n.isOriginal)
+        : names.find((n: any) => n.isDefault);
 
     if (!name) {
         return <span>invalid name</span>;

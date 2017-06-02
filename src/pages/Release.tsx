@@ -31,13 +31,9 @@ const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
 
     const release = data.release;
 
-    let siblings;
-
-    if (release.siblings.length === 0) {
-        siblings = <Alert>No other releases.</Alert>;
-    } else {
-        siblings = <Siblings releases={release.siblings} />;
-    }
+    const siblings = (release.siblings.length === 0)
+        ? <Alert>No other releases.</Alert>
+        : <Siblings releases={release.siblings} />;
 
     return (
         <div id="content">

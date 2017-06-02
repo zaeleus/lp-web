@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import ArtistCredit from "../ArtistCredit";
 import { IContribution } from "../../models/Contribution";
+import ArtistCredit from "../ArtistCredit";
 
 interface IProps {
     contributions: IContribution[];
