@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import "./SearchBox.css";
-
 interface IProps {
     onSubmit: (query: string) => void;
 }
