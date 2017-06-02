@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
+import Alert from "../components/Alert";
 import Contributions from "../components/Song/Contributions";
 import Header from "../components/Song/Header";
 import Urls from "../components/Song/Urls";
@@ -29,11 +30,11 @@ const ShowSong: React.StatelessComponent<IProps> = ({ data }) => {
     const song = data.song;
 
     const contributions = (song.contributions.length === 0)
-        ? <div className="alert">No contributions.</div>
+        ? <Alert>No contributions.</Alert>
         : <Contributions contributions={song.contributions} />;
 
     const urls = (song.urls.length === 0)
-        ? <div className="alert">No external links.</div>
+        ? <Alert>No external links.</Alert>
         : <Urls urls={song.urls} />;
 
     return (

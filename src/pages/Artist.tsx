@@ -36,7 +36,7 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
 
     if (artist.kind === "GROUP") {
         const members = (artist.memberships.length === 0)
-            ? <div className="alert">No members.</div>
+            ? <Alert>No members.</Alert>
             : <Memberships memberships={artist.memberships} />;
 
         memberships = (
@@ -47,7 +47,7 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
         );
     } else {
         const groups = (artist.groupships.length === 0)
-            ? <div className="alert">No groups.</div>
+            ? <Alert>No groups.</Alert>
             : <Groupships groupships={artist.groupships} />;
 
         memberships = (
