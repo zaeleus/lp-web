@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { IMedium } from "../models/Medium";
-import Alert from "./Alert";
+import { IMedium } from "../../models/Medium";
+import Alert from "../Alert";
 import Tracklist from "./Tracklist";
 
 interface IProps {

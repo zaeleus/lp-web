@@ -3,8 +3,8 @@ import * as React from "react";
 import { graphql, InjectedGraphQLProps } from "react-apollo";
 
 import Alert from "../components/Alert";
-import Media from "../components/Media";
 import Header from "../components/Release/Header";
+import Media from "../components/Release/Media";
 import Meta from "../components/Release/Meta";
 import Siblings from "../components/Release/Siblings";
 import Urls from "../components/Release/Urls";

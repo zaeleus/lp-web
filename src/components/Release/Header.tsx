@@ -20,12 +20,12 @@ const Header: React.StatelessComponent<IProps> = ({ release }) => (
 
         <div className="info">
             <h2>
-                <div><Name names={release.album.names} /></div>
                 <div><Name names={release.album.names} original={true} /></div>
+                <div><Name names={release.album.names} /></div>
             </h2>
 
-            <div><ArtistCredit artistCredit={release.album.artistCredit} /></div>
             <div><ArtistCredit artistCredit={release.album.artistCredit} original={true} /></div>
+            <div><ArtistCredit artistCredit={release.album.artistCredit} /></div>
         </div>
     </header>
 );

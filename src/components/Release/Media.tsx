@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IMedium } from "../models/Medium";
+import { IMedium } from "../../models/Medium";
 import Medium from "./Medium";
 
 interface IProps {

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ITrack } from "../models/Track";
+import { ITrack } from "../../models/Track";
 import Track from "./Track";
 
 import "./Tracklist.css";

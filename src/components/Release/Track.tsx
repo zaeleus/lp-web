@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { ITrack } from "../models/Track";
-import ArtistCredit from "./ArtistCredit";
-import Duration from "./Duration";
-import Link from "./Link";
-import Name from "./Name";
+import { ITrack } from "../../models/Track";
+import ArtistCredit from "../ArtistCredit";
+import Duration from "../Duration";
+import Link from "../Link";
+import Name from "../Name";
 
 import "./Track.css";
 
@@ -18,14 +18,14 @@ const Track: React.StatelessComponent<IProps> = ({ track }) => (
         <td className="name">
             <div>
                 <Link to="song" params={{ id: track.song.id }}>
-                    <Name names={track.names} />
+                    <Name names={track.names} original={true} />
                 </Link>
             </div>
-            <div><Name names={track.names} original={true} /></div>
+            <div><Name names={track.names} /></div>
         </td>
         <td className="artist">
-            <div><ArtistCredit artistCredit={track.artistCredit} /></div>
             <div><ArtistCredit artistCredit={track.artistCredit} original={true} /></div>
+            <div><ArtistCredit artistCredit={track.artistCredit} /></div>
         </td>
         <td className="duration"><Duration duration={track.duration} /></td>
     </tr>

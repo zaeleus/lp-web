@@ -10,8 +10,8 @@ interface IProps {
 const Header: React.StatelessComponent<IProps> = ({ artist }) => (
     <header className="artist">
         <h2>
-            <div><Name names={artist.names} /></div>
             <div><Name names={artist.names} original={true} /></div>
+            <div><Name names={artist.names} /></div>
         </h2>
     </header>
 );

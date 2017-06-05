@@ -21,10 +21,10 @@ const Album: React.StatelessComponent<IProps> = ({ album }) => {
             <div className="info">
                 <div className="released-on">{release.releasedOn}</div>
                 <Link to="release" params={{ id: release.id }}>
-                    <Name names={album.names} />
+                    <Name names={album.names} original={true} />
                 </Link>
                 <Link to="release" params={{ id: release.id }}>
-                    <Name names={album.names} original={true} />
+                    <Name names={album.names} />
                 </Link>
             </div>
         </li>
