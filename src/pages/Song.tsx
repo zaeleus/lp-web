@@ -5,6 +5,7 @@ import { graphql, InjectedGraphQLProps } from "react-apollo";
 import Alert from "../components/Alert";
 import Contributions from "../components/Song/Contributions";
 import Header from "../components/Song/Header";
+import Releases from "../components/Song/Releases";
 import Urls from "../components/Song/Urls";
 import { ISong } from "../models/Song";
 
@@ -33,6 +34,10 @@ const ShowSong: React.StatelessComponent<IProps> = ({ data }) => {
         ? <Alert>No contributions.</Alert>
         : <Contributions contributions={song.contributions} />;
 
+    const releases = (song.appearsOn.length === 0)
+        ? <Alert>No appearances.</Alert>
+        : <Releases releases={song.appearsOn} />;
+
     const urls = (song.urls.length === 0)
         ? <Alert>No external links.</Alert>
         : <Urls urls={song.urls} />;
@@ -41,6 +46,9 @@ const ShowSong: React.StatelessComponent<IProps> = ({ data }) => {
         <div id="content">
             <div className="full">
                 <Header song={song} />
+
+                <h3>Appears On</h3>
+                {releases}
 
                 <h3>External Links</h3>
                 {urls}
@@ -62,6 +70,19 @@ const FindSong = gql`
                 name
                 isDefault
                 isOriginal
+            }
+
+            appearsOn {
+                id
+                album {
+                    id
+                    names {
+                        id
+                        name
+                        isDefault
+                        isOriginal
+                    }
+                }
             }
 
             contributions {
