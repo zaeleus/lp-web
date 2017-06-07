@@ -8,19 +8,11 @@ import createRouter from "router5";
 import browserPlugin from "router5/plugins/browser";
 
 import App from "./App";
+import routes from "./routes";
 import configureStore from "./store";
 
 import "normalize.css/normalize.css";
 import "./index.css";
-
-const routes = [
-     { name: "home", path: "/" },
-     { name: "artist", path: "/artists/:id" },
-     { name: "release", path: "/releases/:id" },
-     { name: "song", path: "/songs/:id" },
-     { name: "calendar", path: "/calendar?date" },
-     { name: "search", path: "/search?query" },
-];
 
 const router = createRouter(routes).usePlugin(browserPlugin());
 const client = new ApolloClient();
