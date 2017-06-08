@@ -5,14 +5,16 @@ import { graphql, InjectedGraphQLProps } from "react-apollo";
 import Results from "../components/Search/Results";
 import { IAlbum } from "../models/Album";
 import { IArtist } from "../models/Artist";
+import { ISong } from "../models/Song";
 
 interface IComponentProps {
     query: string;
 }
 
 interface IDataProps {
-    artists: IArtist[];
     albums: IAlbum[];
+    artists: IArtist[];
+    songs: ISong[];
 }
 
 type IProps = IComponentProps & InjectedGraphQLProps<IDataProps>;
@@ -28,12 +30,16 @@ const Search: React.StatelessComponent<IProps> = ({ data }) => {
 
     const albums = data.albums;
     const artists = data.artists;
+    const songs = data.songs;
 
     return (
         <div id="content">
             <div className="full">
                 <h2>Search</h2>
-                <Results artists={artists} albums={albums} />
+                <Results
+                    artists={artists}
+                    albums={albums}
+                    songs={songs} />
             </div>
         </div>
     );
@@ -60,6 +66,15 @@ const SearchArtists = gql`
             defaultRelease {
                 id
                 releasedOn
+            }
+        }
+
+        songs(query: $query) {
+            id
+            names {
+                id
+                name
+                isDefault
             }
         }
     }

@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { IAlbum } from "../../models/Album";
 import { IArtist } from "../../models/Artist";
+import { ISong } from "../../models/Song";
 import Link from "../Link";
 import Name from "../Name";
 
@@ -10,10 +11,11 @@ import "./Results.css";
 interface IProps {
     albums: IAlbum[];
     artists: IArtist[];
+    songs: ISong[];
 }
 
-const Results: React.StatelessComponent<IProps> = ({ albums, artists }) => {
-    const artistsItems = artists.map((a: IArtist, i: number) => {
+const Results: React.StatelessComponent<IProps> = ({ albums, artists, songs }) => {
+    const artistItems = artists.map((a: IArtist, i: number) => {
         return (
             <li key={i}>
                 <Link to="artist" params={{ id: a.id }}>
@@ -23,7 +25,7 @@ const Results: React.StatelessComponent<IProps> = ({ albums, artists }) => {
         );
     });
 
-    const albumsItems = albums.map((a: IAlbum, i: number) => {
+    const albumItems = albums.map((a: IAlbum, i: number) => {
         return (
             <li key={i}>
                 [{a.defaultRelease.releasedOn}]{" "}
@@ -34,15 +36,29 @@ const Results: React.StatelessComponent<IProps> = ({ albums, artists }) => {
         );
     });
 
+    const songItems = songs.map((s: ISong, i: number) => {
+        return (
+            <li key={i}>
+                <Link to="song" params={{ id: s.id }}>
+                    <Name names={s.names} />
+                </Link>
+            </li>
+        );
+    });
+
     return (
         <div className="search-results">
             <div>
                 <h3>Artists</h3>
-                <ul>{artistsItems}</ul>
+                <ul>{artistItems}</ul>
             </div>
             <div>
                 <h3>Albums</h3>
-                <ul>{albumsItems}</ul>
+                <ul>{albumItems}</ul>
+            </div>
+            <div>
+                <h3>Songs</h3>
+                <ul>{songItems}</ul>
             </div>
         </div>
     );

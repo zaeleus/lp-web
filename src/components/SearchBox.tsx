@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import "./SearchBox.css";
+
 interface IProps {
     onSubmit: (query: string) => void;
 }
@@ -30,7 +32,7 @@ class SearchBox extends React.Component<IProps, IState> {
             <form className="search-box" onSubmit={this.onSubmit}>
                 <input
                     type="search"
-                    placeholder="Search for artists and albums"
+                    placeholder="Search for artists, albums, and songs"
                     value={this.state.query}
                     onChange={this.onChange} />
             </form>
