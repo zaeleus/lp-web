@@ -72,6 +72,22 @@ const FindSong = gql`
                 isOriginal
             }
 
+            artistCredit {
+                id
+                names {
+                    id
+                    position
+                    name
+                    locale
+                    isDefault
+                    isOriginal
+                    separator
+                    artist {
+                        id
+                    }
+                }
+            }
+
             appearsOn {
                 id
                 album {
