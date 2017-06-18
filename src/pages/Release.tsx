@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql, InjectedGraphQLProps } from "react-apollo";
+import { graphql } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Header from "../components/Release/Header";
@@ -15,21 +15,20 @@ interface IComponentProps {
 }
 
 interface IDataProps {
-    release: IRelease;
+    loading: boolean;
+    release?: IRelease;
 }
 
-type IProps = IComponentProps & InjectedGraphQLProps<IDataProps>;
+type IProps = IComponentProps & IDataProps;
 
-const ShowRelease: React.StatelessComponent<IProps> = ({ data }) => {
-    if (!data) {
+const ShowRelease: React.StatelessComponent<IProps> = ({ loading, release }) => {
+    if (!release) {
         return <h2>Not found</h2>;
     }
 
-    if (data.loading) {
+    if (loading) {
         return <h2>Loading...</h2>;
     }
-
-    const release = data.release;
 
     const siblings = (release.siblings.length === 0)
         ? <Alert>No other releases.</Alert>
@@ -138,4 +137,17 @@ const FindRelease = gql`
     }
 `;
 
-export default graphql(FindRelease)(ShowRelease);
+const withData = graphql<IDataProps, IComponentProps>(FindRelease, {
+    props: ({ data }) => {
+        if (!data) {
+            return {};
+        }
+
+        return {
+            loading: data.loading,
+            release: data.release,
+        };
+    },
+});
+
+export default withData(ShowRelease);

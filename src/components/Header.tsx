@@ -35,4 +35,5 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => (
     bindActionCreators({ navigateTo: actions.navigateTo }, dispatch)
 );
 
-export default connect(() => ({}), mapDispatchToProps)(Header);
+// TODO: revisit types
+export default connect<any, any, any>(() => ({}), mapDispatchToProps)(Header);

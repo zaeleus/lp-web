@@ -1,10 +1,10 @@
 import * as React from "react";
 import { BaseLink } from "react-router5";
-import { NavigationOptions, Params } from "router5";
+import { NavigationOptions } from "router5";
 
 interface IProps {
     to: string;
-    params?: Params;
+    params?: any;
     options?: NavigationOptions;
 }
 

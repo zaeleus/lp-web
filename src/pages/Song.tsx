@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql, InjectedGraphQLProps } from "react-apollo";
+import { graphql } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Contributions from "../components/Song/Contributions";
@@ -14,21 +14,20 @@ interface IComponentProps {
 }
 
 interface IDataProps {
-    song: ISong;
+    loading: boolean;
+    song?: ISong;
 }
 
-type IProps = IComponentProps & InjectedGraphQLProps<IDataProps>;
+type IProps = IComponentProps & IDataProps;
 
-const ShowSong: React.StatelessComponent<IProps> = ({ data }) => {
-    if (!data) {
+const ShowSong: React.StatelessComponent<IProps> = ({ loading, song }) => {
+    if (!song) {
         return <h2>Not found</h2>;
     }
 
-    if (data.loading) {
+    if (loading) {
         return <h2>Loading...</h2>;
     }
-
-    const song = data.song;
 
     const contributions = (song.contributions.length === 0)
         ? <Alert>No contributions.</Alert>
@@ -129,4 +128,17 @@ const FindSong = gql`
     }
 `;
 
-export default graphql(FindSong)(ShowSong);
+const withData = graphql<IDataProps, IComponentProps>(FindSong, {
+    props: ({ data }) => {
+        if (!data) {
+            return {};
+        }
+
+        return {
+            loading: data.loading,
+            song: data.song,
+        };
+    },
+});
+
+export default withData(ShowSong);

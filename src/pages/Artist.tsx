@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql, InjectedGraphQLProps } from "react-apollo";
+import { graphql } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Albums from "../components/Artist/Albums";
@@ -16,21 +16,20 @@ interface IComponentProps {
 }
 
 interface IDataProps {
-    artist: IArtist;
+    artist?: IArtist;
+    loading: boolean;
 }
 
-type IProps = IComponentProps & InjectedGraphQLProps<IDataProps>;
+type IProps = IComponentProps & IDataProps;
 
-const ShowArtist: React.StatelessComponent<IProps> = ({ data }) => {
-    if (!data) {
+const ShowArtist: React.StatelessComponent<IProps> = ({ artist, loading }) => {
+    if (!artist) {
         return <h2>Not found</h2>;
     }
 
-    if (data.loading) {
+    if (loading) {
         return <h2>Loading...</h2>;
     }
-
-    const artist = data.artist;
 
     let memberships;
 
@@ -149,4 +148,17 @@ const FindArtist = gql`
     }
 `;
 
-export default graphql(FindArtist)(ShowArtist);
+const withData = graphql<IDataProps, IComponentProps>(FindArtist, {
+    props: ({ data }) => {
+        if (!data) {
+            return {};
+        }
+
+        return {
+            artist: data.artist,
+            loading: data.loading,
+        };
+    },
+});
+
+export default withData(ShowArtist);
