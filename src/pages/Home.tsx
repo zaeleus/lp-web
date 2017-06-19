@@ -11,12 +11,12 @@ interface IProps {
 }
 
 const Home: React.StatelessComponent<IProps> = ({ recentAlbums, loading }) => {
-    if (!recentAlbums) {
-        return <h2>Not found</h2>;
-    }
-
     if (loading) {
         return <h2>Loading...</h2>;
+    }
+
+    if (!recentAlbums) {
+        return <h2>Not found</h2>;
     }
 
     return (

@@ -24,12 +24,12 @@ type IProps = IComponentProps & IDataProps;
 
 class Calendar extends React.Component<IProps, {}> {
     public render() {
-        if (!this.props.albumsByReleaseMonth || !this.props.artistsByStartMonth) {
-            return <h2>Not found</h2>;
-        }
-
         if (this.props.loading) {
             return <h2>Loading...</h2>;
+        }
+
+        if (!this.props.albumsByReleaseMonth || !this.props.artistsByStartMonth) {
+            return <h2>Not found</h2>;
         }
 
         const albums = this.props.albumsByReleaseMonth;

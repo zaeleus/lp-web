@@ -22,12 +22,12 @@ interface IDataProps {
 type IProps = IComponentProps & IDataProps;
 
 const ShowRelease: React.StatelessComponent<IProps> = ({ loading, release }) => {
-    if (!release) {
-        return <h2>Not found</h2>;
-    }
-
     if (loading) {
         return <h2>Loading...</h2>;
+    }
+
+    if (!release) {
+        return <h2>Not found</h2>;
     }
 
     const siblings = (release.siblings.length === 0)

@@ -23,12 +23,12 @@ interface IDataProps {
 type IProps = IComponentProps & IDataProps;
 
 const ShowArtist: React.StatelessComponent<IProps> = ({ artist, loading }) => {
-    if (!artist) {
-        return <h2>Not found</h2>;
-    }
-
     if (loading) {
         return <h2>Loading...</h2>;
+    }
+
+    if (!artist) {
+        return <h2>Not found</h2>;
     }
 
     let memberships;

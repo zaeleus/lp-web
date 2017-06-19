@@ -21,12 +21,12 @@ interface IDataProps {
 type IProps = IComponentProps & IDataProps;
 
 const Search: React.StatelessComponent<IProps> = ({ albums, artists, loading, songs }) => {
-    if (!albums || !artists || !songs) {
-        return <h2>Not found</h2>;
-    }
-
     if (loading) {
         return <h2>Loading...</h2>;
+    }
+
+    if (!albums || !artists || !songs) {
+        return <h2>Not found</h2>;
     }
 
     return (

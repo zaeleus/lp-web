@@ -21,12 +21,12 @@ interface IDataProps {
 type IProps = IComponentProps & IDataProps;
 
 const ShowSong: React.StatelessComponent<IProps> = ({ loading, song }) => {
-    if (!song) {
-        return <h2>Not found</h2>;
-    }
-
     if (loading) {
         return <h2>Loading...</h2>;
+    }
+
+    if (!song) {
+        return <h2>Not found</h2>;
     }
 
     const contributions = (song.contributions.length === 0)
