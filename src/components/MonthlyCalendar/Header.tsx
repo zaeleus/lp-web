@@ -9,7 +9,7 @@ interface IProps {
     month: moment.Moment;
 }
 
-class Header extends React.Component<IProps, null> {
+class Header extends React.Component<IProps, {}> {
     public title(): string {
         return this.props.month.format("MMMM YYYY");
     }

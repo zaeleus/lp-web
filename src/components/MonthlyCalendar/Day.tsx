@@ -10,7 +10,7 @@ interface IProps {
     day: moment.Moment;
 }
 
-class Day extends React.Component<IProps, null> {
+class Day extends React.Component<IProps, {}> {
     public dayOfMonth(): string {
         return this.props.day.format("D");
     }

@@ -31,7 +31,7 @@ const generateWeeks = (date: moment.Moment): moment.Moment[][] => {
     return weeks;
 };
 
-class MonthlyCalendar extends React.Component<IProps, null> {
+class MonthlyCalendar extends React.Component<IProps, {}> {
     public render() {
         const days = moment.weekdaysShort().map((d, i) => <th key={i}>{d}</th>);
 

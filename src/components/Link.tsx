@@ -1,11 +1,11 @@
 import * as React from "react";
 import { BaseLink } from "react-router5";
-import { NavigationOptions } from "router5";
+import { Options } from "router5/core/navigation";
 
 interface IProps {
     to: string;
     params?: any;
-    options?: NavigationOptions;
+    options?: Options;
 }
 
 const Link: React.StatelessComponent<IProps> = ({ children, options, params, to }) => {

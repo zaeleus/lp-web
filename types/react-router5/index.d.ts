@@ -2,12 +2,13 @@
 
 declare module "react-router5" {
     import * as React from "react";
-    import { NavigationOptions, Params, Router, State } from "router5";
+    import { Params, Router, State } from "router5";
+    import { Options } from "router5/core/navigation";
 
     interface BaseLinkProps {
         routeName: string;
         routeParams?: Params;
-        routeOptions?: NavigationOptions;
+        routeOptions?: Options;
         activeClassName?: string;
         activeStrict?: boolean;
         onClick?(event: React.MouseEvent<HTMLAnchorElement>): void;
