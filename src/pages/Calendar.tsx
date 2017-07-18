@@ -5,7 +5,7 @@ import { graphql } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Birthdays from "../components/Calendar/Birthdays";
-import MonthlyAlbums from "../components/MonthlyAlbums";
+import MonthlyAlbums from "../components/Calendar/MonthlyAlbums";
 import MonthlyCalendar from "../components/MonthlyCalendar";
 import { IAlbum } from "../models/Album";
 import { IArtist } from "../models/Artist";
@@ -74,6 +74,9 @@ const AlbumsByReleaseMonth = gql`
             defaultRelease {
                 id
                 releasedOn
+                artworkUrls {
+                    thumbnail
+                }
             }
             artistCredit {
                 id

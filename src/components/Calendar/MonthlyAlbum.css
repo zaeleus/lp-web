@@ -1,0 +1,30 @@
+.monthly-album {
+    display: flex;
+}
+
+.monthly-album + .monthly-album {
+    border-top: 1px solid #e8e8e8;
+    padding-top: 0.5em;
+}
+
+.monthly-album img {
+    border: 1px solid #e8e8e8;
+}
+
+.monthly-album .artwork {
+    flex: 1;
+    margin-right: 0.25em;
+}
+
+.monthly-album .info {
+    flex: 5;
+    margin-left: 0.25em;
+}
+
+.monthly-album .released-on {
+    font-size: 0.8em;
+}
+
+.monthly-album .artist-credit {
+    font-size: 0.8em;    
+}

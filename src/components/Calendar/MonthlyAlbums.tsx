@@ -1,7 +1,9 @@
 import * as React from "react";
 
-import { IAlbum } from "../models/Album";
+import { IAlbum } from "../../models/Album";
 import MonthlyAlbum from "./MonthlyAlbum";
+
+import "./MonthlyAlbums.css";
 
 interface IProps {
     albums: IAlbum[];
@@ -12,7 +14,7 @@ const MonthlyAlbums: React.StatelessComponent<IProps> = ({ albums }) => {
         <MonthlyAlbum key={i} album={a} />
     ));
 
-    return <ul>{items}</ul>;
+    return <ul className="monthly-albums">{items}</ul>;
 };
 
 export default MonthlyAlbums;
