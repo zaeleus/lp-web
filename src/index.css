@@ -48,3 +48,22 @@ img {
   flex: 1;
   margin: 0 6px;
 }
+
+form label {
+  display: block;
+  font-size: 0.8em;
+  margin: 0.5em 0 0.2em;
+}
+
+form input[type="text"], form select {
+  border: 1px solid #d8d8d8;
+  border-radius: 2px;
+  display: block;
+  font-size: 0.8em;
+  padding: 0.25em 0.5em;
+  width: 100%;
+}
+
+form .group {
+  margin-bottom: 0.5em;
+}

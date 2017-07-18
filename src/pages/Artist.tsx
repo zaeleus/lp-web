@@ -9,6 +9,7 @@ import Header from "../components/Artist/Header";
 import Memberships from "../components/Artist/Memberships";
 import Meta from "../components/Artist/Meta";
 import Urls from "../components/Artist/Urls";
+import Link from "../components/Link";
 import { IArtist } from "../models/Artist";
 
 interface IComponentProps {
@@ -72,6 +73,8 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ artist, loading }) => {
 
                 <div id="content">
                     <div className="secondary">
+                        <Link to="artists-edit" params={{ id: artist.id }}>[edit]</Link>
+
                         <Meta artist={artist} />
                         {memberships}
 

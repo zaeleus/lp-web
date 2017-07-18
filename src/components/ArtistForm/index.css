@@ -1,0 +1,15 @@
+.artist-form .dates {
+    display: flex;
+}
+
+.artist-form .dates > div {
+    flex: 1;
+}
+
+.artist-form .dates .started-on {
+    padding-right: 0.5em;
+}
+
+.artist-form .dates .ended-on {
+    padding-left: 0.5em;
+}

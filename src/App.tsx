@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Artist from "./pages/Artist";
 import Calendar from "./pages/Calendar";
+import EditArtist from "./pages/EditArtist";
 import Home from "./pages/Home";
 import Release from "./pages/Release";
 import Search from "./pages/Search";
@@ -30,6 +31,9 @@ class App extends React.Component<IProps, {}> {
                 break;
             case "artist":
                 content = <Artist id={params.id} />;
+                break;
+            case "artists-edit":
+                content = <EditArtist id={params.id} />;
                 break;
             case "release":
                 content = <Release id={params.id} />;

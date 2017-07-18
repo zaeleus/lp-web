@@ -8,6 +8,8 @@ import { IAlbum } from "../models/Album";
 interface IProps {
     loading: boolean;
     recentAlbums?: IAlbum[];
+    data?: any;
+    mutate?: any;
 }
 
 const Home: React.StatelessComponent<IProps> = ({ recentAlbums, loading }) => {
