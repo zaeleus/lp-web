@@ -60,6 +60,7 @@ const GetRecentAlbums = gql`
             }
             defaultRelease {
                 id
+                country
                 releasedOn
                 artworkUrls {
                     thumbnail

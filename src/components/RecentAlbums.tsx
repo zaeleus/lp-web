@@ -12,12 +12,14 @@ interface IProps {
 }
 
 const RecentAlbums: React.StatelessComponent<IProps> = ({ albums }) => {
-    const items = albums.map((a: IAlbum, i: number) => (
+    const items = albums.map((a, i) => (
         <li key={i}>
             <Link to="release" params={{ id: a.defaultRelease.id }}>
                 <img src={a.defaultRelease.artworkUrls.thumbnail} />
             </Link>
-            <div className="released-on">{a.defaultRelease.releasedOn}</div>
+            <div className="released-on">
+                [{a.defaultRelease.country}] {a.defaultRelease.releasedOn}
+            </div>
             <div className="name">
                 <Link to="release" params={{ id: a.defaultRelease.id }}>
                     <Name names={a.names} />
