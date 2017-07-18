@@ -99,6 +99,7 @@ const AlbumsByReleaseMonth = gql`
                 id
                 name
                 isDefault
+                isOriginal
             }
         }
     }

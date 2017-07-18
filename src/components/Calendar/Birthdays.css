@@ -1,0 +1,30 @@
+.birthdays {
+    list-style: none;
+    padding: 0;
+}
+
+.birthdays li {
+    display: flex;
+}
+
+.birthdays li + li {
+    border-top: 1px solid #e8e8e8;
+    padding-top: 0.5em;
+}
+
+.birthdays li .profile {
+    flex: 1;
+}
+
+.birthdays li .dates {
+    flex: 1;
+    text-align: center;
+}
+
+.birthdays li .dates .age {
+    font-size: 0.8em;
+}
+
+.birthdays li .names {
+    flex: 6;
+}
