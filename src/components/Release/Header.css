@@ -8,6 +8,10 @@ header.release .artwork {
     margin-right: 1em;
 }
 
+header.release img {
+    border: 1px solid #e8e8e8;
+}
+
 header.release .info {
     flex: 7;
 }

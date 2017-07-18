@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+.recent-albums img {
+    border: 1px solid #e8e8e8;
+}
+
 .recent-albums li {
     align-self: flex-end;
     flex: 1;
