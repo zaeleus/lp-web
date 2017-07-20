@@ -4,8 +4,7 @@ import { bindActionCreators, Dispatch } from "redux";
 
 import actionCreators from "../../actions/artist-form";
 import { IArtist, IState } from "../../reducers/artist-form";
-
-import NameInput from "./NameInput";
+import Names from "./Names";
 
 import "./index.css";
 
@@ -29,9 +28,9 @@ type Props = IStateProps & IOwnProps & IDispatchProps;
 
 class ArtistForm extends React.Component<Props, {}> {
     public render() {
-        const names = this.props.artist.names.map((id, i) => (
-            <NameInput key={i} id={id} />
-        ));
+
+
+        const { artist } = this.props;
 
         return (
             <form className="artist-form" onSubmit={this.onSubmit}>
@@ -39,12 +38,12 @@ class ArtistForm extends React.Component<Props, {}> {
 
                 <div className="group">
                     <label>Names <a href="#" onClick={this.addName}>[+]</a></label>
-                    {names}
+                    <Names ids={artist.names} />
                 </div>
 
                 <div className="group">
                     <label>Kind</label>
-                    <select value={this.props.artist.kind} onChange={this.onKindChange}>
+                    <select value={artist.kind} onChange={this.onKindChange}>
                         <option value="PERSON">person</option>
                         <option value="GROUP">group</option>
                     </select>
@@ -55,7 +54,7 @@ class ArtistForm extends React.Component<Props, {}> {
                         <label>Started On</label>
                         <input type="text"
                             placeholder="YYYY-MM-DD"
-                            value={this.props.artist.startedOn || ""}
+                            value={artist.startedOn || ""}
                             onChange={this.onStartedOnChange} />
                     </div>
 
@@ -63,7 +62,7 @@ class ArtistForm extends React.Component<Props, {}> {
                         <label>Ended On</label>
                         <input type="text"
                             placeholder="YYYY-MM-DD"
-                            value={this.props.artist.endedOn || ""}
+                            value={artist.endedOn || ""}
                             onChange={this.onEndedOnChange} />
                     </div>
                 </div>

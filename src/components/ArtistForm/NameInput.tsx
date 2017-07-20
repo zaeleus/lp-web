@@ -5,8 +5,6 @@ import { bindActionCreators, Dispatch } from "redux";
 import actionCreators from "../../actions/artist-form";
 import { IArtistName, IState } from "../../reducers/artist-form";
 
-import "./NameInput.css";
-
 interface IOwnProps {
     id: string;
 }
@@ -27,36 +25,33 @@ type Props = IOwnProps & IStateProps & IDispatchProps;
 class NameInput extends React.Component<Props, {}> {
     public render() {
         return (
-            <div className="name-input">
-                <div className="name">
+            <tr>
+                <td>
                     <input
                         type="text"
                         value={this.props.name.name}
                         onChange={this.onNameChange} />
-                </div>
-
-                <div className="locale">
+                </td>
+                <td>
                     <input
                         type="text"
                         placeholder="und"
                         value={this.props.name.locale}
                         onChange={this.onLocaleChange} />
-                </div>
-
-                <div className="is-original">
+                </td>
+                <td>
                     <input
                         type="radio"
                         checked={this.props.name.isOriginal}
                         onChange={this.onIsOriginalChange} />
-                </div>
-
-                <div className="is-default">
+                </td>
+                <td>
                     <input
                         type="radio"
                         checked={this.props.name.isDefault}
                         onChange={this.onIsDefaultChange} />
-                </div>
-            </div>
+                </td>
+            </tr>
         );
     }
 

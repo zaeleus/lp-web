@@ -1,0 +1,23 @@
+form .names {
+    width: 100%;
+}
+
+form .names th {
+    text-align: left;
+}
+
+form .names .name {
+    width: 62.5%;
+}
+
+form .names .locale {
+    width: 12.5%;
+}
+
+form .names .is-default {
+    width: 12.5%;
+}
+
+form .names .is-original {
+    width: 12.5%;
+}
