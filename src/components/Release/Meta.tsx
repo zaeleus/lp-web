@@ -3,6 +3,7 @@ import * as React from "react";
 import "./Meta.css";
 
 import { IRelease } from "../../models/Release";
+import Format from "./Format";
 
 interface IProps {
     release: IRelease;
@@ -21,6 +22,10 @@ const Meta: React.StatelessComponent<IProps> = ({ release }) => {
             <div>
                 <dt>Release Date</dt>
                 <dd>[{release.country}] {release.releasedOn}</dd>
+            </div>
+            <div>
+                <dt>Format</dt>
+                <dd><Format media={release.media} /></dd>
             </div>
             <div>
                 <dt>Catalog Number</dt>
