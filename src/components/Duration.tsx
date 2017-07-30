@@ -1,10 +1,14 @@
 import * as React from "react";
 
 interface IProps {
-    duration: number;
+    duration?: number;
 }
 
-const formatDuration = (seconds: number): string => {
+const formatDuration = (seconds: number | undefined): string => {
+    if (!seconds) {
+        return "x:xx";
+    }
+
     const minutes = Math.floor(seconds / 60);
     seconds %= 60;
 
