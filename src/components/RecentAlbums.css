@@ -15,12 +15,11 @@
     width: 0;
 }
 
-.recent-albums .released-on {
-    font-size: 0.75em;
+.recent-albums .released-on, .recent-albums .artist  {
+    font-size: 0.8em;
 }
 
-.recent-albums .name, .recent-albums .artist {
-    font-size: 0.875em;
+.recent-albums .name > div, .recent-albums .artist > div {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

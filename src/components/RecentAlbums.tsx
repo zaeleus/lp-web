@@ -21,12 +21,20 @@ const RecentAlbums: React.StatelessComponent<IProps> = ({ albums }) => {
                 [{a.defaultRelease.country}] {a.defaultRelease.releasedOn}
             </div>
             <div className="name">
-                <Link to="release" params={{ id: a.defaultRelease.id }}>
-                    <Name names={a.names} />
-                </Link>
+                <div>
+                    <Link to="release" params={{ id: a.defaultRelease.id }}>
+                        <Name names={a.names} original={true} />
+                    </Link>
+                </div>
+                <div>
+                    <Link to="release" params={{ id: a.defaultRelease.id }}>
+                        <Name names={a.names} />
+                    </Link>
+                </div>
             </div>
             <div className="artist">
-                <ArtistCredit artistCredit={a.artistCredit} />
+                <div><ArtistCredit artistCredit={a.artistCredit} original={true} /></div>
+                <div><ArtistCredit artistCredit={a.artistCredit} /></div>
             </div>
         </li>
     ));
