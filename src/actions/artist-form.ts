@@ -1,6 +1,6 @@
 import * as Redux from "redux";
 
-import { IArtist, IArtistName } from "../reducers/artist-form";
+import { IArtist } from "../models/Artist";
 
 export enum ActionTypes {
     AddName = "LP/ARTIST_FORM/ADD_NAME",
@@ -23,9 +23,8 @@ interface IResetAction extends Redux.Action {
     type: ActionTypes.Reset;
 }
 
-interface ISetArtistAction extends Redux.Action {
-    artist: Partial<IArtist>;
-    names: Array<Partial<IArtistName>>;
+export interface ISetArtistAction extends Redux.Action {
+    artist: IArtist;
     type: ActionTypes.SetArtist;
 }
 
@@ -84,12 +83,8 @@ const addName: Redux.ActionCreator<IAddNameAction> = () => ({
     type: ActionTypes.AddName,
 });
 
-const setArtist: Redux.ActionCreator<ISetArtistAction> = (
-    artist: Partial<IArtist>,
-    names: Array<Partial<IArtistName>>,
-) => ({
+const setArtist: Redux.ActionCreator<ISetArtistAction> = (artist: IArtist) => ({
     artist,
-    names,
     type: ActionTypes.SetArtist,
 });
 

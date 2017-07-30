@@ -5,6 +5,7 @@ export interface IArtist {
     readonly endedOn: string;
     readonly id: string;
     readonly kind: string;
+    readonly memberships: string[];
     readonly names: string[];
     readonly startedOn: string;
 }
@@ -20,14 +21,53 @@ export interface IArtistNames {
     readonly [id: string]: IArtistName;
 }
 
+export interface IArtistCredit {
+    readonly names: string[];
+}
+
+export interface IArtistCreditName {
+    readonly name: string;
+    readonly locale: string;
+    readonly isDefault: boolean;
+    readonly isOriginal: boolean;
+}
+
+export interface IMembership {
+    readonly artistCredit: string;
+}
+
 export interface IState {
     readonly artist: IArtist;
     readonly artistNames: IArtistNames;
+    readonly memberships: {
+        readonly [id: string]: IMembership;
+    };
+    readonly artistCredits: {
+        readonly [id: string]: IArtistCredit;
+    };
+    readonly artistCreditNames: {
+        readonly [id: string]: IArtistCreditName;
+    };
 }
 
 let artistNameId = 0;
 const nextArtistNameId = (): string => {
     return `artistName.${artistNameId++}`;
+};
+
+let membershipId = 0;
+const nextMembershipId = (): string => {
+    return `membership.${membershipId++}`;
+};
+
+let artistCreditId = 0;
+const nextArtistCreditId = (): string => {
+    return `membership.${artistCreditId++}`;
+};
+
+let artistCreditNameId = 0;
+const nextArtistCreditNameId = (): string => {
+    return `membership.${artistCreditNameId++}`;
 };
 
 const buildArtistName = (): IArtistName => ({
@@ -44,9 +84,12 @@ const initialState: IState = {
         endedOn: "",
         id: "0",
         kind: "PERSON",
+        memberships: [],
         names: [initialArtistNameId],
         startedOn: "",
     },
+    artistCreditNames: {},
+    artistCredits: {},
     artistNames: {
         [initialArtistNameId]: {
             isDefault: true,
@@ -55,6 +98,7 @@ const initialState: IState = {
             name: "",
         },
     },
+    memberships: {},
 };
 
 const reducer: Reducer<IState> = (state: IState = initialState, action: Action) => {
@@ -63,6 +107,7 @@ const reducer: Reducer<IState> = (state: IState = initialState, action: Action) 
             const id = nextArtistNameId();
 
             return {
+                ...state,
                 artist: {
                     ...state.artist,
                     names: [...state.artist.names, id],
@@ -75,25 +120,64 @@ const reducer: Reducer<IState> = (state: IState = initialState, action: Action) 
         }
 
         case ActionTypes.SetArtist: {
-            const artistNames = action.names.reduce((names: any, name) => {
-                names[nextArtistNameId()] = {
+            const { artist } = action;
+
+            const artistNames: any = {};
+
+            for (const name of artist.names) {
+                artistNames[nextArtistNameId()] = {
                     isDefault: name.isDefault,
                     isOriginal: name.isOriginal,
                     locale: name.locale,
                     name: name.name,
                 };
+            }
 
-                return names;
-            }, {});
+            const artistCreditNames: any = {};
+            const artistCredits: any = {};
+            const memberships: any = {};
+
+            for (const membership of artist.memberships) {
+                const artistCreditNameIds = [];
+
+                for (const name of membership.artistCredit.names) {
+                    const artistCreditNameId = nextArtistCreditNameId();
+
+                    artistCreditNames[artistCreditNameId] = {
+                        isDefault: name.isDefault,
+                        isOriginal: name.isOriginal,
+                        locale: name.locale,
+                        name: name.name,
+                    };
+
+                    artistCreditNameIds.push(artistCreditNameId);
+                }
+
+                const artistCreditId = nextArtistCreditId();
+                artistCredits[artistCreditId] = {
+                    names: artistCreditNameIds,
+                };
+
+                memberships[nextMembershipId()] = {
+                    artistCredit: artistCreditId,
+                };
+            }
 
             return {
                 ...state,
                 artist: {
                     ...state.artist,
-                    ...action.artist,
+                    endedOn: artist.endedOn,
+                    id: artist.id.toString(),
+                    kind: artist.kind,
+                    memberships: Object.keys(memberships),
                     names: Object.keys(artistNames),
+                    startedOn: artist.startedOn,
                 },
+                artistCreditNames,
+                artistCredits,
                 artistNames,
+                memberships,
             };
         }
 

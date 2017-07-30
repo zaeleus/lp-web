@@ -5,6 +5,7 @@ import { bindActionCreators, Dispatch } from "redux";
 import actionCreators from "../../actions/artist-form";
 import { IArtist, IState } from "../../reducers/artist-form";
 import Names from "./Names";
+import Roster from "./Roster";
 
 import "./index.css";
 
@@ -28,8 +29,6 @@ type Props = IStateProps & IOwnProps & IDispatchProps;
 
 class ArtistForm extends React.Component<Props, {}> {
     public render() {
-
-
         const { artist } = this.props;
 
         return (
@@ -65,6 +64,10 @@ class ArtistForm extends React.Component<Props, {}> {
                             value={artist.endedOn || ""}
                             onChange={this.onEndedOnChange} />
                     </div>
+                </div>
+
+                <div className="group">
+                    <Roster memberships={artist.memberships} />
                 </div>
 
                 <div className="group">

@@ -7,11 +7,11 @@ import { bindActionCreators, Dispatch } from "redux";
 import ArtistForm from "../components/ArtistForm";
 import { IArtist } from "../models/Artist";
 
-import actionCreators from "../actions/artist-form";
+import actionCreators, { ISetArtistAction } from "../actions/artist-form";
 import { IState } from "../reducers/artist-form";
 
 interface IDispatchProps {
-    setArtist: any;
+    setArtist(artist: IArtist): ISetArtistAction;
 }
 
 interface IMutationProps {
@@ -30,6 +30,12 @@ interface IQueryProps {
 type IProps = IDispatchProps & IMutationProps & IOwnProps & IQueryProps;
 
 class EditArtist extends React.Component<IProps, {}> {
+    public componentWillReceiveProps(props: IProps) {
+        const { artist, loading } = props;
+        if (loading || !artist) { return; }
+        this.props.setArtist(artist);
+    }
+
     public render() {
         const { artist, loading } = this.props;
 
@@ -40,13 +46,6 @@ class EditArtist extends React.Component<IProps, {}> {
         if (!artist) {
             return <h2>Not found</h2>;
         }
-
-        this.props.setArtist({
-            endedOn: artist.endedOn,
-            id: artist.id,
-            kind: artist.kind,
-            startedOn: artist.startedOn,
-        }, artist.names);
 
         return (
             <div id="content">
@@ -67,10 +66,27 @@ const FindArtist = gql`
             startedOn
             endedOn
             names {
+                id
                 name
                 locale
                 isDefault
                 isOriginal
+            }
+            memberships {
+                id
+                artistCredit {
+                    id
+                    names {
+                        id
+                        name
+                        locale
+                        isDefault
+                        isOriginal
+                        artist {
+                            id
+                        }
+                    }
+                }
             }
         }
     }
