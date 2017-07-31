@@ -1,0 +1,17 @@
+.autosuggest ul {
+    background: #fff;
+    border: 1px solid #d8d8d8;
+    font-size: 0.8em;
+    list-style: none;
+    margin: -1px 0 0;
+    padding: 0;
+    position: absolute;
+}
+
+.autosuggest .active {
+    background: #d8d8d8;
+}
+
+.autosuggest li {
+    padding: 0.25em 0.5em;
+}
