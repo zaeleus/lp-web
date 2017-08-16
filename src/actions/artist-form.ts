@@ -4,6 +4,7 @@ import { IArtist } from "../models/Artist";
 
 export enum ActionTypes {
     AddName = "LP/ARTIST_FORM/ADD_NAME",
+    RemoveName = "LP/ARTIST_FORM/REMOVE_NAME",
     Reset = "LP/ARTIST_FORM/RESET",
     SetArtist = "LP/ARTIST_FORM/SET_ARTIST",
     SetEndedOn = "LP/ARTIST_FORM/SET_ENDED_ON",
@@ -17,6 +18,11 @@ export enum ActionTypes {
 
 interface IAddNameAction extends Redux.Action {
     type: ActionTypes.AddName;
+}
+
+interface IRemoveNameAction extends Redux.Action {
+    id: string;
+    type: ActionTypes.RemoveName;
 }
 
 interface IResetAction extends Redux.Action {
@@ -69,6 +75,7 @@ interface ISetStartedOnAction extends Redux.Action {
 
 export type Action =
     IAddNameAction |
+    IRemoveNameAction |
     IResetAction |
     ISetArtistAction |
     ISetKindAction |
@@ -81,6 +88,11 @@ export type Action =
 
 const addName: Redux.ActionCreator<IAddNameAction> = () => ({
     type: ActionTypes.AddName,
+});
+
+const removeName: Redux.ActionCreator<IRemoveNameAction> = (id: string) => ({
+    id,
+    type: ActionTypes.RemoveName,
 });
 
 const setArtist: Redux.ActionCreator<ISetArtistAction> = (artist: IArtist) => ({
@@ -133,6 +145,7 @@ const reset: Redux.ActionCreator<IResetAction> = () => ({
 
 const actionCreators: Redux.ActionCreatorsMapObject = {
     addName,
+    removeName,
     reset,
     setArtist,
     setEndedOn,

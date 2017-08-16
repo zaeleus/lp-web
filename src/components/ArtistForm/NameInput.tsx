@@ -18,6 +18,7 @@ interface IDispatchProps {
     setNameIsOriginal: any;
     setNameLocale: any;
     setNameName: any;
+    removeName(id: string): void;
 }
 
 type Props = IOwnProps & IStateProps & IDispatchProps;
@@ -51,6 +52,9 @@ class NameInput extends React.Component<Props, {}> {
                         checked={this.props.name.isDefault}
                         onChange={this.onIsDefaultChange} />
                 </td>
+                <td>
+                    <a href="#" onClick={this.onRemoveClick}>[x]</a>
+                </td>
             </tr>
         );
     }
@@ -70,6 +74,11 @@ class NameInput extends React.Component<Props, {}> {
     private onLocaleChange = (event: React.FormEvent<HTMLInputElement>) => {
         this.props.setNameLocale(this.props.id, event.currentTarget.value);
     }
+
+    private onRemoveClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+        this.props.removeName(this.props.id);
+    }
 }
 
 const mapStateToProps = ({ artistForm }: { artistForm: IState }, ownProps: IOwnProps) => ({
@@ -78,6 +87,7 @@ const mapStateToProps = ({ artistForm }: { artistForm: IState }, ownProps: IOwnP
 
 const mapDispatchToProps = (dispatch: Dispatch<IState>) => (
     bindActionCreators({
+        removeName: actionCreators.removeName,
         setNameIsDefault: actionCreators.setNameIsDefault,
         setNameIsOriginal: actionCreators.setNameIsOriginal,
         setNameLocale: actionCreators.setNameLocale,

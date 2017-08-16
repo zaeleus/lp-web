@@ -119,6 +119,27 @@ const reducer: Reducer<IState> = (state: IState = initialState, action: Action) 
             };
         }
 
+        case ActionTypes.RemoveName: {
+            const i = state.artist.names.indexOf(action.id);
+
+            const names = [
+                ...state.artist.names.slice(0, i),
+                ...state.artist.names.slice(i + 1),
+            ];
+
+            const artistNames: any = { ...state.artistNames };
+            delete artistNames[action.id];
+
+            return {
+                ...state,
+                artist: {
+                    ...state.artist,
+                    names,
+                },
+                artistNames,
+            };
+        }
+
         case ActionTypes.SetArtist: {
             const { artist } = action;
 

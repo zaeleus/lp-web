@@ -15,9 +15,13 @@ form .names .locale {
 }
 
 form .names .is-default {
-    width: 12.5%;
+    width: 10%;
 }
 
 form .names .is-original {
-    width: 12.5%;
+    width: 10%;
+}
+
+form .names .actions {
+    width: 5%;
 }

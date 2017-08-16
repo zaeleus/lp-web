@@ -21,6 +21,7 @@ const Names: React.StatelessComponent<IProps> = ({ ids }) => {
                     <th className="locale"><label>Locale</label></th>
                     <th className="is-original"><label>Original</label></th>
                     <th className="is-default"><label>Default</label></th>
+                    <th className="actions"><label>Actions</label></th>
                 </tr>
             </thead>
             <tbody>
