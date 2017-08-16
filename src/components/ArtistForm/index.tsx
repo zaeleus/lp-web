@@ -67,6 +67,7 @@ class ArtistForm extends React.Component<Props, {}> {
                 </div>
 
                 <div className="group">
+                    <label>Roster</label>
                     <Roster memberships={artist.memberships} />
                 </div>
 
