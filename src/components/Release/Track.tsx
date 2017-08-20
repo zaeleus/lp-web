@@ -21,7 +21,11 @@ const Track: React.StatelessComponent<IProps> = ({ track }) => (
                     <Name names={track.names} original={true} />
                 </Link>
             </div>
-            <div><Name names={track.names} /></div>
+            <div>
+                <Link to="song" params={{ id: track.song.id }}>
+                    <Name names={track.names} />
+                </Link>
+            </div>
         </td>
         <td className="artist">
             <div><ArtistCredit artistCredit={track.artistCredit} original={true} /></div>
