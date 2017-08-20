@@ -5,13 +5,11 @@ import NameInput from "./NameInput";
 import "./Names.css";
 
 interface IProps {
-    ids: string[];
+    nameIds: string[];
 }
 
-const Names: React.StatelessComponent<IProps> = ({ ids }) => {
-    const names = ids.map((id, i) => (
-        <NameInput key={i} id={id} />
-    ));
+const Names: React.StatelessComponent<IProps> = ({ nameIds }) => {
+    const names = nameIds.map((id, i) => <NameInput key={i} id={id} />);
 
     return (
         <table className="names">

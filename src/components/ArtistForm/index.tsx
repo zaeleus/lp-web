@@ -2,15 +2,18 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
-import actionCreators from "../../actions/artist-form";
-import { IArtist, IState } from "../../reducers/artist-form";
+import artistActionCreators from "../../actions/artist";
+import artistFormActionCreators from "../../actions/artist-form";
+import artistNamesActionCreators from "../../actions/artist-names";
+import { IArtistState } from "../../reducers/artist";
+import { IArtistFormState } from "../../reducers/artist-form";
 import Names from "./Names";
 import Roster from "./Roster";
 
 import "./index.css";
 
 interface IDispatchProps {
-    addName: typeof actionCreators.addName;
+    addName: any;
     setEndedOn: any;
     setKind: any;
     setStartedOn: any;
@@ -22,10 +25,10 @@ interface IOwnProps {
 }
 
 interface IStateProps {
-    artist: IArtist;
+    artist: IArtistState;
 }
 
-type Props = IStateProps & IOwnProps & IDispatchProps;
+type Props = IDispatchProps & IOwnProps & IStateProps;
 
 class ArtistForm extends React.Component<Props, {}> {
     public render() {
@@ -37,7 +40,7 @@ class ArtistForm extends React.Component<Props, {}> {
 
                 <div className="group">
                     <label>Names <a href="#" onClick={this.addName}>[+]</a></label>
-                    <Names ids={artist.names} />
+                    <Names nameIds={artist.nameIds} />
                 </div>
 
                 <div className="group">
@@ -68,7 +71,7 @@ class ArtistForm extends React.Component<Props, {}> {
 
                 <div className="group">
                     <label>Roster</label>
-                    <Roster memberships={artist.memberships} />
+                    <Roster membershipIds={artist.membershipIds} />
                 </div>
 
                 <div className="group">
@@ -114,18 +117,21 @@ class ArtistForm extends React.Component<Props, {}> {
     }
 }
 
-const mapStateToProps = ({ artistForm }: { artistForm: IState }) => ({
+const mapStateToProps = ({ artistForm }: { artistForm: IArtistFormState }) => ({
     artist: artistForm.artist,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IState>) => (
+const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
     bindActionCreators({
-        addName: actionCreators.addName,
-        reset: actionCreators.reset,
-        setEndedOn: actionCreators.setEndedOn,
-        setKind: actionCreators.setKind,
-        setStartedOn: actionCreators.setStartedOn,
+        addName: artistNamesActionCreators.addName,
+        reset: artistFormActionCreators.reset,
+        setEndedOn: artistActionCreators.setEndedOn,
+        setKind: artistActionCreators.setKind,
+        setStartedOn: artistActionCreators.setStartedOn,
     }, dispatch)
 );
 
-export default connect<IStateProps, IDispatchProps, IOwnProps>(mapStateToProps, mapDispatchToProps)(ArtistForm);
+export default connect<IStateProps, IDispatchProps, IOwnProps>(
+    mapStateToProps,
+    mapDispatchToProps,
+)(ArtistForm);

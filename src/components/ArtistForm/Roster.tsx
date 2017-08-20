@@ -4,13 +4,13 @@ import Autosuggest from "../Autosuggest";
 import Memberships from "./Memberships";
 
 interface IProps {
-    memberships: string[];
+    membershipIds: string[];
 }
 
-const Roster: React.StatelessComponent<IProps> = ({ memberships }) => (
+const Roster: React.StatelessComponent<IProps> = ({ membershipIds }) => (
     <div>
         <Autosuggest />
-        <Memberships memberships={memberships} />
+        <Memberships membershipIds={membershipIds} />
     </div>
 );
 

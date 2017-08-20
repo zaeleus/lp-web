@@ -8,7 +8,7 @@ import ArtistForm from "../components/ArtistForm";
 import { IArtist } from "../models/Artist";
 
 import actionCreators, { ISetArtistAction } from "../actions/artist-form";
-import { IState } from "../reducers/artist-form";
+import { IArtistFormState } from "../reducers/artist-form";
 
 interface IDispatchProps {
     setArtist(artist: IArtist): ISetArtistAction;
@@ -122,7 +122,7 @@ const query = graphql<IQueryProps, IOwnProps>(FindArtist, {
     },
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IState>) => (
+const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
     bindActionCreators({
         setArtist: actionCreators.setArtist,
     }, dispatch)

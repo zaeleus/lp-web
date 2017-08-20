@@ -3,11 +3,11 @@ import * as React from "react";
 import Membership from "./Membership";
 
 interface IProps {
-    memberships: string[];
+    membershipIds: string[];
 }
 
-const Memberships: React.StatelessComponent<IProps> = ({ memberships }) => {
-    const items = memberships.map((m, i) => <Membership key={i} id={m} />);
+const Memberships: React.StatelessComponent<IProps> = ({ membershipIds }) => {
+    const items = membershipIds.map((id, i) => <Membership key={i} id={id} />);
     return <ul>{items}</ul>;
 };
 

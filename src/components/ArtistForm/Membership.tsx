@@ -1,22 +1,23 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-// import ArtistCredit from "../ArtistCredit";
-import { IArtistCredit, IArtistCreditName, IState } from "../../reducers/artist-form";
+import { IArtistCreditNamesState } from "../../reducers/artist-credit-names";
+import { IArtistCreditState } from "../../reducers/artist-credits";
+import { IArtistFormState } from "../../reducers/artist-form";
 
 interface IOwnProps {
     id: string;
 }
 
 interface IStateProps {
-    artistCredit: IArtistCredit;
-    artistCreditNames: { [key: string]: IArtistCreditName };
+    artistCredit: IArtistCreditState;
+    artistCreditNames: IArtistCreditNamesState;
 }
 
 type Props = IOwnProps & IStateProps;
 
 const Membership: React.StatelessComponent<Props> = ({ artistCredit, artistCreditNames }) => {
-    const name = artistCredit.names
+    const name = artistCredit.nameIds
         .map((id) => artistCreditNames[id])
         .filter((n) => n.isDefault)
         .map((n) => n.name)
@@ -25,7 +26,10 @@ const Membership: React.StatelessComponent<Props> = ({ artistCredit, artistCredi
     return <li>{name}</li>;
 };
 
-const mapStateToProps = ({ artistForm }: { artistForm: IState }, ownProps: IOwnProps) => ({
+const mapStateToProps = (
+    { artistForm }: { artistForm: IArtistFormState },
+    ownProps: IOwnProps,
+) => ({
     artistCredit: artistForm.artistCredits[ownProps.id],
     artistCreditNames: artistForm.artistCreditNames,
 });
