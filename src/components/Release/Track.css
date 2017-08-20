@@ -1,6 +1,10 @@
+.tracklist tr + tr {
+    border-top: 1px solid #e8e8e8;
+}
+
 .tracklist td {
     vertical-align: top;
-    padding: 0 0.5em;
+    padding: 0.25em 0.5em;
 }
 
 .tracklist .position, .tracklist .duration {
