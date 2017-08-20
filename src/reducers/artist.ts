@@ -44,7 +44,7 @@ const setArtist = (state: IArtistState, action: ISetArtistAction): IArtistState 
     return {
         ...state,
         endedOn: artist.endedOn,
-        id: artist.id.toString(),
+        id: artist.id,
         kind: artist.kind,
         membershipIds: artist.memberships.map((m) => m.id),
         nameIds: artist.names.map((n) => n.id),

@@ -5,7 +5,7 @@ import { ISongName } from "./SongName";
 import { ISongUrl } from "./SongUrl";
 
 export interface ISong {
-    id: number;
+    id: string;
     appearsOn: IRelease[];
     artistCredit: IArtistCredit;
     contributions: IContribution[];

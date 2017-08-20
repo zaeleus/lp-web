@@ -3,7 +3,7 @@ import { IMedium } from "./Medium";
 import { IReleaseUrl } from "./ReleaseUrl";
 
 export interface IRelease {
-    id: number;
+    id: string;
     kind: string;
     releasedOn: string;
     country: string;

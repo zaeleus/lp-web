@@ -4,7 +4,7 @@ import { IArtistUrl } from "./ArtistUrl";
 import { IMembership } from "./Membership";
 
 export interface IArtist {
-    id: number;
+    id: string;
     kind: string;
     country: string;
     startedOn: string;

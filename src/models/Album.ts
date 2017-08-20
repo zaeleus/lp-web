@@ -9,7 +9,7 @@ export enum AlbumKind {
 }
 
 export interface IAlbum {
-    id: number;
+    id: string;
     kind: AlbumKind;
     names: IAlbumName[];
     defaultRelease: IRelease;
