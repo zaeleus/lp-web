@@ -74,6 +74,8 @@ const FindArtist = gql`
             }
             memberships {
                 id
+                startedOn
+                endedOn
                 artistCredit {
                     id
                     names {

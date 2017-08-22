@@ -1,0 +1,28 @@
+.memberships {
+    list-style: none;
+    padding: 0;
+}
+
+.memberships li {
+    display: flex;
+}
+
+.memberships li + li {
+    border-top: 1px solid #e8e8e8;
+    padding-top: 0.5em;
+}
+
+.memberships .profile {
+    flex: 1;
+    margin-right: 0.25em;
+}
+
+.memberships .names {
+    flex: 2;
+    margin: 0 0.25em;
+}
+
+.memberships .dates {
+    flex: 9;
+    margin-left: 0.25em;
+}

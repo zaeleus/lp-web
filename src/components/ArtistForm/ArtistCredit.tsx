@@ -15,21 +15,24 @@ interface IStateProps {
 type Props = IOwnProps & IStateProps;
 
 const ArtistCredit: React.StatelessComponent<Props> = ({ names }) => {
-    const name = names
-        .filter((n) => n.isDefault)
-        .map((n) => n.name)
-        .join();
+    const defaultName = names.filter((n) => n.isDefault).map((n) => n.name).join();
+    const originalName = names.filter((n) => n.isOriginal).map((n) => n.name).join();
 
-    return <li>{name}</li>;
+    return (
+        <div className="names">
+            <div>{originalName}</div>
+            <div>{defaultName}</div>
+        </div>
+    );
 };
 
 const mapStateToProps = (
     { artistForm }: { artistForm: IArtistFormState },
     ownProps: IOwnProps,
 ) => ({
-    names: artistForm.artistCredits[ownProps.id].nameIds.map((id) => {
-        return artistForm.artistCreditNames[id];
-    }),
+    names: artistForm.artistCredits[ownProps.id].nameIds.map((id) => (
+        artistForm.artistCreditNames[id]
+    )),
 });
 
 export default connect(mapStateToProps)(ArtistCredit);

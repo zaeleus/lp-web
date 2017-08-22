@@ -4,11 +4,18 @@ import {
     ActionTypes as ArtistFormActionTypes,
     ISetArtistAction,
 } from "../actions/artist-form";
-import { Action } from "../actions/memberships";
+import {
+    Action,
+    ActionTypes,
+    ISetEndedOnAction,
+    ISetStartedOnAction,
+} from "../actions/memberships";
 
 export interface IMembershipState {
     readonly id: string;
     readonly artistCreditId: string;
+    readonly startedOn: string;
+    readonly endedOn: string;
 }
 
 export interface IMembershipsState {
@@ -17,13 +24,31 @@ export interface IMembershipsState {
 
 const initialState: IMembershipsState = {};
 
+const setEndedOn = (state: IMembershipsState, action: ISetEndedOnAction): IMembershipsState => ({
+    ...state,
+    [action.id]: {
+        ...state[action.id],
+        endedOn: action.endedOn,
+    },
+});
+
+const setStartedOn = (state: IMembershipsState, action: ISetStartedOnAction): IMembershipsState => ({
+    ...state,
+    [action.id]: {
+        ...state[action.id],
+        startedOn: action.startedOn,
+    },
+});
+
 const setArtist = (state: IMembershipsState, action: ISetArtistAction): IMembershipsState => {
     for (const membership of action.artist.memberships) {
         state = {
             ...state,
             [membership.id]: {
                 artistCreditId: membership.artistCredit.id,
+                endedOn: membership.endedOn,
                 id: membership.id,
+                startedOn: membership.startedOn,
             },
         };
     }
@@ -36,7 +61,11 @@ const reducer: Reducer<IMembershipsState> = (
     action: Action,
 ) => {
     switch (action.type) {
+        case ActionTypes.SetEndedOn: return setEndedOn(state, action);
+        case ActionTypes.SetStartedOn: return setStartedOn(state, action);
+
         case ArtistFormActionTypes.SetArtist: return setArtist(state, action);
+
         default: return state;
     }
 };

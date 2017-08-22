@@ -8,7 +8,7 @@ interface IProps {
 
 const Memberships: React.StatelessComponent<IProps> = ({ membershipIds }) => {
     const items = membershipIds.map((id, i) => <Membership key={i} id={id} />);
-    return <ul>{items}</ul>;
+    return <ul className="memberships">{items}</ul>;
 };
 
 export default Memberships;
