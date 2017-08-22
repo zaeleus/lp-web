@@ -19,7 +19,9 @@ const Album: React.StatelessComponent<IProps> = ({ album }) => {
                 </Link>
             </div>
             <div className="info">
-                <div className="released-on">{release.releasedOn}</div>
+                <div className="released-on">
+                    [{release.country}] {release.releasedOn}
+                </div>
                 <Link to="release" params={{ id: release.id }}>
                     <Name names={album.names} original={true} />
                 </Link>
