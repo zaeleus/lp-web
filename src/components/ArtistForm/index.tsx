@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
 import artistActionCreators from "../../actions/artist";
-import artistFormActionCreators from "../../actions/artist-form";
 import artistNamesActionCreators from "../../actions/artist-names";
 import { IArtistState } from "../../reducers/artist";
 import { IArtistFormState } from "../../reducers/artist-form";
@@ -17,7 +16,6 @@ interface IDispatchProps {
     setEndedOn: any;
     setKind: any;
     setStartedOn: any;
-    reset: any;
 }
 
 interface IOwnProps {
@@ -36,8 +34,6 @@ class ArtistForm extends React.Component<Props, {}> {
 
         return (
             <form className="artist-form" onSubmit={this.onSubmit}>
-                <div><a href="#" onClick={this.reset}>[reset]</a></div>
-
                 <div className="group">
                     <label>Names <a href="#" onClick={this.addName}>[+]</a></label>
                     <Names nameIds={artist.nameIds} />
@@ -110,11 +106,6 @@ class ArtistForm extends React.Component<Props, {}> {
             },
         });
     }
-
-    private reset = (event: React.MouseEvent<HTMLAnchorElement>) => {
-        event.preventDefault();
-        this.props.reset();
-    }
 }
 
 const mapStateToProps = ({ artistForm }: { artistForm: IArtistFormState }) => ({
@@ -124,7 +115,6 @@ const mapStateToProps = ({ artistForm }: { artistForm: IArtistFormState }) => ({
 const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
     bindActionCreators({
         addName: artistNamesActionCreators.addName,
-        reset: artistFormActionCreators.reset,
         setEndedOn: artistActionCreators.setEndedOn,
         setKind: artistActionCreators.setKind,
         setStartedOn: artistActionCreators.setStartedOn,
