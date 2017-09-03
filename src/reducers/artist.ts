@@ -17,6 +17,10 @@ import {
     IAddNameAction,
     IRemoveNameAction,
 } from "../actions/artist-names";
+import {
+    ActionTypes as ArtistMembershipsActionTypes,
+    IRemoveMembershipAction,
+} from "../actions/memberships";
 
 export interface IArtistState {
     readonly id: string;
@@ -32,6 +36,12 @@ export interface IArtistState {
 
 const addName = (state: IArtistState, action: IAddNameAction): IArtistState => {
     return { ...state, nameIds: [...state.nameIds, action.id] };
+};
+
+const removeMembership = (state: IArtistState, action: IRemoveMembershipAction): IArtistState => {
+    const i = state.membershipIds.indexOf(action.id);
+    const ids = [...state.membershipIds.slice(0, i), ...state.membershipIds.slice(i + 1)];
+    return { ...state, membershipIds: ids };
 };
 
 const removeName = (state: IArtistState, action: IRemoveNameAction): IArtistState => {
@@ -94,6 +104,8 @@ const reducer: Reducer<IArtistState> = (
 
         case ArtistNamesActionTypes.AddName: return addName(state, action);
         case ArtistNamesActionTypes.RemoveName: return removeName(state, action);
+
+        case ArtistMembershipsActionTypes.RemoveMembership: return removeMembership(state, action);
 
         default: return state;
     }

@@ -10,6 +10,7 @@ import ArtistCredit from "./ArtistCredit";
 import "./Membership.css";
 
 interface IDispatchProps {
+    removeMembership(id: string): void;
     setEndedOn(id: string, endedOn: string): void;
     setStartedOn(id: string, startedOn: string): void;
 }
@@ -54,12 +55,21 @@ class Membership extends React.Component<Props, {}> {
                             onChange={this.onEndedOnChange} />
                     </div>
                 </div>
+
+                <div className="actions">
+                    <a href="#" onClick={this.onRemoveClick}>[x]</a>
+                </div>
             </li>
         );
     }
 
     private onEndedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
         this.props.setEndedOn(this.props.id, event.currentTarget.value);
+    }
+
+    private onRemoveClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+        this.props.removeMembership(this.props.id);
     }
 
     private onStartedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -76,6 +86,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
     bindActionCreators({
+        removeMembership: actionCreators.removeMembership,
         setEndedOn: actionCreators.setEndedOn,
         setStartedOn: actionCreators.setStartedOn,
     }, dispatch)

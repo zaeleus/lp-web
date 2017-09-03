@@ -2,6 +2,7 @@ import * as Redux from "redux";
 
 import { ISetArtistAction } from "./artist-form";
 import { IAddNameAction, IRemoveNameAction } from "./artist-names";
+import { IRemoveMembershipAction } from "./memberships";
 
 export enum ActionTypes {
     SetCountry = "LP/ARTIST_FORM/ARTIST/SET_COUNTRY",
@@ -32,6 +33,7 @@ export interface ISetStartedOnAction extends Redux.Action {
 
 export type Action =
     IAddNameAction |
+    IRemoveMembershipAction |
     IRemoveNameAction |
     ISetArtistAction |
     ISetCountryAction |

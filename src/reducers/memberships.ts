@@ -7,6 +7,7 @@ import {
 import {
     Action,
     ActionTypes,
+    IRemoveMembershipAction,
     ISetEndedOnAction,
     ISetStartedOnAction,
 } from "../actions/memberships";
@@ -23,6 +24,12 @@ export interface IMembershipsState {
 }
 
 const initialState: IMembershipsState = {};
+
+const removeMembership = (state: IMembershipsState, action: IRemoveMembershipAction): IMembershipsState => {
+    const memberships: any = { ...state };
+    delete memberships[action.id];
+    return memberships;
+};
 
 const setEndedOn = (state: IMembershipsState, action: ISetEndedOnAction): IMembershipsState => ({
     ...state,
@@ -61,6 +68,7 @@ const reducer: Reducer<IMembershipsState> = (
     action: Action,
 ) => {
     switch (action.type) {
+        case ActionTypes.RemoveMembership: return removeMembership(state, action);
         case ActionTypes.SetEndedOn: return setEndedOn(state, action);
         case ActionTypes.SetStartedOn: return setStartedOn(state, action);
 

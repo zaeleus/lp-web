@@ -3,8 +3,14 @@ import * as Redux from "redux";
 import { ISetArtistAction } from "./artist-form";
 
 export enum ActionTypes {
+    RemoveMembership = "LP/ARTIST_FORM/MEMBERSHIPS/REMOVE_MEMBERSHIP",
     SetStartedOn = "LP/ARTIST_FORM/MEMBERSHIPS/SET_STARTED_ON",
     SetEndedOn = "LP/ARTIST_FORM/MEMBERSHIPS/SET_ENDED_ON",
+}
+
+export interface IRemoveMembershipAction extends Redux.Action {
+    id: string;
+    type: ActionTypes.RemoveMembership;
 }
 
 export interface ISetStartedOnAction extends Redux.Action {
@@ -19,7 +25,16 @@ export interface ISetEndedOnAction extends Redux.Action {
     type: ActionTypes.SetEndedOn;
 }
 
-export type Action = ISetArtistAction | ISetEndedOnAction | ISetStartedOnAction;
+export type Action =
+    IRemoveMembershipAction |
+    ISetArtistAction |
+    ISetEndedOnAction |
+    ISetStartedOnAction;
+
+const removeMembership: Redux.ActionCreator<IRemoveMembershipAction> = (id: string) => ({
+    id,
+    type: ActionTypes.RemoveMembership,
+});
 
 const setEndedOn: Redux.ActionCreator<ISetEndedOnAction> = (id: string, endedOn: string) => ({
     endedOn,
@@ -34,6 +49,7 @@ const setStartedOn: Redux.ActionCreator<ISetStartedOnAction> = (id: string, star
 });
 
 const actionCreators: Redux.ActionCreatorsMapObject = {
+    removeMembership,
     setEndedOn,
     setStartedOn,
 };
