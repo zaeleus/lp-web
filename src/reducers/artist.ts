@@ -55,6 +55,7 @@ const setArtist = (state: IArtistState, action: ISetArtistAction): IArtistState 
 
     return {
         ...state,
+        country: artist.country,
         endedOn: artist.endedOn,
         id: artist.id,
         kind: artist.kind,

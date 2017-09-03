@@ -62,6 +62,7 @@ const FindArtist = gql`
     query FindArtist($id: ID!) {
         artist(id: $id) {
             id
+            country
             kind
             startedOn
             endedOn
