@@ -3,6 +3,7 @@ form .names {
 }
 
 form .names th {
+    font-weight: normal;
     text-align: left;
 }
 
