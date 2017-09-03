@@ -15,13 +15,16 @@ form .names .locale {
 }
 
 form .names .is-default {
+    text-align: center;
     width: 10%;
 }
 
 form .names .is-original {
+    text-align: center;
     width: 10%;
 }
 
 form .names .actions {
+    text-align: center;
     width: 5%;
 }
