@@ -3,6 +3,7 @@ import { Reducer } from "redux";
 import {
     Action,
     ActionTypes,
+    ISetCountryAction,
     ISetEndedOnAction,
     ISetKindAction,
     ISetStartedOnAction,
@@ -20,6 +21,7 @@ import {
 export interface IArtistState {
     readonly id: string;
 
+    readonly country: string;
     readonly endedOn: string;
     readonly kind: string;
     readonly startedOn: string;
@@ -52,6 +54,10 @@ const setArtist = (state: IArtistState, action: ISetArtistAction): IArtistState 
     };
 };
 
+const setCountry = (state: IArtistState, action: ISetCountryAction): IArtistState => {
+    return { ...state, country: action.country };
+};
+
 const setEndedOn = (state: IArtistState, action: ISetEndedOnAction): IArtistState => {
     return { ...state, endedOn: action.endedOn };
 };
@@ -65,6 +71,7 @@ const setStartedOn = (state: IArtistState, action: ISetStartedOnAction): IArtist
 };
 
 export const initialState: IArtistState = {
+    country: "",
     endedOn: "",
     id: "0",
     kind: "PERSON",
@@ -78,6 +85,7 @@ const reducer: Reducer<IArtistState> = (
     action: Action,
 ): IArtistState => {
     switch (action.type) {
+        case ActionTypes.SetCountry: return setCountry(state, action);
         case ActionTypes.SetEndedOn: return setEndedOn(state, action);
         case ActionTypes.SetKind: return setKind(state, action);
         case ActionTypes.SetStartedOn: return setStartedOn(state, action);

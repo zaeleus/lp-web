@@ -14,6 +14,7 @@ import "./index.css";
 
 interface IDispatchProps {
     addName: any;
+    setCountry: (country: string) => void;
     setEndedOn: any;
     setKind: any;
     setStartedOn: any;
@@ -47,6 +48,13 @@ class ArtistForm extends React.Component<Props, {}> {
                         <option value="PERSON">person</option>
                         <option value="GROUP">group</option>
                     </select>
+                </div>
+
+                <div className="group">
+                    <label>Country</label>
+                    <input type="text"
+                        value={artist.country}
+                        onChange={this.onCountryOnChange} />
                 </div>
 
                 <div className="dates group">
@@ -84,6 +92,10 @@ class ArtistForm extends React.Component<Props, {}> {
         this.props.addName();
     }
 
+    private onCountryOnChange = (event: React.FormEvent<HTMLInputElement>) => {
+        this.props.setCountry(event.currentTarget.value);
+    }
+
     private onEndedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
         this.props.setEndedOn(event.currentTarget.value);
     }
@@ -117,6 +129,7 @@ const mapStateToProps = ({ artistForm }: { artistForm: IArtistFormState }) => ({
 const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
     bindActionCreators({
         addName: artistNamesActionCreators.addName,
+        setCountry: artistActionCreators.setCountry,
         setEndedOn: artistActionCreators.setEndedOn,
         setKind: artistActionCreators.setKind,
         setStartedOn: artistActionCreators.setStartedOn,

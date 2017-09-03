@@ -4,9 +4,15 @@ import { ISetArtistAction } from "./artist-form";
 import { IAddNameAction, IRemoveNameAction } from "./artist-names";
 
 export enum ActionTypes {
+    SetCountry = "LP/ARTIST_FORM/ARTIST/SET_COUNTRY",
     SetEndedOn = "LP/ARTIST_FORM/ARTIST/SET_ENDED_ON",
     SetKind = "LP/ARTIST_FORM/ARTIST/SET_KIND",
     SetStartedOn = "LP/ARTIST_FORM/ARTIST/SET_STARTED_ON",
+}
+
+export interface ISetCountryAction extends Redux.Action {
+    country: string;
+    type: ActionTypes.SetCountry;
 }
 
 export interface ISetEndedOnAction extends Redux.Action {
@@ -28,9 +34,15 @@ export type Action =
     IAddNameAction |
     IRemoveNameAction |
     ISetArtistAction |
+    ISetCountryAction |
     ISetKindAction |
     ISetStartedOnAction |
     ISetEndedOnAction;
+
+const setCountry: Redux.ActionCreator<ISetCountryAction> = (country: string) => ({
+    country,
+    type: ActionTypes.SetCountry,
+});
 
 const setEndedOn: Redux.ActionCreator<ISetEndedOnAction> = (endedOn: string) => ({
     endedOn,
@@ -48,6 +60,7 @@ const setStartedOn: Redux.ActionCreator<ISetStartedOnAction> = (startedOn: strin
 });
 
 const actionCreators: Redux.ActionCreatorsMapObject = {
+    setCountry,
     setEndedOn,
     setKind,
     setStartedOn,
