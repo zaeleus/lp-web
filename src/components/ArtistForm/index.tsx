@@ -111,11 +111,16 @@ class ArtistForm extends React.Component<Props, {}> {
     private onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        const { artist } = this.props;
+
         this.props.onSubmit({
             variables: {
                 input: {
-                    id: this.props.artist.id,
-                    kind: this.props.artist.kind,
+                    country: artist.country,
+                    endedOn: artist.endedOn,
+                    id: artist.id,
+                    kind: artist.kind,
+                    startedOn: artist.startedOn,
                 },
             },
         });

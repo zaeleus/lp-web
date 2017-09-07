@@ -100,6 +100,7 @@ const PatchArtist = gql`
         patchArtist(input: $input) {
             id
             kind
+            country
             startedOn
             endedOn
             names {
