@@ -1,4 +1,3 @@
-import * as classNames from "classnames";
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
@@ -8,7 +7,6 @@ import artistNamesActionCreators from "../../actions/artist-names";
 import { IArtistState } from "../../reducers/artist";
 import { IArtistFormState } from "../../reducers/artist-form";
 import Names from "./Names";
-import Roster from "./Roster";
 
 import "./index.css";
 
@@ -33,7 +31,6 @@ type Props = IDispatchProps & IOwnProps & IStateProps;
 class ArtistForm extends React.Component<Props, {}> {
     public render() {
         const { artist } = this.props;
-        const rosterClass = classNames({ hidden: artist.kind !== "GROUP", group: true });
 
         return (
             <form className="artist-form" onSubmit={this.onSubmit}>
@@ -73,11 +70,6 @@ class ArtistForm extends React.Component<Props, {}> {
                             value={artist.endedOn || ""}
                             onChange={this.onEndedOnChange} />
                     </div>
-                </div>
-
-                <div className={rosterClass}>
-                    <label>Roster</label>
-                    <Roster membershipIds={artist.membershipIds} />
                 </div>
 
                 <div className="group">

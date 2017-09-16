@@ -2,6 +2,7 @@ export default [
      { name: "home", path: "/" },
      { name: "artist", path: "/artists/:id" },
      { name: "artists-edit", path: "/artists/:id/edit" },
+     { name: "artists-memberships", path: "/artists/:id/memberships" },
      { name: "release", path: "/releases/:id" },
      { name: "song", path: "/songs/:id" },
      { name: "calendar", path: "/calendar?date" },

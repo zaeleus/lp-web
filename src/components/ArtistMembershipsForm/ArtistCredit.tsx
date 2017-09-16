@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import { IArtistCreditNameState } from "../../reducers/artist-credit-names";
-import { IArtistFormState } from "../../reducers/artist-form";
+import { IArtistMembershipsFormState } from "../../reducers/artist-memberships-form";
 
 interface IOwnProps {
     id: string;
@@ -27,11 +27,11 @@ const ArtistCredit: React.StatelessComponent<Props> = ({ names }) => {
 };
 
 const mapStateToProps = (
-    { artistForm }: { artistForm: IArtistFormState },
+    { artistMembershipsForm }: { artistMembershipsForm: IArtistMembershipsFormState },
     ownProps: IOwnProps,
 ) => ({
-    names: artistForm.artistCredits[ownProps.id].nameIds.map((id) => (
-        artistForm.artistCreditNames[id]
+    names: artistMembershipsForm.artistCredits[ownProps.id].nameIds.map((id) => (
+        artistMembershipsForm.artistCreditNames[id]
     )),
 });
 

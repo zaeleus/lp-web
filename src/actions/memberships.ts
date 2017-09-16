@@ -1,6 +1,6 @@
 import * as Redux from "redux";
 
-import { ISetArtistAction } from "./artist-form";
+import { ISetArtistAction } from "./artist-memberships-form";
 
 export enum ActionTypes {
     RemoveMembership = "LP/ARTIST_FORM/MEMBERSHIPS/REMOVE_MEMBERSHIP",

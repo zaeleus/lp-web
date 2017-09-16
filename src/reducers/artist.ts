@@ -17,10 +17,6 @@ import {
     IAddNameAction,
     IRemoveNameAction,
 } from "../actions/artist-names";
-import {
-    ActionTypes as ArtistMembershipsActionTypes,
-    IRemoveMembershipAction,
-} from "../actions/memberships";
 
 export interface IArtistState {
     readonly id: string;
@@ -31,17 +27,10 @@ export interface IArtistState {
     readonly startedOn: string;
 
     readonly nameIds: string[];
-    readonly membershipIds: string[];
 }
 
 const addName = (state: IArtistState, action: IAddNameAction): IArtistState => {
     return { ...state, nameIds: [...state.nameIds, action.id] };
-};
-
-const removeMembership = (state: IArtistState, action: IRemoveMembershipAction): IArtistState => {
-    const i = state.membershipIds.indexOf(action.id);
-    const ids = [...state.membershipIds.slice(0, i), ...state.membershipIds.slice(i + 1)];
-    return { ...state, membershipIds: ids };
 };
 
 const removeName = (state: IArtistState, action: IRemoveNameAction): IArtistState => {
@@ -59,7 +48,6 @@ const setArtist = (state: IArtistState, action: ISetArtistAction): IArtistState 
         endedOn: artist.endedOn,
         id: artist.id,
         kind: artist.kind,
-        membershipIds: artist.memberships.map((m) => m.id),
         nameIds: artist.names.map((n) => n.id),
         startedOn: artist.startedOn,
     };
@@ -86,7 +74,6 @@ export const initialState: IArtistState = {
     endedOn: "",
     id: "0",
     kind: "PERSON",
-    membershipIds: [],
     nameIds: ["-1"],
     startedOn: "",
 };
@@ -105,8 +92,6 @@ const reducer: Reducer<IArtistState> = (
 
         case ArtistNamesActionTypes.AddName: return addName(state, action);
         case ArtistNamesActionTypes.RemoveName: return removeName(state, action);
-
-        case ArtistMembershipsActionTypes.RemoveMembership: return removeMembership(state, action);
 
         default: return state;
     }

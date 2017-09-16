@@ -42,6 +42,7 @@ const ShowArtist: React.StatelessComponent<IProps> = ({ artist, loading }) => {
         memberships = (
             <div>
                 <h3>Members</h3>
+                <Link to="artists-memberships" params={{ id: artist.id }}>[edit]</Link>
                 {members}
             </div>
         );

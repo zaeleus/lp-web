@@ -2,9 +2,9 @@ import { Reducer } from "redux";
 
 import { Action } from "../actions/artist-credit-names";
 import {
-    ActionTypes as ArtistFormActionTypes,
+    ActionTypes as ArtistMembershipsFormActionTypes,
     ISetArtistAction,
-} from "../actions/artist-form";
+} from "../actions/artist-memberships-form";
 
 export interface IArtistCreditNameState {
     readonly id: string;
@@ -44,7 +44,7 @@ const reducer: Reducer<IArtistCreditNamesState> = (
     action: Action,
 ) => {
     switch (action.type) {
-        case ArtistFormActionTypes.SetArtist: return setArtist(state, action);
+        case ArtistMembershipsFormActionTypes.SetArtist: return setArtist(state, action);
         default: return state;
     }
 };

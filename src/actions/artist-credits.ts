@@ -1,4 +1,4 @@
-import { ISetArtistAction } from "./artist-form";
+import { ISetArtistAction } from "./artist-memberships-form";
 
 export enum ActionTypes {}
 

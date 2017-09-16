@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
 import actionCreators from "../../actions/memberships";
-import { IArtistFormState } from "../../reducers/artist-form";
+import { IArtistMembershipsFormState } from "../../reducers/artist-memberships-form";
 import { IMembershipState } from "../../reducers/memberships";
 import ArtistCredit from "./ArtistCredit";
 
@@ -78,13 +78,13 @@ class Membership extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (
-    { artistForm }: { artistForm: IArtistFormState },
+    { artistMembershipsForm }: { artistMembershipsForm: IArtistMembershipsFormState },
     ownProps: IOwnProps,
 ) => ({
-    membership: artistForm.memberships[ownProps.id],
+    membership: artistMembershipsForm.memberships[ownProps.id],
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
+const mapDispatchToProps = (dispatch: Dispatch<IArtistMembershipsFormState>) => (
     bindActionCreators({
         removeMembership: actionCreators.removeMembership,
         setEndedOn: actionCreators.setEndedOn,

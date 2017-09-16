@@ -7,6 +7,7 @@ import { State } from "router5";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Artist from "./pages/Artist";
+import ArtistMemberships from "./pages/ArtistMemberships";
 import Calendar from "./pages/Calendar";
 import EditArtist from "./pages/EditArtist";
 import Home from "./pages/Home";
@@ -34,6 +35,9 @@ class App extends React.Component<IProps, {}> {
                 break;
             case "artists-edit":
                 content = <EditArtist id={params.id} />;
+                break;
+            case "artists-memberships":
+                content = <ArtistMemberships id={params.id} />;
                 break;
             case "release":
                 content = <Release id={params.id} />;

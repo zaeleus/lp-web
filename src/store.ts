@@ -4,6 +4,7 @@ import { router5Middleware, router5Reducer } from "redux-router5";
 import * as Router5 from "router5";
 
 import artistFormReducer from "./reducers/artist-form";
+import artistMembershipsFormReducer from "./reducers/artist-memberships-form";
 
 const preloadedState = {};
 
@@ -12,6 +13,7 @@ const configureStore = (router: Router5.Router, client: ApolloClient): Store<any
     const reducers = combineReducers({
         apollo: client.reducer() as Reducer<any>,
         artistForm: artistFormReducer,
+        artistMembershipsForm: artistMembershipsFormReducer,
         router: router5Reducer,
     });
 

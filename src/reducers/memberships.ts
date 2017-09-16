@@ -1,9 +1,9 @@
 import { Reducer } from "redux";
 
 import {
-    ActionTypes as ArtistFormActionTypes,
+    ActionTypes as ArtistMembershipsFormActionTypes,
     ISetArtistAction,
-} from "../actions/artist-form";
+} from "../actions/artist-memberships-form";
 import {
     Action,
     ActionTypes,
@@ -72,7 +72,7 @@ const reducer: Reducer<IMembershipsState> = (
         case ActionTypes.SetEndedOn: return setEndedOn(state, action);
         case ActionTypes.SetStartedOn: return setStartedOn(state, action);
 
-        case ArtistFormActionTypes.SetArtist: return setArtist(state, action);
+        case ArtistMembershipsFormActionTypes.SetArtist: return setArtist(state, action);
 
         default: return state;
     }
