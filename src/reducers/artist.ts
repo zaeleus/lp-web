@@ -4,6 +4,7 @@ import {
     Action,
     ActionTypes,
     ISetCountryAction,
+    ISetDisambiguationAction,
     ISetEndedOnAction,
     ISetKindAction,
     ISetStartedOnAction,
@@ -22,6 +23,7 @@ export interface IArtistState {
     readonly id: string;
 
     readonly country: string;
+    readonly disambiguation: string;
     readonly endedOn: string;
     readonly kind: string;
     readonly startedOn: string;
@@ -57,6 +59,10 @@ const setCountry = (state: IArtistState, action: ISetCountryAction): IArtistStat
     return { ...state, country: action.country };
 };
 
+const setDisambiguation = (state: IArtistState, action: ISetDisambiguationAction): IArtistState => {
+    return { ...state, disambiguation: action.disambiguation };
+};
+
 const setEndedOn = (state: IArtistState, action: ISetEndedOnAction): IArtistState => {
     return { ...state, endedOn: action.endedOn };
 };
@@ -71,6 +77,7 @@ const setStartedOn = (state: IArtistState, action: ISetStartedOnAction): IArtist
 
 export const initialState: IArtistState = {
     country: "",
+    disambiguation: "",
     endedOn: "",
     id: "0",
     kind: "PERSON",
@@ -84,6 +91,7 @@ const reducer: Reducer<IArtistState> = (
 ): IArtistState => {
     switch (action.type) {
         case ActionTypes.SetCountry: return setCountry(state, action);
+        case ActionTypes.SetDisambiguation: return setDisambiguation(state, action);
         case ActionTypes.SetEndedOn: return setEndedOn(state, action);
         case ActionTypes.SetKind: return setKind(state, action);
         case ActionTypes.SetStartedOn: return setStartedOn(state, action);

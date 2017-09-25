@@ -5,6 +5,7 @@ import { IAddNameAction, IRemoveNameAction } from "./artist-names";
 
 export enum ActionTypes {
     SetCountry = "LP/ARTIST_FORM/ARTIST/SET_COUNTRY",
+    SetDisambiguation = "LP/ARTIST_FORM/SET_DISAMBIGUATION",
     SetEndedOn = "LP/ARTIST_FORM/ARTIST/SET_ENDED_ON",
     SetKind = "LP/ARTIST_FORM/ARTIST/SET_KIND",
     SetStartedOn = "LP/ARTIST_FORM/ARTIST/SET_STARTED_ON",
@@ -13,6 +14,11 @@ export enum ActionTypes {
 export interface ISetCountryAction extends Redux.Action {
     country: string;
     type: ActionTypes.SetCountry;
+}
+
+export interface ISetDisambiguationAction extends Redux.Action {
+    disambiguation: string;
+    type: ActionTypes.SetDisambiguation;
 }
 
 export interface ISetEndedOnAction extends Redux.Action {
@@ -34,6 +40,7 @@ export type Action =
     IAddNameAction |
     IRemoveNameAction |
     ISetArtistAction |
+    ISetDisambiguationAction |
     ISetCountryAction |
     ISetKindAction |
     ISetStartedOnAction |
@@ -42,6 +49,11 @@ export type Action =
 const setCountry: Redux.ActionCreator<ISetCountryAction> = (country: string) => ({
     country,
     type: ActionTypes.SetCountry,
+});
+
+const setDisambiguation: Redux.ActionCreator<ISetDisambiguationAction> = (disambiguation: string) => ({
+    disambiguation,
+    type: ActionTypes.SetDisambiguation,
 });
 
 const setEndedOn: Redux.ActionCreator<ISetEndedOnAction> = (endedOn: string) => ({
@@ -61,6 +73,7 @@ const setStartedOn: Redux.ActionCreator<ISetStartedOnAction> = (startedOn: strin
 
 const actionCreators: Redux.ActionCreatorsMapObject = {
     setCountry,
+    setDisambiguation,
     setEndedOn,
     setKind,
     setStartedOn,
