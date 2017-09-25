@@ -11,6 +11,7 @@ import ArtistMemberships from "./pages/ArtistMemberships";
 import Calendar from "./pages/Calendar";
 import EditArtist from "./pages/EditArtist";
 import Home from "./pages/Home";
+import NewArtist from "./pages/NewArtist";
 import Release from "./pages/Release";
 import Search from "./pages/Search";
 import Song from "./pages/Song";
@@ -38,6 +39,9 @@ class App extends React.Component<IProps, {}> {
                 break;
             case "artists-memberships":
                 content = <ArtistMemberships id={params.id} />;
+                break;
+            case "artists-new":
+                content = <NewArtist />;
                 break;
             case "release":
                 content = <Release id={params.id} />;
