@@ -5,12 +5,14 @@ import * as ReactDOM from "react-dom";
 
 import { RouterProvider } from "react-router5";
 import createRouter from "router5";
+// tslint:disable-next-line:no-submodule-imports
 import browserPlugin from "router5/plugins/browser";
 
 import App from "./App";
 import routes from "./routes";
 import configureStore from "./store";
 
+// tslint:disable-next-line:no-submodule-imports
 import "normalize.css/normalize.css";
 import "./index.css";
 

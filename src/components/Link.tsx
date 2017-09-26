@@ -1,5 +1,6 @@
 import * as React from "react";
 import { BaseLink } from "react-router5";
+// tslint:disable-next-line:no-submodule-imports
 import { Options } from "router5/core/navigation";
 
 interface IProps {
