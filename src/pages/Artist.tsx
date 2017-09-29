@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql } from "react-apollo";
+import { graphql, QueryProps } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Albums from "../components/Artist/Albums";
@@ -12,24 +12,24 @@ import Urls from "../components/Artist/Urls";
 import Link from "../components/Link";
 import { IArtist } from "../models/Artist";
 
-interface IComponentProps {
+interface IInputProps {
     id: string;
 }
 
-interface IDataProps {
-    artist?: IArtist;
-    loading: boolean;
+interface IResult {
+    artist: IArtist;
 }
 
-type IProps = IComponentProps & IDataProps;
+type WrappedProps = IResult & QueryProps;
+type Props = IInputProps & WrappedProps;
 
-const ShowArtist: React.StatelessComponent<IProps> = ({ artist, loading }) => {
+const ShowArtist: React.StatelessComponent<Props> = ({ error, artist, loading }) => {
     if (loading) {
         return <h2>Loading...</h2>;
     }
 
-    if (!artist) {
-        return <h2>Not found</h2>;
+    if (error) {
+        return <h2>Error loading artist</h2>;
     }
 
     let memberships;
@@ -153,17 +153,6 @@ const FindArtist = gql`
     }
 `;
 
-const withData = graphql<IDataProps, IComponentProps>(FindArtist, {
-    props: ({ data }) => {
-        if (!data) {
-            return {};
-        }
-
-        return {
-            artist: data.artist,
-            loading: data.loading,
-        };
-    },
-});
-
-export default withData(ShowArtist);
+export default graphql<IResult, IInputProps, WrappedProps>(FindArtist, {
+    props: ({ data }) => ({ ...data }),
+})(ShowArtist);

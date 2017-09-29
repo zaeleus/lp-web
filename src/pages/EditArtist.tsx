@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { compose, graphql } from "react-apollo";
+import { compose, graphql, OptionProps } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
@@ -14,37 +14,36 @@ interface IDispatchProps {
     setArtist(artist: IArtist): ISetArtistAction;
 }
 
-interface IMutationProps {
-    mutate: any;
-}
-
-interface IOwnProps {
+interface IInputProps {
     id: string;
 }
 
-interface IQueryProps {
-    artist?: IArtist;
-    loading: boolean;
+interface IResult {
+    artist: IArtist;
 }
 
-type IProps = IDispatchProps & IMutationProps & IOwnProps & IQueryProps;
+type WrappedProps = OptionProps<IInputProps, IResult>;
+type Props = IDispatchProps & IInputProps & IResult & WrappedProps;
 
-class EditArtist extends React.Component<IProps, {}> {
-    public componentWillReceiveProps(props: IProps) {
-        const { artist, loading } = props;
-        if (loading || !artist) { return; }
+class EditArtist extends React.Component<Props, {}> {
+    public componentWillReceiveProps(props: Props) {
+        if (!props.data) { return; }
+        const { artist, error, loading } = props.data;
+        if (loading || error) { return; }
         this.props.setArtist(artist);
     }
 
     public render() {
-        const { artist, loading } = this.props;
+        if (!this.props.data) { return null; }
+
+        const { error, loading } = this.props.data;
 
         if (loading) {
             return <h2>Loading...</h2>;
         }
 
-        if (!artist) {
-            return <h2>Not found</h2>;
+        if (error) {
+            return <h2>Error loading edit artist form</h2>;
         }
 
         return (
@@ -113,19 +112,6 @@ const PatchArtist = gql`
     }
 `;
 
-const query = graphql<IQueryProps, IOwnProps>(FindArtist, {
-    props: ({ data }) => {
-        if (!data) {
-            return {};
-        }
-
-        return {
-            artist: data.artist,
-            loading: data.loading,
-        };
-    },
-});
-
 const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
     bindActionCreators({
         setArtist: actionCreators.setArtist,
@@ -133,7 +119,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
 );
 
 export default compose(
-    query,
+    graphql<IResult, IInputProps, WrappedProps>(FindArtist),
     graphql(PatchArtist),
     connect(null, mapDispatchToProps),
 )(EditArtist);

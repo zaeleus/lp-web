@@ -1,32 +1,32 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql } from "react-apollo";
+import { graphql, QueryProps } from "react-apollo";
 
 import Results from "../components/Search/Results";
 import { IAlbum } from "../models/Album";
 import { IArtist } from "../models/Artist";
 import { ISong } from "../models/Song";
 
-interface IComponentProps {
+interface IInputProps {
     query: string;
 }
 
-interface IDataProps {
-    albums?: IAlbum[];
-    artists?: IArtist[];
-    loading: boolean;
-    songs?: ISong[];
+interface IResult {
+    albums: IAlbum[];
+    artists: IArtist[];
+    songs: ISong[];
 }
 
-type IProps = IComponentProps & IDataProps;
+type WrappedProps = IResult & QueryProps;
+type Props = IInputProps & WrappedProps;
 
-const Search: React.StatelessComponent<IProps> = ({ albums, artists, loading, songs }) => {
+const Search: React.StatelessComponent<Props> = ({ albums, artists, error, loading, songs }) => {
     if (loading) {
         return <h2>Loading...</h2>;
     }
 
-    if (!albums || !artists || !songs) {
-        return <h2>Not found</h2>;
+    if (error) {
+        return <h2>Error loading search results</h2>;
     }
 
     return (
@@ -77,19 +77,6 @@ const SearchArtists = gql`
     }
 `;
 
-const withData = graphql<IDataProps, IComponentProps>(SearchArtists, {
-    props: ({ data }) => {
-        if (!data) {
-            return {};
-        }
-
-        return {
-            albums: data.albums,
-            artists: data.artists,
-            loading: data.loading,
-            songs: data.songs,
-        };
-    },
-});
-
-export default withData(Search);
+export default graphql<IResult, IInputProps, WrappedProps>(SearchArtists, {
+    props: ({ data }) => ({ ...data }),
+})(Search);

@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql } from "react-apollo";
+import { graphql, QueryProps } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Header from "../components/Release/Header";
@@ -10,24 +10,24 @@ import Siblings from "../components/Release/Siblings";
 import Urls from "../components/Release/Urls";
 import { IRelease } from "../models/Release";
 
-interface IComponentProps {
+interface IInputProps {
     id: string;
 }
 
-interface IDataProps {
-    loading: boolean;
-    release?: IRelease;
+interface IResult {
+    release: IRelease;
 }
 
-type IProps = IComponentProps & IDataProps;
+type WrappedProps = IResult & QueryProps;
+type Props = IInputProps & WrappedProps;
 
-const ShowRelease: React.StatelessComponent<IProps> = ({ loading, release }) => {
+const ShowRelease: React.StatelessComponent<Props> = ({ error, loading, release }) => {
     if (loading) {
         return <h2>Loading...</h2>;
     }
 
-    if (!release) {
-        return <h2>Not found</h2>;
+    if (error) {
+        return <h2>Error loading release</h2>;
     }
 
     const siblings = (release.siblings.length === 0)
@@ -137,17 +137,6 @@ const FindRelease = gql`
     }
 `;
 
-const withData = graphql<IDataProps, IComponentProps>(FindRelease, {
-    props: ({ data }) => {
-        if (!data) {
-            return {};
-        }
-
-        return {
-            loading: data.loading,
-            release: data.release,
-        };
-    },
-});
-
-export default withData(ShowRelease);
+export default graphql<IResult, IInputProps, WrappedProps>(FindRelease, {
+    props: ({ data }) => ({ ...data }),
+})(ShowRelease);

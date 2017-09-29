@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { compose, graphql } from "react-apollo";
+import { compose, graphql, QueryProps } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
@@ -14,33 +14,33 @@ interface IDispatchProps {
     setArtist(artist: IArtist): void;
 }
 
-interface IOwnProps {
+interface IInputProps {
     id: string;
 }
 
-interface IQueryProps {
-    artist?: IArtist;
-    loading: boolean;
+interface IResult {
+    artist: IArtist;
 }
 
-type IProps = IDispatchProps & IOwnProps & IQueryProps;
+type WrappedProps = IResult & QueryProps;
+type Props = IDispatchProps & IInputProps & WrappedProps;
 
-class ArtistMemberships extends React.Component<IProps, {}> {
-    public componentWillReceiveProps(props: IProps) {
-        const { artist, loading, setArtist } = props;
-        if (loading || !artist) { return; }
+class ArtistMemberships extends React.Component<Props, {}> {
+    public componentWillReceiveProps(props: Props) {
+        const { artist, error, loading, setArtist } = props;
+        if (loading || error) { return; }
         setArtist(artist);
     }
 
     public render() {
-        const { artist, loading } = this.props;
+        const { error, loading } = this.props;
 
         if (loading) {
             return <h2>Loading...</h2>;
         }
 
-        if (!artist) {
-            return <h2>Not found</h2>;
+        if (error) {
+            return <h2>Error loading artist memberships form</h2>;
         }
 
         return (
@@ -80,17 +80,8 @@ const FindArtist = gql`
     }
 `;
 
-const query = graphql<IQueryProps, IOwnProps>(FindArtist, {
-    props: ({ data }) => {
-        if (!data) {
-            return {};
-        }
-
-        return {
-            artist: data.artist,
-            loading: data.loading,
-        };
-    },
+const query = graphql<IResult, IInputProps, WrappedProps>(FindArtist, {
+    props: ({ data }) => ({ ...data }),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IArtistMembershipsFormState>) => (

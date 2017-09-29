@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql } from "react-apollo";
+import { graphql, QueryProps } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Contributions from "../components/Song/Contributions";
@@ -9,24 +9,24 @@ import Releases from "../components/Song/Releases";
 import Urls from "../components/Song/Urls";
 import { ISong } from "../models/Song";
 
-interface IComponentProps {
+interface IInputProps {
     id: string;
 }
 
-interface IDataProps {
-    loading: boolean;
-    song?: ISong;
+interface IResult {
+    song: ISong;
 }
 
-type IProps = IComponentProps & IDataProps;
+type WrappedProps = IResult & QueryProps;
+type Props = IInputProps & WrappedProps;
 
-const ShowSong: React.StatelessComponent<IProps> = ({ loading, song }) => {
+const ShowSong: React.StatelessComponent<Props> = ({ error, loading, song }) => {
     if (loading) {
         return <h2>Loading...</h2>;
     }
 
-    if (!song) {
-        return <h2>Not found</h2>;
+    if (error) {
+        return <h2>Error loading song</h2>;
     }
 
     const contributions = (song.contributions.length === 0)
@@ -128,17 +128,6 @@ const FindSong = gql`
     }
 `;
 
-const withData = graphql<IDataProps, IComponentProps>(FindSong, {
-    props: ({ data }) => {
-        if (!data) {
-            return {};
-        }
-
-        return {
-            loading: data.loading,
-            song: data.song,
-        };
-    },
-});
-
-export default withData(ShowSong);
+export default graphql<IResult, IInputProps, WrappedProps>(FindSong, {
+    props: ({ data }) => ({ ...data }),
+})(ShowSong);

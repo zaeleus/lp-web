@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import * as moment from "moment";
 import * as React from "react";
-import { graphql } from "react-apollo";
+import { graphql, QueryProps } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Birthdays from "../components/Calendar/Birthdays";
@@ -10,31 +10,32 @@ import MonthlyCalendar from "../components/MonthlyCalendar";
 import { IAlbum } from "../models/Album";
 import { IArtist } from "../models/Artist";
 
-interface IComponentProps {
+interface IInputProps {
     date: string;
 }
 
-interface IDataProps {
-    albumsByReleaseMonth?: IAlbum[];
-    artistsByStartMonth?: IArtist[];
-    loading: boolean;
+interface IResult {
+    albumsByReleaseMonth: IAlbum[];
+    artistsByStartMonth: IArtist[];
 }
 
-type IProps = IComponentProps & IDataProps;
+type WrappedProps = IResult & QueryProps;
+type Props = IInputProps & WrappedProps;
 
-class Calendar extends React.Component<IProps, {}> {
+class Calendar extends React.Component<Props, {}> {
     public render() {
-        if (this.props.loading) {
+        const { albumsByReleaseMonth, artistsByStartMonth, date, error, loading } = this.props;
+
+        if (loading) {
             return <h2>Loading...</h2>;
         }
 
-        if (!this.props.albumsByReleaseMonth || !this.props.artistsByStartMonth) {
-            return <h2>Not found</h2>;
+        if (error) {
+            return <h2>Error loading calendar</h2>;
         }
 
-        const albums = this.props.albumsByReleaseMonth;
-        const artists = this.props.artistsByStartMonth;
-        const date = this.props.date;
+        const albums = albumsByReleaseMonth;
+        const artists = artistsByStartMonth;
         const endOfMonth = moment(date, "YYYY-MM").endOf("month").format("YYYY-MM-DD");
 
         const monthlyAlbums = (albums.length === 0)
@@ -109,18 +110,6 @@ const AlbumsByReleaseMonth = gql`
     }
 `;
 
-const withData = graphql<IProps, IComponentProps>(AlbumsByReleaseMonth, {
-    props: ({ data }) => {
-        if (!data) {
-            return {};
-        }
-
-        return {
-            albumsByReleaseMonth: data.albumsByReleaseMonth,
-            artistsByStartMonth: data.artistsByStartMonth,
-            loading: data.loading,
-        };
-    },
-});
-
-export default withData(Calendar);
+export default graphql<IResult, IInputProps, WrappedProps>(AlbumsByReleaseMonth, {
+    props: ({ data }) => ({ ...data }),
+})(Calendar);
