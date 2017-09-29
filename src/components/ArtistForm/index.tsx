@@ -11,12 +11,12 @@ import Names from "./Names";
 import "./index.css";
 
 interface IDispatchProps {
-    addName: any;
-    setCountry: (country: string) => void;
-    setDisambiguation: (disambiguation: string) => void;
-    setEndedOn: any;
-    setKind: any;
-    setStartedOn: any;
+    addName(): void;
+    setCountry(country: string): void;
+    setDisambiguation(disambiguation: string): void;
+    setEndedOn(endedOn: string): void;
+    setKind(kind: string): void;
+    setStartedOn(startedOn: string): void;
 }
 
 interface IOwnProps {

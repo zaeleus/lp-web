@@ -7,11 +7,11 @@ import { bindActionCreators, Dispatch } from "redux";
 import ArtistForm from "../components/ArtistForm";
 import { IArtist } from "../models/Artist";
 
-import actionCreators, { ISetArtistAction } from "../actions/artist-form";
+import actionCreators from "../actions/artist-form";
 import { IArtistFormState } from "../reducers/artist-form";
 
 interface IDispatchProps {
-    setArtist(artist: IArtist): ISetArtistAction;
+    setArtist(artist: IArtist): void;
 }
 
 interface IInputProps {

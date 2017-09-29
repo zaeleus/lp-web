@@ -9,7 +9,7 @@ import SearchBox from "./SearchBox";
 import "./Header.css";
 
 interface IDispatchProps {
-    navigateTo: typeof actions.navigateTo;
+    navigateTo(name: string, params?: any, opts?: any): void;
 }
 
 class Header extends React.Component<IDispatchProps, {}> {
@@ -35,5 +35,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => (
     bindActionCreators({ navigateTo: actions.navigateTo }, dispatch)
 );
 
-// TODO: revisit types
-export default connect<any, any, any>(() => ({}), mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(Header);

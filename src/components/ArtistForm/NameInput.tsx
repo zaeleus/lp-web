@@ -15,10 +15,10 @@ interface IStateProps {
 }
 
 interface IDispatchProps {
-    setIsDefault: any;
-    setIsOriginal: any;
-    setLocale: any;
-    setName: any;
+    setIsDefault(id: string, isDefault: boolean): void;
+    setIsOriginal(id: string, isOriginal: boolean): void;
+    setLocale(id: string, locale: string): void;
+    setName(id: string, name: string): void;
     removeName(id: string): void;
 }
 
