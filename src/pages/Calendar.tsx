@@ -22,46 +22,48 @@ interface IResult {
 type WrappedProps = IResult & QueryProps;
 type Props = IInputProps & WrappedProps;
 
-class Calendar extends React.Component<Props, {}> {
-    public render() {
-        const { albumsByReleaseMonth, artistsByStartMonth, date, error, loading } = this.props;
+const Calendar: React.StatelessComponent<Props> = ({
+    albumsByReleaseMonth,
+    artistsByStartMonth,
+    date,
+    error,
+    loading,
+}) => {
+    if (loading) {
+        return <h2>Loading...</h2>;
+    }
 
-        if (loading) {
-            return <h2>Loading...</h2>;
-        }
+    if (error) {
+        return <h2>Error loading calendar</h2>;
+    }
 
-        if (error) {
-            return <h2>Error loading calendar</h2>;
-        }
+    const albums = albumsByReleaseMonth;
+    const artists = artistsByStartMonth;
+    const endOfMonth = moment(date, "YYYY-MM").endOf("month").format("YYYY-MM-DD");
 
-        const albums = albumsByReleaseMonth;
-        const artists = artistsByStartMonth;
-        const endOfMonth = moment(date, "YYYY-MM").endOf("month").format("YYYY-MM-DD");
+    const monthlyAlbums = (albums.length === 0)
+        ? <Alert>No albums.</Alert>
+        : <MonthlyAlbums albums={albums} />;
 
-        const monthlyAlbums = (albums.length === 0)
-            ? <Alert>No albums.</Alert>
-            : <MonthlyAlbums albums={albums} />;
+    return (
+        <div id="content">
+            <div className="full">
+                <h2>Calendar</h2>
 
-        return (
-            <div id="content">
-                <div className="full">
-                    <h2>Calendar</h2>
+                <div id="content">
+                    <div className="secondary">
+                        <MonthlyCalendar date={date} />
+                        <Birthdays artists={artists} date={endOfMonth} />
+                    </div>
 
-                    <div id="content">
-                        <div className="secondary">
-                            <MonthlyCalendar date={date} />
-                            <Birthdays artists={artists} date={endOfMonth} />
-                        </div>
-
-                        <div className="primary">
-                            {monthlyAlbums}
-                        </div>
+                    <div className="primary">
+                        {monthlyAlbums}
                     </div>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 const AlbumsByReleaseMonth = gql`
     query AlbumsByReleaseMonth($date: String!) {
