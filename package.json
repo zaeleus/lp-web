@@ -21,21 +21,21 @@
     "react-apollo": "^1.4.16",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
-    "react-router5": "^5.1.0",
+    "react-router5": "^5.2.0",
     "redux": "^3.7.2",
     "redux-router5": "^5.0.0",
-    "router5": "^5.2.2"
+    "router5": "^5.3.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
-    "@types/enzyme": "^2.8.9",
+    "@types/enzyme": "^2.8.11",
     "@types/jest": "^20.0.8",
-    "@types/node": "^8.0.31",
-    "@types/react": "^16.0.7",
-    "@types/react-dom": "^15.5.5",
-    "@types/react-redux": "^5.0.9",
-    "enzyme": "^3.0.0",
-    "enzyme-adapter-react-16": "^1.0.0",
+    "@types/node": "^8.0.33",
+    "@types/react": "^16.0.10",
+    "@types/react-dom": "^16.0.1",
+    "@types/react-redux": "^5.0.10",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.1",
     "react-scripts-ts": "^2.7.0",
     "react-test-renderer": "^16.0.0"
   }
