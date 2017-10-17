@@ -16,11 +16,13 @@ import Release from "./pages/Release";
 import Search from "./pages/Search";
 import Song from "./pages/Song";
 
-interface IProps {
+interface IStateProps {
     route: State;
 }
 
-class App extends React.Component<IProps, {}> {
+type Props = IStateProps;
+
+class App extends React.Component<Props, {}> {
     public render() {
         const { route } = this.props;
         const params = route.params as any;
@@ -71,4 +73,4 @@ class App extends React.Component<IProps, {}> {
     }
 }
 
-export default connect(() => routeNodeSelector(""))(App);
+export default connect<IStateProps>(() => routeNodeSelector(""))(App);
