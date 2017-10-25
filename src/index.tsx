@@ -1,7 +1,8 @@
-import ApolloClient from "apollo-client";
+import { ApolloClient, HttpLink, InMemoryCache } from "apollo-client-preset";
 import * as React from "react";
 import { ApolloProvider } from "react-apollo";
-import * as ReactDOM from "react-dom";
+import { render } from "react-dom";
+import { Provider as ReduxProvider } from "react-redux";
 
 import { RouterProvider } from "react-router5";
 import createRouter from "router5";
@@ -16,17 +17,21 @@ import configureStore from "./store";
 import "normalize.css/normalize.css";
 import "./index.css";
 
+const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link: new HttpLink({ uri: "/graphql" }),
+});
 const router = createRouter(routes).usePlugin(browserPlugin());
-const client = new ApolloClient();
-const store = configureStore(router, client);
+const store = configureStore(router);
 
-router.start(() => {
-    ReactDOM.render(
-        <ApolloProvider client={client} store={store}>
+const WrappedApp = (
+    <ReduxProvider store={store}>
+        <ApolloProvider client={client as any}>
             <RouterProvider router={router}>
                 <App />
             </RouterProvider>
-        </ApolloProvider>,
-        document.getElementById("root") as HTMLElement,
-    );
-});
+        </ApolloProvider>
+    </ReduxProvider>
+);
+
+router.start(() => render(WrappedApp, document.getElementById("root")));

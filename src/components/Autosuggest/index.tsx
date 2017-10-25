@@ -1,12 +1,7 @@
 import * as React from "react";
-import { ApolloClient, withApollo } from "react-apollo";
 
 import { IArtist } from "../../models/Artist";
 import Suggestions from "./Suggestions";
-
-interface IProps {
-    client: ApolloClient;
-}
 
 interface IState {
     activeIndex: number;
@@ -14,8 +9,8 @@ interface IState {
     suggestions: IArtist[];
 }
 
-class Autosuggest extends React.Component<IProps, IState> {
-    public constructor(props: IProps) {
+class Autosuggest extends React.Component<{}, IState> {
+    public constructor(props: {}) {
         super(props);
 
         this.state = {
@@ -125,4 +120,4 @@ class Autosuggest extends React.Component<IProps, IState> {
     }
 }
 
-export default withApollo(Autosuggest);
+export default Autosuggest;
