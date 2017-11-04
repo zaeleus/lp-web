@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import { ChronoUnit, LocalDate, ZoneId } from "js-joda";
 import * as React from "react";
 
 interface IProps {
@@ -7,9 +7,9 @@ interface IProps {
 }
 
 const calculateAge = (from: string, to: string): number => {
-    const startedOn = moment(from, "YYYY-MM-DD");
-    const endedOn = moment(to, "YYYY-MM-DD");
-    return endedOn.diff(startedOn, "year");
+    const startedOn = LocalDate.parse(from).atStartOfDayWithZone(ZoneId.UTC);
+    const endedOn = LocalDate.parse(to).atStartOfDayWithZone(ZoneId.UTC);
+    return startedOn.until(endedOn, ChronoUnit.YEARS);
 };
 
 const Age: React.StatelessComponent<IProps> = ({ from, to }) => (

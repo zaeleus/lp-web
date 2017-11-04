@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import * as moment from "moment";
+import { YearMonth } from "js-joda";
 import * as React from "react";
 import { graphql, QueryProps } from "react-apollo";
 
@@ -39,7 +39,7 @@ const Calendar: React.StatelessComponent<Props> = ({
 
     const albums = albumsByReleaseMonth;
     const artists = artistsByStartMonth;
-    const endOfMonth = moment(date, "YYYY-MM").endOf("month").format("YYYY-MM-DD");
+    const endOfMonth = YearMonth.parse(date).atEndOfMonth().toString();
 
     const monthlyAlbums = (albums.length === 0)
         ? <Alert>No albums.</Alert>

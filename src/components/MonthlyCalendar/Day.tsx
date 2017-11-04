@@ -1,36 +1,32 @@
 import * as classNames from "classnames";
-import * as moment from "moment";
+import { LocalDate, YearMonth } from "js-joda";
 import * as React from "react";
 
 import "./Day.css";
 
 interface IProps {
-    now: moment.Moment;
-    month: moment.Moment;
-    day: moment.Moment;
+    day: LocalDate;
+    month: YearMonth;
+    today: LocalDate;
 }
 
-class Day extends React.Component<IProps, {}> {
-    public dayOfMonth(): string {
-        return this.props.day.format("D");
-    }
+const getDayOfMonth = (day: LocalDate): number => day.dayOfMonth();
 
-    public isInMonth(): boolean {
-        return this.props.day.isSame(this.props.month, "month");
-    }
+const isInMonth = (day: LocalDate, month: YearMonth): boolean => (
+    day.month() === month.month()
+);
 
-    public isToday(): boolean {
-        return this.props.day.isSame(this.props.now, "day");
-    }
+const isToday = (day: LocalDate, today: LocalDate): boolean => (
+    day.equals(today)
+);
 
-    public render() {
-        const className = classNames({
-            "not-in-month": !this.isInMonth(),
-            "today": this.isToday(),
-        });
+const Day: React.StatelessComponent<IProps> = ({ day, month, today }) => {
+    const className = classNames({
+        "not-in-month": !isInMonth(day, month),
+        "today": isToday(day, today),
+    });
 
-        return <td className={className}>{this.dayOfMonth()}</td>;
-    }
-}
+    return <td className={className}>{getDayOfMonth(day)}</td>;
+};
 
 export default Day;

@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import { YearMonth, ZoneId } from "js-joda";
 import * as React from "react";
 import { connect } from "react-redux";
 import { routeNodeSelector } from "redux-router5";
@@ -52,7 +52,7 @@ class App extends React.Component<Props, {}> {
                 content = <Song id={params.id} />;
                 break;
             case "calendar":
-                const date = params.date || moment.utc().format("YYYY-MM");
+                const date = params.date || YearMonth.now(ZoneId.UTC).toString();
                 content = <Calendar date={date} />;
                 break;
             case "search":

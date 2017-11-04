@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import { DateTimeFormatter, LocalDate, ZoneId } from "js-joda";
 import * as React from "react";
 
 interface IProps {
@@ -6,8 +6,11 @@ interface IProps {
     format: string;
 }
 
-const Date: React.StatelessComponent<IProps> = ({ date, format }) => (
-    <span>{moment.utc(date).format(format)}</span>
-);
+const Date: React.StatelessComponent<IProps> = ({ date, format }) => {
+    const formatter = DateTimeFormatter.ofPattern(format);
+    const temporal = LocalDate.parse(date).atStartOfDayWithZone(ZoneId.UTC);
+    const formattedDate = temporal.format(formatter);
+    return <span>{formattedDate}</span>;
+};
 
 export default Date;

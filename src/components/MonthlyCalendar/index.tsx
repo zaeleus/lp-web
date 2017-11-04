@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import { DayOfWeek, LocalDate, TemporalAdjusters, YearMonth, ZoneId } from "js-joda";
 import * as React from "react";
 
 import Header from "./Header";
@@ -10,19 +10,24 @@ interface IProps {
     date: string;
 }
 
-const generateWeeks = (date: moment.Moment): moment.Moment[][] => {
-    const first = date.clone().startOf("month").startOf("week");
-    const last = date.clone().endOf("month").endOf("week");
+const generateWeeks = (month: YearMonth): LocalDate[][] => {
+    const firstDay = month
+        .atDay(1)
+        .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
 
-    const day = first;
-    const weeks: moment.Moment[][] = [];
+    const lastDay = month
+        .atEndOfMonth()
+        .with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY));
 
-    while (day.isSameOrBefore(last)) {
-        const week: moment.Moment[] = [];
+    let day = firstDay;
+    const weeks: LocalDate[][] = [];
+
+    while (day.isBefore(lastDay)) {
+        const week: LocalDate[] = [];
 
         for (let i = 0; i < 7; i++) {
-            week.push(day.clone());
-            day.add(1, "day");
+            week.push(day);
+            day = day.plusDays(1);
         }
 
         weeks.push(week);
@@ -31,33 +36,35 @@ const generateWeeks = (date: moment.Moment): moment.Moment[][] => {
     return weeks;
 };
 
-class MonthlyCalendar extends React.Component<IProps, {}> {
-    public render() {
-        const days = moment.weekdaysShort().map((d, i) => <th key={i}>{d}</th>);
+const MonthlyCalendar: React.StatelessComponent<IProps> = ({ date }) => {
+    const today = LocalDate.now(ZoneId.UTC);
+    const month = YearMonth.parse(date);
+    const weeks = generateWeeks(month).map((week, i) => (
+        <Week key={i} month={month} today={today} week={week} />
+    ));
 
-        const now = moment.utc();
-        const month = moment.utc(this.props.date, "YYYY-MM");
-        const weeks = generateWeeks(month).map((week, i) => {
-            return <Week key={i} now={now} month={month} week={week} />;
-        });
+    return (
+        <div className="monthly-calendar">
+            <Header month={month} />
 
-        return (
-            <div className="monthly-calendar">
-                <Header month={month} />
-
-                <table>
-                    <thead>
-                        <tr>
-                            {days}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {weeks}
-                    </tbody>
-                </table>
-            </div>
-        );
-    }
-}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {weeks}
+                </tbody>
+            </table>
+        </div>
+    );
+};
 
 export default MonthlyCalendar;

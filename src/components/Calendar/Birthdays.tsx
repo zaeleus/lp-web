@@ -22,7 +22,7 @@ const Birthdays: React.StatelessComponent<IProps> = ({ artists, date }) => {
                 </Link>
             </div>
             <div className="dates">
-                <div className="day"><Date date={a.startedOn} format="D" /></div>
+                <div className="day"><Date date={a.startedOn} format="dd" /></div>
                 <div className="age">(<Age from={a.startedOn} to={date} />)</div>
             </div>
             <div className="names">
