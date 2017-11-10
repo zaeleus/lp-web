@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
-import { actions } from "redux-router5";
+import { ActionNavigateTo, actions } from "redux-router5";
 
 import Link from "./Link";
 import SearchBox from "./SearchBox";
@@ -9,7 +9,7 @@ import SearchBox from "./SearchBox";
 import "./Header.css";
 
 interface IDispatchProps {
-    navigateTo(name: string, params?: any, opts?: any): void;
+    navigateTo(name: string, params?: any, opts?: any): ActionNavigateTo;
 }
 
 class Header extends React.Component<IDispatchProps, {}> {

@@ -1,8 +1,7 @@
 import { YearMonth, ZoneId } from "js-joda";
 import * as React from "react";
 import { connect } from "react-redux";
-import { routeNodeSelector } from "redux-router5";
-import { State } from "router5";
+import { routeNodeSelector, RouterState } from "redux-router5";
 
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -16,15 +15,16 @@ import Release from "./pages/Release";
 import Search from "./pages/Search";
 import Song from "./pages/Song";
 
-interface IStateProps {
-    route: State;
-}
-
-type Props = IStateProps;
+type Props = RouterState;
 
 class App extends React.Component<Props, {}> {
     public render() {
         const { route } = this.props;
+
+        if (!route) {
+            return <p>Routing failed</p>;
+        }
+
         const params = route.params as any;
 
         let content;
@@ -73,4 +73,4 @@ class App extends React.Component<Props, {}> {
     }
 }
 
-export default connect<IStateProps>(() => routeNodeSelector(""))(App);
+export default connect(() => routeNodeSelector(""))(App);
