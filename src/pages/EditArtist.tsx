@@ -73,24 +73,6 @@ const FindArtist = gql`
                 isDefault
                 isOriginal
             }
-            memberships {
-                id
-                startedOn
-                endedOn
-                artistCredit {
-                    id
-                    names {
-                        id
-                        name
-                        locale
-                        isDefault
-                        isOriginal
-                        artist {
-                            id
-                        }
-                    }
-                }
-            }
         }
     }
 `;
