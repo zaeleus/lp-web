@@ -7,6 +7,7 @@ export interface IArtist {
     id: string;
     kind: string;
     country: string;
+    disambiguation: string;
     startedOn: string;
     endedOn: string;
     albums: IAlbum[];

@@ -62,6 +62,7 @@ const FindArtist = gql`
         artist(id: $id) {
             id
             country
+            disambiguation
             kind
             startedOn
             endedOn

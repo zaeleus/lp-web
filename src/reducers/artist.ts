@@ -42,11 +42,12 @@ const removeName = (state: IArtistState, action: IRemoveNameAction): IArtistStat
 };
 
 const setArtist = (state: IArtistState, action: ISetArtistAction): IArtistState => {
-    const artist = action.artist;
+    const { artist } = action;
 
     return {
         ...state,
         country: artist.country,
+        disambiguation: artist.disambiguation,
         endedOn: artist.endedOn,
         id: artist.id,
         kind: artist.kind,
