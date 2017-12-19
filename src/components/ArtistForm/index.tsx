@@ -76,7 +76,7 @@ class ArtistForm extends React.Component<Props, {}> {
                 <div className="group">
                     <label>Disambiguation</label>
                     <input type="text"
-                        value={artist.disambiguation}
+                        value={artist.disambiguation || ""}
                         onChange={this.onDisambiguationOnChange} />
                 </div>
 
