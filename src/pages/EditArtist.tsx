@@ -1,16 +1,18 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { compose, graphql, OptionProps } from "react-apollo";
+import { compose, graphql, MutationOpts, OptionProps } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
+import { actions as router5ActionCreators } from "redux-router5";
 
 import ArtistForm from "../components/ArtistForm";
 import { IArtist } from "../models/Artist";
 
-import actionCreators from "../actions/artist-form";
+import artistFormActionCreators from "../actions/artist-form";
 import { IArtistFormState } from "../reducers/artist-form";
 
 interface IDispatchProps {
+    navigateTo(name: string, params?: any, opts?: any): void;
     setArtist(artist: IArtist): void;
 }
 
@@ -19,7 +21,8 @@ interface IInputProps {
 }
 
 interface IResult {
-    artist: IArtist;
+    artist?: IArtist;
+    patchArtist?: IArtist;
 }
 
 type WrappedProps = OptionProps<IInputProps, IResult>;
@@ -28,9 +31,16 @@ type Props = IDispatchProps & IInputProps & IResult & WrappedProps;
 class EditArtist extends React.Component<Props, {}> {
     public componentWillReceiveProps(props: Props) {
         if (!props.data) { return; }
-        const { artist, error, loading } = props.data;
+
+        const { artist, error, loading, patchArtist } = props.data;
+
         if (loading || error) { return; }
-        this.props.setArtist(artist);
+
+        if (artist) {
+            this.props.setArtist(artist);
+        } else if (patchArtist) {
+            this.props.setArtist(patchArtist);
+        }
     }
 
     public render() {
@@ -50,10 +60,19 @@ class EditArtist extends React.Component<Props, {}> {
             <div id="content">
                 <div className="full">
                     <h2>Edit Artist</h2>
-                    <ArtistForm onSubmit={this.props.mutate} />
+                    <ArtistForm onSubmit={this.onSubmit} />
                 </div>
             </div>
         );
+    }
+
+    private onSubmit = async (opts: MutationOpts<{ [key: string]: any }>) => {
+        const { mutate, navigateTo } = this.props;
+
+        if (mutate) {
+            await mutate(opts);
+            navigateTo("artist", { id: this.props.id });
+        }
     }
 }
 
@@ -97,7 +116,8 @@ const PatchArtist = gql`
 
 const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
     bindActionCreators({
-        setArtist: actionCreators.setArtist,
+        navigateTo: router5ActionCreators.navigateTo,
+        setArtist: artistFormActionCreators.setArtist,
     }, dispatch)
 );
 
