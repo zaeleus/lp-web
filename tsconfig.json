@@ -15,9 +15,6 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
-    "strictNullChecks": true,
-
-    // https://github.com/apollographql/apollo-client/issues/2503
-    "skipLibCheck": true
+    "strictNullChecks": true
   }
 }
