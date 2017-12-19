@@ -1,5 +1,4 @@
-import { ApolloCache } from "apollo-cache";
-import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from "apollo-client-preset";
+import { ApolloClient, HttpLink, InMemoryCache } from "apollo-client-preset";
 import * as React from "react";
 import { ApolloProvider } from "react-apollo";
 import { render } from "react-dom";
@@ -19,7 +18,7 @@ import "normalize.css/normalize.css";
 import "./index.css";
 
 const client = new ApolloClient({
-    cache: new InMemoryCache() as ApolloCache<NormalizedCacheObject>,
+    cache: new InMemoryCache(),
     link: new HttpLink({ uri: "/graphql" }),
 });
 const router = createRouter(routes).usePlugin(browserPlugin());
@@ -27,7 +26,7 @@ const store = configureStore(router);
 
 const WrappedApp = (
     <ReduxProvider store={store}>
-        <ApolloProvider client={client as ApolloClient<any>}>
+        <ApolloProvider client={client}>
             <RouterProvider router={router}>
                 <App />
             </RouterProvider>
