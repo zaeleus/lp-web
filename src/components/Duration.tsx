@@ -4,7 +4,7 @@ interface IProps {
     duration?: number;
 }
 
-const formatDuration = (seconds: number | undefined): string => {
+const formatDuration = (seconds?: number): string => {
     if (!seconds) {
         return "x:xx";
     }
