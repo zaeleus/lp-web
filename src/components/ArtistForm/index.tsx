@@ -50,34 +50,42 @@ class ArtistForm extends React.Component<Props, {}> {
 
                 <div className="group">
                     <label>Country</label>
-                    <input type="text"
+                    <input
+                        type="text"
                         value={artist.country}
-                        onChange={this.onCountryOnChange} />
+                        onChange={this.onCountryOnChange}
+                    />
                 </div>
 
                 <div className="dates group">
                     <div className="started-on">
                         <label>Started On</label>
-                        <input type="text"
+                        <input
+                            type="text"
                             placeholder="YYYY-MM-DD"
                             value={artist.startedOn || ""}
-                            onChange={this.onStartedOnChange} />
+                            onChange={this.onStartedOnChange}
+                        />
                     </div>
 
                     <div className="ended-on">
                         <label>Ended On</label>
-                        <input type="text"
+                        <input
+                            type="text"
                             placeholder="YYYY-MM-DD"
                             value={artist.endedOn || ""}
-                            onChange={this.onEndedOnChange} />
+                            onChange={this.onEndedOnChange}
+                        />
                     </div>
                 </div>
 
                 <div className="group">
                     <label>Disambiguation</label>
-                    <input type="text"
+                    <input
+                        type="text"
                         value={artist.disambiguation || ""}
-                        onChange={this.onDisambiguationOnChange} />
+                        onChange={this.onDisambiguationOnChange}
+                    />
                 </div>
 
                 <div className="group">

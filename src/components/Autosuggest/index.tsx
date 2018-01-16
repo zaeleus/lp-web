@@ -23,14 +23,17 @@ class Autosuggest extends React.Component<{}, IState> {
     public render() {
         return (
             <div className="autosuggest">
-                <input type="text"
+                <input
+                    type="text"
                     onChange={this.onQueryChange}
                     onKeyDown={this.onKeyDown}
-                    onKeyUp={this.onKeyUp} />
+                    onKeyUp={this.onKeyUp}
+                />
                 <Suggestions
                     artists={this.state.suggestions}
                     activeIndex={this.state.activeIndex}
-                    isOpen={this.state.isOpen} />
+                    isOpen={this.state.isOpen}
+                />
             </div>
         );
     }

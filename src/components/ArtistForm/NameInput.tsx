@@ -32,26 +32,30 @@ class NameInput extends React.Component<Props, {}> {
                     <input
                         type="text"
                         value={this.props.name.name}
-                        onChange={this.onNameChange} />
+                        onChange={this.onNameChange}
+                    />
                 </td>
                 <td>
                     <input
                         type="text"
                         placeholder="und"
                         value={this.props.name.locale}
-                        onChange={this.onLocaleChange} />
+                        onChange={this.onLocaleChange}
+                    />
                 </td>
                 <td className="is-original">
                     <input
                         type="radio"
                         checked={this.props.name.isOriginal}
-                        onChange={this.onIsOriginalChange} />
+                        onChange={this.onIsOriginalChange}
+                    />
                 </td>
                 <td className="is-default">
                     <input
                         type="radio"
                         checked={this.props.name.isDefault}
-                        onChange={this.onIsDefaultChange} />
+                        onChange={this.onIsDefaultChange}
+                    />
                 </td>
                 <td className="actions">
                     <a href="#" onClick={this.onRemoveClick}>[x]</a>

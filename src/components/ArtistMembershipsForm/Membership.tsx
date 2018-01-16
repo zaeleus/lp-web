@@ -44,7 +44,8 @@ class Membership extends React.Component<Props, {}> {
                             type="text"
                             placeholder="YYYY-MM-DD"
                             value={membership.startedOn || ""}
-                            onChange={this.onStartedOnChange} />
+                            onChange={this.onStartedOnChange}
+                        />
                     </div>
                     <div className="ended-on group">
                         <label>Ended On</label>
@@ -52,7 +53,8 @@ class Membership extends React.Component<Props, {}> {
                             type="text"
                             placeholder="YYYY-MM-DD"
                             value={membership.endedOn || ""}
-                            onChange={this.onEndedOnChange} />
+                            onChange={this.onEndedOnChange}
+                        />
                     </div>
                 </div>
 

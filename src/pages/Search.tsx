@@ -36,7 +36,8 @@ const Search: React.StatelessComponent<Props> = ({ albums, artists, error, loadi
                 <Results
                     artists={artists}
                     albums={albums}
-                    songs={songs} />
+                    songs={songs}
+                />
             </div>
         </div>
     );

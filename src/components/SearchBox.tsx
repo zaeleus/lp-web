@@ -34,7 +34,8 @@ class SearchBox extends React.Component<IProps, IState> {
                     type="search"
                     placeholder="Search for artists, albums, and songs"
                     value={this.state.query}
-                    onChange={this.onChange} />
+                    onChange={this.onChange}
+                />
             </form>
         );
     }
