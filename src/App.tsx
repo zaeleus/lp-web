@@ -73,4 +73,4 @@ class App extends React.Component<Props, {}> {
     }
 }
 
-export default connect(() => routeNodeSelector(""))(App);
+export default connect(routeNodeSelector(""))(App);
