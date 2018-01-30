@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import { YearMonth } from "js-joda";
 import * as React from "react";
-import { graphql, QueryProps } from "react-apollo";
+import { DataValue, graphql } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Birthdays from "../components/Calendar/Birthdays";
@@ -19,8 +19,7 @@ interface IResult {
     artistsByStartMonth: IArtist[];
 }
 
-type WrappedProps = IResult & QueryProps;
-type Props = IInputProps & WrappedProps;
+type Props = DataValue<IResult, IInputProps> & IInputProps;
 
 const Calendar: React.StatelessComponent<Props> = ({
     albumsByReleaseMonth,
@@ -33,7 +32,9 @@ const Calendar: React.StatelessComponent<Props> = ({
         return <h2>Loading...</h2>;
     }
 
-    if (error) {
+    if (error
+            || !albumsByReleaseMonth
+            || !artistsByStartMonth) {
         return <h2>Error loading calendar</h2>;
     }
 
@@ -112,6 +113,6 @@ const AlbumsByReleaseMonth = gql`
     }
 `;
 
-export default graphql<IResult, IInputProps, WrappedProps>(AlbumsByReleaseMonth, {
+export default graphql(AlbumsByReleaseMonth, {
     props: ({ data }) => ({ ...data }),
 })(Calendar);

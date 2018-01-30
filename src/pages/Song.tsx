@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql, QueryProps } from "react-apollo";
+import { DataValue, graphql } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Contributions from "../components/Song/Contributions";
@@ -17,15 +17,14 @@ interface IResult {
     song: ISong;
 }
 
-type WrappedProps = IResult & QueryProps;
-type Props = IInputProps & WrappedProps;
+type Props = IInputProps & DataValue<IResult, IInputProps>;
 
 const ShowSong: React.StatelessComponent<Props> = ({ error, loading, song }) => {
     if (loading) {
         return <h2>Loading...</h2>;
     }
 
-    if (error) {
+    if (error || !song) {
         return <h2>Error loading song</h2>;
     }
 
@@ -128,6 +127,6 @@ const FindSong = gql`
     }
 `;
 
-export default graphql<IResult, IInputProps, WrappedProps>(FindSong, {
+export default graphql(FindSong, {
     props: ({ data }) => ({ ...data }),
 })(ShowSong);

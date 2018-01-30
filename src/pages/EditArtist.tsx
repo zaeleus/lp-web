@@ -122,7 +122,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
 );
 
 export default compose(
-    graphql<IResult, IInputProps, WrappedProps>(FindArtist),
+    graphql(FindArtist),
     graphql(PatchArtist),
     connect(null, mapDispatchToProps),
 )(EditArtist);

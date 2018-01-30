@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql, QueryProps } from "react-apollo";
+import { DataValue, graphql } from "react-apollo";
 
 import Results from "../components/Search/Results";
 import { IAlbum } from "../models/Album";
@@ -17,15 +17,14 @@ interface IResult {
     songs: ISong[];
 }
 
-type WrappedProps = IResult & QueryProps;
-type Props = IInputProps & WrappedProps;
+type Props = IInputProps & DataValue<IResult, IInputProps>;
 
 const Search: React.StatelessComponent<Props> = ({ albums, artists, error, loading, songs }) => {
     if (loading) {
         return <h2>Loading...</h2>;
     }
 
-    if (error) {
+    if (error || !artists || !albums || !songs) {
         return <h2>Error loading search results</h2>;
     }
 
@@ -78,6 +77,6 @@ const SearchArtists = gql`
     }
 `;
 
-export default graphql<IResult, IInputProps, WrappedProps>(SearchArtists, {
+export default graphql(SearchArtists, {
     props: ({ data }) => ({ ...data }),
 })(Search);

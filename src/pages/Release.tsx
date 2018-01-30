@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql, QueryProps } from "react-apollo";
+import { DataValue, graphql } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Header from "../components/Release/Header";
@@ -18,15 +18,14 @@ interface IResult {
     release: IRelease;
 }
 
-type WrappedProps = IResult & QueryProps;
-type Props = IInputProps & WrappedProps;
+type Props = IInputProps & DataValue<IResult, IInputProps>;
 
 const ShowRelease: React.StatelessComponent<Props> = ({ error, loading, release }) => {
     if (loading) {
         return <h2>Loading...</h2>;
     }
 
-    if (error) {
+    if (error || !release) {
         return <h2>Error loading release</h2>;
     }
 
@@ -137,6 +136,6 @@ const FindRelease = gql`
     }
 `;
 
-export default graphql<IResult, IInputProps, WrappedProps>(FindRelease, {
+export default graphql(FindRelease, {
     props: ({ data }) => ({ ...data }),
 })(ShowRelease);

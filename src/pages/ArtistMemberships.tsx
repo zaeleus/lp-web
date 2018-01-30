@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { compose, graphql, QueryProps } from "react-apollo";
+import { compose, DataValue, graphql } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
@@ -22,13 +22,12 @@ interface IResult {
     artist: IArtist;
 }
 
-type WrappedProps = IResult & QueryProps;
-type Props = IDispatchProps & IInputProps & WrappedProps;
+type Props = DataValue<IResult, IInputProps> & IDispatchProps & IInputProps;
 
 class ArtistMemberships extends React.Component<Props, {}> {
     public componentWillReceiveProps(props: Props) {
         const { artist, error, loading, setArtist } = props;
-        if (loading || error) { return; }
+        if (loading || error || !artist) { return; }
         setArtist(artist);
     }
 
@@ -80,10 +79,6 @@ const FindArtist = gql`
     }
 `;
 
-const query = graphql<IResult, IInputProps, WrappedProps>(FindArtist, {
-    props: ({ data }) => ({ ...data }),
-});
-
 const mapDispatchToProps = (dispatch: Dispatch<IArtistMembershipsFormState>) => (
     bindActionCreators({
         setArtist: actionCreators.setArtist,
@@ -91,6 +86,8 @@ const mapDispatchToProps = (dispatch: Dispatch<IArtistMembershipsFormState>) => 
 );
 
 export default compose(
-    query,
+    graphql(FindArtist, {
+        props: ({ data }) => ({ ...data }),
+    }),
     connect(null, mapDispatchToProps),
 )(ArtistMemberships);

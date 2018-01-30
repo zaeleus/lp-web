@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { graphql, QueryProps } from "react-apollo";
+import { DataValue, graphql } from "react-apollo";
 
 import Alert from "../components/Alert";
 import Albums from "../components/Artist/Albums";
@@ -20,15 +20,14 @@ interface IResult {
     artist: IArtist;
 }
 
-type WrappedProps = IResult & QueryProps;
-type Props = IInputProps & WrappedProps;
+type Props = IInputProps & DataValue<IResult, IInputProps>;
 
-const ShowArtist: React.StatelessComponent<Props> = ({ error, artist, loading }) => {
+const ShowArtist: React.StatelessComponent<Props> = ({ artist, error, loading }) => {
     if (loading) {
         return <h2>Loading...</h2>;
     }
 
-    if (error) {
+    if (error || !artist) {
         return <h2>Error loading artist</h2>;
     }
 
@@ -153,6 +152,6 @@ const FindArtist = gql`
     }
 `;
 
-export default graphql<IResult, IInputProps, WrappedProps>(FindArtist, {
+export default graphql(FindArtist, {
     props: ({ data }) => ({ ...data }),
 })(ShowArtist);
