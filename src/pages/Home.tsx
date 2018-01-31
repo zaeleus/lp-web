@@ -18,9 +18,6 @@ const Home: React.StatelessComponent<Props> = ({ error, recentAlbums, loading })
     }
 
     if (error || !recentAlbums) {
-        /* tslint:disable:no-console */
-        console.log(error);
-        console.log(recentAlbums);
         return <h2>Error loading home page</h2>;
     }
 
