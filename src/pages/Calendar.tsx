@@ -6,6 +6,7 @@ import { DataValue, graphql } from "react-apollo";
 import Alert from "../components/Alert";
 import Birthdays from "../components/Calendar/Birthdays";
 import MonthlyAlbums from "../components/Calendar/MonthlyAlbums";
+import Loading from "../components/Loading";
 import MonthlyCalendar from "../components/MonthlyCalendar";
 import { IAlbum } from "../models/Album";
 import { IArtist } from "../models/Artist";
@@ -29,7 +30,7 @@ const Calendar: React.StatelessComponent<Props> = ({
     loading,
 }) => {
     if (loading) {
-        return <h2>Loading...</h2>;
+        return <Loading />;
     }
 
     if (error

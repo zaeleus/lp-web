@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
 import ArtistMemberhipsForm from "../components/ArtistMembershipsForm";
+import Loading from "../components/Loading";
 import { IArtist } from "../models/Artist";
 
 import actionCreators from "../actions/artist-memberships-form";
@@ -35,7 +36,7 @@ class ArtistMemberships extends React.Component<Props, {}> {
         const { error, loading } = this.props;
 
         if (loading) {
-            return <h2>Loading...</h2>;
+            return <Loading />;
         }
 
         if (error) {

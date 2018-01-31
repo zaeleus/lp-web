@@ -10,6 +10,7 @@ import Memberships from "../components/Artist/Memberships";
 import Meta from "../components/Artist/Meta";
 import Urls from "../components/Artist/Urls";
 import Link from "../components/Link";
+import Loading from "../components/Loading";
 import { IArtist } from "../models/Artist";
 
 interface IInputProps {
@@ -24,7 +25,7 @@ type Props = IInputProps & DataValue<IResult, IInputProps>;
 
 const ShowArtist: React.StatelessComponent<Props> = ({ artist, error, loading }) => {
     if (loading) {
-        return <h2>Loading...</h2>;
+        return <Loading />;
     }
 
     if (error || !artist) {

@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { DataValue, graphql } from "react-apollo";
 
+import Loading from "../components/Loading";
 import RecentAlbums from "../components/RecentAlbums";
 import { IAlbum } from "../models/Album";
 
@@ -13,7 +14,7 @@ type Props = & DataValue<IResult>;
 
 const Home: React.StatelessComponent<Props> = ({ error, recentAlbums, loading }) => {
     if (loading) {
-        return <h2>Loading...</h2>;
+        return <Loading />;
     }
 
     if (error || !recentAlbums) {

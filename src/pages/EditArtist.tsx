@@ -6,6 +6,7 @@ import { bindActionCreators, Dispatch } from "redux";
 import { actions as router5ActionCreators } from "redux-router5";
 
 import ArtistForm from "../components/ArtistForm";
+import Loading from "../components/Loading";
 import { IArtist } from "../models/Artist";
 
 import artistFormActionCreators from "../actions/artist-form";
@@ -49,7 +50,7 @@ class EditArtist extends React.Component<Props, {}> {
         const { error, loading } = this.props.data;
 
         if (loading) {
-            return <h2>Loading...</h2>;
+            return <Loading />;
         }
 
         if (error) {

@@ -3,6 +3,7 @@ import * as React from "react";
 import { DataValue, graphql } from "react-apollo";
 
 import Alert from "../components/Alert";
+import Loading from "../components/Loading";
 import Header from "../components/Release/Header";
 import Media from "../components/Release/Media";
 import Meta from "../components/Release/Meta";
@@ -22,7 +23,7 @@ type Props = IInputProps & DataValue<IResult, IInputProps>;
 
 const ShowRelease: React.StatelessComponent<Props> = ({ error, loading, release }) => {
     if (loading) {
-        return <h2>Loading...</h2>;
+        return <Loading />;
     }
 
     if (error || !release) {
