@@ -17,8 +17,9 @@ const RecentAlbums: React.StatelessComponent<IProps> = ({ albums }) => {
             <Link to="release" params={{ id: a.defaultRelease.id }}>
                 <img src={a.defaultRelease.artworkUrls.thumbnail} />
             </Link>
-            <div className="released-on">
-                [{a.defaultRelease.country}] {a.defaultRelease.releasedOn}
+            <div className="meta">
+                <span className="country">[{a.defaultRelease.country}]</span>
+                <span className="released-on">{a.defaultRelease.releasedOn}</span>
             </div>
             <div className="name">
                 <div>
