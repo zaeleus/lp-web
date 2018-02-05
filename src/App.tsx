@@ -11,6 +11,7 @@ import Calendar from "./pages/Calendar";
 import EditArtist from "./pages/EditArtist";
 import Home from "./pages/Home";
 import NewArtist from "./pages/NewArtist";
+import NewRelease from "./pages/NewRelease";
 import Release from "./pages/Release";
 import Search from "./pages/Search";
 import Song from "./pages/Song";
@@ -47,6 +48,9 @@ class App extends React.Component<Props, {}> {
                 break;
             case "release":
                 content = <Release id={params.id} />;
+                break;
+            case "release-new":
+                content = <NewRelease />;
                 break;
             case "song":
                 content = <Song id={params.id} />;

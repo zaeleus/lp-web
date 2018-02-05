@@ -5,6 +5,7 @@ export default [
      { name: "artists-memberships", path: "/artists/:id/memberships" },
      { name: "artists-new", path: "/artists/new" },
      { name: "release", path: "/releases/:id" },
+     { name: "release-new", path: "/releases/new" },
      { name: "song", path: "/songs/:id" },
      { name: "calendar", path: "/calendar?date" },
      { name: "search", path: "/search?query" },
