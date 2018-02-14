@@ -4,8 +4,11 @@ import { bindActionCreators, Dispatch } from "redux";
 
 import artistActionCreators from "../../actions/artist";
 import artistNamesActionCreators from "../../actions/artist-names";
+import { IArtistName } from "../../models/ArtistName";
 import { IArtistState } from "../../reducers/artist";
 import { IArtistFormState } from "../../reducers/artist-form";
+import { IArtistNamesState } from "../../reducers/artist-names";
+
 import Names from "./Names";
 
 import "./index.css";
@@ -25,6 +28,7 @@ interface IOwnProps {
 
 interface IStateProps {
     artist: IArtistState;
+    artistNames: IArtistNamesState;
 }
 
 type Props = IDispatchProps & IOwnProps & IStateProps;
@@ -123,9 +127,21 @@ class ArtistForm extends React.Component<Props, {}> {
     private onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const { artist } = this.props;
+        const { artist, artistNames } = this.props;
 
-        this.props.onSubmit({
+        const names = artist.nameIds.map<IArtistName>((id) => {
+            const name = artistNames[id];
+
+            return {
+                id: name.id,
+                isDefault: name.isDefault,
+                isOriginal: name.isOriginal,
+                locale: name.locale,
+                name: name.name,
+            };
+        });
+
+        const payload = {
             variables: {
                 input: {
                     country: artist.country,
@@ -134,14 +150,19 @@ class ArtistForm extends React.Component<Props, {}> {
                     id: artist.id,
                     kind: artist.kind,
                     startedOn: artist.startedOn,
+
+                    names,
                 },
             },
-        });
+        };
+
+        this.props.onSubmit(payload);
     }
 }
 
 const mapStateToProps = ({ artistForm }: { artistForm: IArtistFormState }) => ({
     artist: artistForm.artist,
+    artistNames: artistForm.artistNames,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
