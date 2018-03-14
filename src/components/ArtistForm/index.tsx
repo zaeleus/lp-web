@@ -1,47 +1,87 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators, Dispatch } from "redux";
 
-import artistActionCreators from "../../actions/artist";
-import artistNamesActionCreators from "../../actions/artist-names";
-import { IArtistName } from "../../models/ArtistName";
-import { IArtistState } from "../../reducers/artist";
-import { IArtistFormState } from "../../reducers/artist-form";
-import { IArtistNamesState } from "../../reducers/artist-names";
-
+import { IArtist } from "../../models/Artist";
 import Names from "./Names";
 
 import "./index.css";
 
-interface IDispatchProps {
-    addName(): void;
-    setCountry(country: string): void;
-    setDisambiguation(disambiguation: string): void;
-    setEndedOn(endedOn: string): void;
-    setKind(kind: string): void;
-    setStartedOn(startedOn: string): void;
-}
-
-interface IOwnProps {
+interface IProps {
+    artist: IArtist;
     onSubmit: any;
 }
 
-interface IStateProps {
-    artist: IArtistState;
-    artistNames: IArtistNamesState;
+interface IArtistState {
+    id: string;
+
+    country: string;
+    disambiguation: string;
+    endedOn: string;
+    kind: string;
+    startedOn: string;
 }
 
-type Props = IDispatchProps & IOwnProps & IStateProps;
+export interface IArtistNameState {
+    id: string;
 
-class ArtistForm extends React.Component<Props, {}> {
-    public render() {
+    _delete: boolean;
+
+    name: string;
+    locale: string;
+    isDefault: boolean;
+    isOriginal: boolean;
+}
+
+interface IState {
+    artist: IArtistState;
+    names: IArtistNameState[];
+}
+
+class ArtistForm extends React.Component<IProps, IState> {
+    public constructor(props: IProps) {
+        super(props);
+
         const { artist } = this.props;
+
+        const names = artist.names.map((name) => ({
+            id: name.id,
+
+            _delete: false,
+
+            isDefault: name.isDefault,
+            isOriginal: name.isOriginal,
+            locale: name.locale,
+            name: name.name,
+        }));
+
+        this.state = {
+            artist: {
+                id: artist.id,
+
+                country: artist.country,
+                disambiguation: artist.disambiguation,
+                endedOn: artist.endedOn,
+                kind: artist.kind,
+                startedOn: artist.startedOn,
+            },
+            names,
+        };
+    }
+
+    public render() {
+        const { artist, names } = this.state;
 
         return (
             <form className="artist-form" onSubmit={this.onSubmit}>
                 <div className="group">
                     <label>Names <a href="#" onClick={this.addName}>[+]</a></label>
-                    <Names nameIds={artist.nameIds} />
+                    <Names
+                        names={names}
+                        onNameNameChange={this.onNameNameChange}
+                        onNameLocaleChange={this.onNameLocaleChange}
+                        onNameIsOriginalChange={this.onNameIsOriginalChange}
+                        onNameIsDefaultChange={this.onNameIsDefaultChange}
+                        removeName={this.removeName}
+                    />
                 </div>
 
                 <div className="group">
@@ -57,7 +97,7 @@ class ArtistForm extends React.Component<Props, {}> {
                     <input
                         type="text"
                         value={artist.country}
-                        onChange={this.onCountryOnChange}
+                        onChange={this.onCountryChange}
                     />
                 </div>
 
@@ -88,7 +128,7 @@ class ArtistForm extends React.Component<Props, {}> {
                     <input
                         type="text"
                         value={artist.disambiguation || ""}
-                        onChange={this.onDisambiguationOnChange}
+                        onChange={this.onDisambiguationChange}
                     />
                 </div>
 
@@ -101,45 +141,106 @@ class ArtistForm extends React.Component<Props, {}> {
 
     private addName = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
-        this.props.addName();
+
+        const name = {
+            id: "",
+
+            _delete: false,
+
+            isDefault: false,
+            isOriginal: false,
+            locale: "",
+            name: "",
+        };
+
+        this.setState((prevState) => ({ names: [...prevState.names, name] }));
     }
 
-    private onCountryOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-        this.props.setCountry(event.currentTarget.value);
+    private removeName = (i: number) => {
+        this.setName(i, { ...this.state.names[i], _delete: true });
     }
 
-    private onDisambiguationOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-        this.props.setDisambiguation(event.currentTarget.value);
+    private setName = (i: number, name: IArtistNameState) => {
+        this.setState((prevState) => ({
+            ...prevState,
+            names: prevState.names.map((prevName, j) => (
+                (i === j) ? name : prevName
+            )),
+        }));
+    }
+
+    private onNameNameChange = (i: number, name: string) => {
+        this.setName(i, { ...this.state.names[i], name });
+    }
+
+    private onNameLocaleChange = (i: number, locale: string) => {
+        this.setName(i, { ...this.state.names[i], locale });
+    }
+
+    private onNameIsOriginalChange = (i: number, isOriginal: boolean) => {
+        this.setState((prevState) => ({
+            ...prevState,
+            names: prevState.names.map((prevName, j) => ({
+                ...prevName,
+                isOriginal: i === j,
+            })),
+        }));
+    }
+
+    private onNameIsDefaultChange = (i: number, isDefault: boolean) => {
+        this.setState((prevState) => ({
+            ...prevState,
+            names: prevState.names.map((prevName, j) => ({
+                ...prevName,
+                isDefault: i === j,
+            })),
+        }));
+    }
+
+    private onCountryChange = (event: React.FormEvent<HTMLInputElement>) => {
+        const country = event.currentTarget.value;
+
+        this.setState((prevState) => ({
+            artist: { ...prevState.artist, country },
+        }));
+    }
+
+    private onDisambiguationChange = (event: React.FormEvent<HTMLInputElement>) => {
+        const disambiguation = event.currentTarget.value;
+
+        this.setState((prevState) => ({
+            artist: { ...prevState.artist, disambiguation },
+        }));
     }
 
     private onEndedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-        this.props.setEndedOn(event.currentTarget.value);
+        const endedOn = event.currentTarget.value;
+
+        this.setState((prevState) => ({
+            artist: { ...prevState.artist, endedOn },
+        }));
     }
 
     private onKindChange = (event: React.FormEvent<HTMLSelectElement>) => {
-        this.props.setKind(event.currentTarget.value);
+        const kind = event.currentTarget.value;
+
+        this.setState((prevState) => ({
+            artist: { ...prevState.artist, kind },
+        }));
     }
 
     private onStartedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-        this.props.setStartedOn(event.currentTarget.value);
+        const startedOn = event.currentTarget.value;
+
+        this.setState((prevState) => ({
+            artist: { ...prevState.artist, startedOn },
+        }));
     }
 
     private onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const { artist, artistNames } = this.props;
-
-        const names = artist.nameIds.map<IArtistName>((id) => {
-            const name = artistNames[id];
-
-            return {
-                id: name.id,
-                isDefault: name.isDefault,
-                isOriginal: name.isOriginal,
-                locale: name.locale,
-                name: name.name,
-            };
-        });
+        const { artist, names } = this.state;
 
         const payload = {
             variables: {
@@ -156,27 +257,11 @@ class ArtistForm extends React.Component<Props, {}> {
             },
         };
 
-        this.props.onSubmit(payload);
+        // tslint:disable-next-line:no-console
+        console.log(payload);
+
+        // this.props.onSubmit(payload);
     }
 }
 
-const mapStateToProps = ({ artistForm }: { artistForm: IArtistFormState }) => ({
-    artist: artistForm.artist,
-    artistNames: artistForm.artistNames,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
-    bindActionCreators({
-        addName: artistNamesActionCreators.addName,
-        setCountry: artistActionCreators.setCountry,
-        setDisambiguation: artistActionCreators.setDisambiguation,
-        setEndedOn: artistActionCreators.setEndedOn,
-        setKind: artistActionCreators.setKind,
-        setStartedOn: artistActionCreators.setStartedOn,
-    }, dispatch)
-);
-
-export default connect<IStateProps, IDispatchProps, IOwnProps>(
-    mapStateToProps,
-    mapDispatchToProps,
-)(ArtistForm);
+export default ArtistForm;

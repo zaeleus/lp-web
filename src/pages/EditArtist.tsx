@@ -9,12 +9,8 @@ import ArtistForm from "../components/ArtistForm";
 import Loading from "../components/Loading";
 import { IArtist } from "../models/Artist";
 
-import artistFormActionCreators from "../actions/artist-form";
-import { IArtistFormState } from "../reducers/artist-form";
-
 interface IDispatchProps {
     navigateTo(name: string, params?: any, opts?: any): void;
-    setArtist(artist: IArtist): void;
 }
 
 interface IInputProps {
@@ -29,25 +25,11 @@ interface IResult {
 type WrappedProps = OptionProps<IInputProps, IResult>;
 type Props = IDispatchProps & IInputProps & IResult & WrappedProps;
 
-class EditArtist extends React.Component<Props, {}> {
-    public componentWillReceiveProps(props: Props) {
-        if (!props.data) { return; }
-
-        const { artist, error, loading, patchArtist } = props.data;
-
-        if (loading || error) { return; }
-
-        if (artist) {
-            this.props.setArtist(artist);
-        } else if (patchArtist) {
-            this.props.setArtist(patchArtist);
-        }
-    }
-
+class EditArtist extends React.Component<Props> {
     public render() {
         if (!this.props.data) { return null; }
 
-        const { error, loading } = this.props.data;
+        const { artist, error, loading, patchArtist } = this.props.data;
 
         if (loading) {
             return <Loading />;
@@ -57,11 +39,21 @@ class EditArtist extends React.Component<Props, {}> {
             return <h2>Error loading edit artist form</h2>;
         }
 
+        let form;
+
+        if (artist) {
+            form = <ArtistForm artist={artist} onSubmit={this.onSubmit} />;
+        } else if (patchArtist) {
+            form = <ArtistForm artist={patchArtist} onSubmit={this.onSubmit} />;
+        } else {
+            return <h2>Error loading edit artist form</h2>;
+        }
+
         return (
             <div id="content">
                 <div className="full">
                     <h2>Edit Artist</h2>
-                    <ArtistForm onSubmit={this.onSubmit} />
+                    {form}
                 </div>
             </div>
         );
@@ -115,10 +107,9 @@ const PatchArtist = gql`
     }
 `;
 
-const mapDispatchToProps = (dispatch: Dispatch<IArtistFormState>) => (
+const mapDispatchToProps = (dispatch: Dispatch<any>) => (
     bindActionCreators({
         navigateTo: router5ActionCreators.navigateTo,
-        setArtist: artistFormActionCreators.setArtist,
     }, dispatch)
 );
 

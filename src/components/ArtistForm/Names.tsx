@@ -1,15 +1,34 @@
 import * as React from "react";
 
-import NameInput from "./NameInput";
+import { IArtistNameState } from "./index";
+import Name from "./Name";
 
 import "./Names.css";
 
 interface IProps {
-    nameIds: string[];
+    names: IArtistNameState[];
+    onNameNameChange(i: number, name: string): void;
+    onNameLocaleChange(i: number, locale: string): void;
+    onNameIsOriginalChange(i: number, isOriginal: boolean): void;
+    onNameIsDefaultChange(i: number, isDefault: boolean): void;
+    removeName(i: number): void;
 }
 
-const Names: React.StatelessComponent<IProps> = ({ nameIds }) => {
-    const names = nameIds.map((id, i) => <NameInput key={i} id={id} />);
+const Names: React.StatelessComponent<IProps> = (props) => {
+    const rows = props.names
+        .filter((name) => !name._delete)
+        .map((name, i) => (
+            <Name
+                key={i}
+                id={i}
+                name={name}
+                onNameChange={props.onNameNameChange}
+                onLocaleChange={props.onNameLocaleChange}
+                onIsOriginalChange={props.onNameIsOriginalChange}
+                onIsDefaultChange={props.onNameIsDefaultChange}
+                removeName={props.removeName}
+            />
+        ));
 
     return (
         <table className="names">
@@ -23,7 +42,7 @@ const Names: React.StatelessComponent<IProps> = ({ nameIds }) => {
                 </tr>
             </thead>
             <tbody>
-                {names}
+                {rows}
             </tbody>
         </table>
     );
