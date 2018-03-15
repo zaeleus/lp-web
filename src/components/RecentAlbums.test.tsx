@@ -1,79 +1,95 @@
 import { shallow } from "enzyme";
 import * as React from "react";
 
-import IAlbum, { AlbumKind } from "../models/Album";
+import { IAlbum } from "../queries/GetRecentAlbums";
 import RecentAlbums from "./RecentAlbums";
 
 const ALBUMS: IAlbum[] = [{
+    id: "1",
+
+    names: [{
+        id: "1",
+        isDefault: true,
+        isOriginal: true,
+        name: "To. Heart",
+    }],
+
     artistCredit: {
         id: "1",
         names: [{
-            default: true,
             id: "1",
-            locale: "ko",
+            isDefault: true,
+            isOriginal: true,
             name: "fromis_9",
-            original: true,
+            position: 1,
+            separator: "",
+
+            artist: {
+                id: "1",
+            },
         }],
     },
+
     defaultRelease: {
-        artworkUrls: {
-            original: "/store/1o.jpg",
-            thumbnail: "/store/1t.jpg",
-        },
         country: "KR",
         id: "1",
         releasedOn: "2018-01-24",
+
+        artworkUrls: {
+            thumbnail: "/store/1t.jpg",
+        },
     },
-    id: "1",
-    kind: AlbumKind.EP,
-    names: [{
-        default: true,
-        id: "1",
-        locale: "ko",
-        name: "To. Heart",
-        original: true,
-    }],
 }, {
+    id: "2",
+
+    names: [{
+        id: "1",
+        isDefault: false,
+        isOriginal: true,
+        name: "주인공",
+    }, {
+        id: "1",
+        isDefault: true,
+        isOriginal: false,
+        name: "Juingong",
+    }],
+
     artistCredit: {
         id: "2",
         names: [{
-            default: true,
             id: "2",
-            locale: "ko",
+            isDefault: true,
+            isOriginal: true,
             name: "선미",
-            original: true,
+            position: 1,
+            separator: "",
+
+            artist: {
+                id: "2",
+            },
         }, {
-            default: true,
             id: "3",
-            locale: "ko-Latn",
+            isDefault: true,
+            isOriginal: true,
             name: "Sunmi",
-            original: true,
+            position: 1,
+            separator: "",
+
+            artist: {
+                id: "2",
+            },
         }],
     },
+
     defaultRelease: {
-        artworkUrls: {
-            original: "/store/2o.jpg",
-            thumbnail: "/store/2t.jpg",
-        },
         country: "KR",
         id: "2",
         releasedOn: "2018-01-18",
+
+        artworkUrls: {
+            thumbnail: "/store/2t.jpg",
+        },
     },
-    id: "2",
-    kind: AlbumKind.Single,
-    names: [{
-        default: false,
-        id: "1",
-        locale: "ko",
-        name: "주인공",
-        original: true,
-    }, {
-        default: true,
-        id: "1",
-        locale: "ko-Latn",
-        name: "Juingong",
-        original: false,
-    }],
 }];
 
 describe("RecentAlbums", () => {

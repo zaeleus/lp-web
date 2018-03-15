@@ -1,16 +1,11 @@
-import gql from "graphql-tag";
 import * as React from "react";
 import { DataValue, graphql } from "react-apollo";
 
 import Loading from "../components/Loading";
 import RecentAlbums from "../components/RecentAlbums";
-import { IAlbum } from "../models/Album";
+import GetRecentAlbums, { IRecentAlbums } from "../queries/GetRecentAlbums";
 
-interface IResult {
-    recentAlbums: IAlbum[];
-}
-
-type Props = & DataValue<IResult>;
+type Props = DataValue<IRecentAlbums>;
 
 const Home: React.StatelessComponent<Props> = ({ error, recentAlbums, loading }) => {
     if (loading) {
@@ -32,43 +27,6 @@ const Home: React.StatelessComponent<Props> = ({ error, recentAlbums, loading })
         </div>
     );
 };
-
-const GetRecentAlbums = gql`
-    {
-        recentAlbums {
-            id
-            names {
-                id
-                name
-                isDefault
-                isOriginal
-            }
-            artistCredit {
-                id
-                names {
-                    id
-                    position
-                    name
-                    locale
-                    isDefault
-                    isOriginal
-                    separator
-                    artist {
-                        id
-                    }
-                }
-            }
-            defaultRelease {
-                id
-                country
-                releasedOn
-                artworkUrls {
-                    thumbnail
-                }
-            }
-        }
-    }
-`;
 
 export default graphql(GetRecentAlbums, {
     props: ({ data }) => ({ ...data }),

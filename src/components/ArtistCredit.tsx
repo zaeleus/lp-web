@@ -1,8 +1,23 @@
 import * as React from "react";
 
 import Link from "../components/Link";
-import { IArtistCredit } from "../models/ArtistCredit";
-import { IArtistCreditName } from "../models/ArtistCreditName";
+
+interface IArtist {
+    id: string;
+}
+
+interface IArtistCreditName {
+    name: string;
+    position: number;
+    isOriginal: boolean;
+    isDefault: boolean;
+    separator: string;
+    artist: IArtist;
+}
+
+interface IArtistCredit {
+    names: IArtistCreditName[];
+}
 
 interface IProps {
     artistCredit: IArtistCredit;
