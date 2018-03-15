@@ -7,3 +7,8 @@
   padding: 0.5em;
   margin: 1em 0;
 }
+
+.alert.error {
+  background: #fcc;
+  border: 1px solid #ecc;
+}

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 import { actions as router5ActionCreators } from "redux-router5";
 
+import Alert from "../components/Alert";
 import ArtistForm from "../components/ArtistForm";
 import Loading from "../components/Loading";
 import FindArtistForEdit, { IArtist } from "../queries/artist/FindArtistForEdit";
@@ -24,7 +25,13 @@ interface IResult {
 type WrappedProps = OptionProps<IInputProps, IResult>;
 type Props = IDispatchProps & IInputProps & IResult & WrappedProps;
 
-class EditArtist extends React.Component<Props> {
+interface IState {
+    error: string;
+}
+
+class EditArtist extends React.Component<Props, IState> {
+    public state = { error: "" };
+
     public render() {
         if (!this.props.data) { return null; }
 
@@ -38,10 +45,17 @@ class EditArtist extends React.Component<Props> {
             return <h2>Error loading edit artist form</h2>;
         }
 
+        let alert;
+
+        if (this.state.error) {
+            alert = <Alert kind="error">{this.state.error}</Alert>;
+        }
+
         return (
             <div id="content">
                 <div className="full">
                     <h2>Edit Artist</h2>
+                    {alert}
                     <ArtistForm artist={artist} onSubmit={this.onSubmit} />
                 </div>
             </div>
@@ -52,8 +66,12 @@ class EditArtist extends React.Component<Props> {
         const { mutate, navigateTo } = this.props;
 
         if (mutate) {
-            await mutate(opts);
-            navigateTo("artist", { id: this.props.id });
+            try {
+                await mutate(opts);
+                navigateTo("artist", { id: this.props.id });
+            } catch (e) {
+                this.setState({ error: e.message });
+            }
         }
     }
 }
