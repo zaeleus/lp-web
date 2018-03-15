@@ -11,10 +11,10 @@ interface IArtistName {
 export interface IArtist {
     id: string;
     country: string;
-    disambiguation: string;
+    disambiguation?: string;
     kind: string;
-    startedOn: string;
-    endedOn: string;
+    startedOn?: string;
+    endedOn?: string;
 
     names: IArtistName[];
 }

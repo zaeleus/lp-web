@@ -14,10 +14,10 @@ export interface IArtistState {
     id: string;
 
     country: string;
-    disambiguation: string;
-    endedOn: string;
+    disambiguation?: string;
+    endedOn?: string;
     kind: string;
-    startedOn: string;
+    startedOn?: string;
 }
 
 export interface IArtistNameState {
@@ -254,10 +254,11 @@ class ArtistForm extends React.Component<IProps, IState> {
         const payload = {
             variables: {
                 input: {
+                    id: artist.id,
+
                     country: artist.country,
                     disambiguation: artist.disambiguation,
                     endedOn: artist.endedOn,
-                    id: artist.id,
                     kind: artist.kind,
                     startedOn: artist.startedOn,
 
