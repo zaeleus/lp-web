@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IArtist } from "../../models/Artist";
+import { IArtist } from "../../queries/artist/FindArtistForEdit";
 import Names from "./Names";
 
 import "./index.css";
@@ -10,7 +10,7 @@ interface IProps {
     onSubmit: any;
 }
 
-interface IArtistState {
+export interface IArtistState {
     id: string;
 
     country: string;
@@ -240,7 +240,16 @@ class ArtistForm extends React.Component<IProps, IState> {
     private onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const { artist, names } = this.state;
+        const { artist } = this.state;
+        const names = this.state.names
+            .filter((name) => !name._delete)
+            .map((name) => ({
+                id: name.id,
+                isDefault: name.isDefault,
+                isOriginal: name.isOriginal,
+                locale: name.locale,
+                name: name.name,
+            }));
 
         const payload = {
             variables: {
@@ -257,10 +266,7 @@ class ArtistForm extends React.Component<IProps, IState> {
             },
         };
 
-        // tslint:disable-next-line:no-console
-        console.log(payload);
-
-        // this.props.onSubmit(payload);
+        this.props.onSubmit(payload);
     }
 }
 
