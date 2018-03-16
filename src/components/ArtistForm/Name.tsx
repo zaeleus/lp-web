@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { IArtistNameState } from "./index";
 
-interface IProps {
+export interface IProps {
     id: number;
     name: IArtistNameState;
     onNameChange(i: number, name: string): void;
@@ -12,20 +12,20 @@ interface IProps {
     removeName(i: number): void;
 }
 
-class NameInput extends React.Component<IProps> {
+class Name extends React.Component<IProps> {
     public render() {
         const { name } = this.props;
 
         return (
             <tr>
-                <td>
+                <td className="name">
                     <input
                         type="text"
                         value={name.name}
                         onChange={this.onNameChange}
                     />
                 </td>
-                <td>
+                <td className="locale">
                     <input
                         type="text"
                         placeholder="und"
@@ -76,4 +76,4 @@ class NameInput extends React.Component<IProps> {
     }
 }
 
-export default NameInput;
+export default Name;

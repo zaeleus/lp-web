@@ -10,7 +10,7 @@ interface IArtistNameInput {
 
 export interface IArtistInput {
     id: string;
-    disambigaution?: string;
+    disambiguation?: string;
     kind: string;
     country: string;
     startedOn?: string;

@@ -1,11 +1,12 @@
 import * as React from "react";
 
 import { IArtist } from "../../queries/artist/FindArtistForEdit";
+import { IArtistInput } from "../../queries/artist/PatchArtist";
 import Names from "./Names";
 
 import "./index.css";
 
-interface IProps {
+export interface IProps {
     artist: IArtist;
     onSubmit: any;
 }
@@ -31,7 +32,7 @@ export interface IArtistNameState {
     isOriginal: boolean;
 }
 
-interface IState {
+export interface IState {
     artist: IArtistState;
     names: IArtistNameState[];
 }
@@ -72,7 +73,7 @@ class ArtistForm extends React.Component<IProps, IState> {
 
         return (
             <form className="artist-form" onSubmit={this.onSubmit}>
-                <div className="group">
+                <div className="names group">
                     <label>Names <a href="#" onClick={this.addName}>[+]</a></label>
                     <Names
                         names={names}
@@ -84,7 +85,7 @@ class ArtistForm extends React.Component<IProps, IState> {
                     />
                 </div>
 
-                <div className="group">
+                <div className="kind group">
                     <label>Kind</label>
                     <select value={artist.kind} onChange={this.onKindChange}>
                         <option value="PERSON">person</option>
@@ -92,7 +93,7 @@ class ArtistForm extends React.Component<IProps, IState> {
                     </select>
                 </div>
 
-                <div className="group">
+                <div className="country group">
                     <label>Country</label>
                     <input
                         type="text"
@@ -123,7 +124,7 @@ class ArtistForm extends React.Component<IProps, IState> {
                     </div>
                 </div>
 
-                <div className="group">
+                <div className="disambiguation group">
                     <label>Disambiguation</label>
                     <input
                         type="text"
@@ -240,35 +241,40 @@ class ArtistForm extends React.Component<IProps, IState> {
     private onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const { artist } = this.state;
-        const names = this.state.names
-            .filter((name) => !name._delete)
-            .map((name) => ({
-                id: name.id,
-                isDefault: name.isDefault,
-                isOriginal: name.isOriginal,
-                locale: name.locale,
-                name: name.name,
-            }));
-
         const payload = {
             variables: {
-                input: {
-                    id: artist.id,
-
-                    country: artist.country,
-                    disambiguation: artist.disambiguation,
-                    endedOn: artist.endedOn,
-                    kind: artist.kind,
-                    startedOn: artist.startedOn,
-
-                    names,
-                },
+                input: buildArtistInput(this.state),
             },
         };
 
         this.props.onSubmit(payload);
     }
 }
+
+const buildArtistInput = (state: IState): IArtistInput => {
+    const { artist } = state;
+
+    const names = state.names
+        .filter((name) => !name._delete)
+        .map((name) => ({
+            id: name.id,
+            isDefault: name.isDefault,
+            isOriginal: name.isOriginal,
+            locale: name.locale,
+            name: name.name,
+        }));
+
+    return {
+        id: artist.id,
+
+        country: artist.country,
+        disambiguation: artist.disambiguation,
+        endedOn: artist.endedOn,
+        kind: artist.kind,
+        startedOn: artist.startedOn,
+
+        names,
+    };
+};
 
 export default ArtistForm;

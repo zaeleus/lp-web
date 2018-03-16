@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-interface IArtistName {
+export interface IArtistName {
     id: string;
     name: string;
     locale: string;
