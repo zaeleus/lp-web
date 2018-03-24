@@ -17,7 +17,7 @@
     "classnames": "^2.2.5",
     "graphql": "^0.11.7",
     "graphql-tag": "^2.8.0",
-    "js-joda": "^1.7.1",
+    "js-joda": "^1.8.2",
     "normalize.css": "^8.0.0",
     "react": "^16.2.0",
     "react-apollo": "^2.1.0-beta.0",
