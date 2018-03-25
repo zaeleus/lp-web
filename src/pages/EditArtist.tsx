@@ -1,11 +1,13 @@
 import * as React from "react";
-import { compose, graphql, MutationOpts, OptionProps } from "react-apollo";
+import { compose, graphql, OptionProps } from "react-apollo";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 import { actions as router5ActionCreators } from "redux-router5";
 
 import Alert from "../components/Alert";
-import ArtistForm from "../components/ArtistForm";
+import ArtistForm, {
+    IState as IArtistFormState,
+} from "../components/ArtistForm";
 import Loading from "../components/Loading";
 import FindArtistForEdit, { IArtist } from "../queries/artist/FindArtistForEdit";
 import PatchArtist, { IArtistInput } from "../queries/artist/PatchArtist";
@@ -62,19 +64,53 @@ class EditArtist extends React.Component<Props, IState> {
         );
     }
 
-    private onSubmit = async (opts: MutationOpts<IArtistInput>) => {
+    private onSubmit = async (state: IArtistFormState) => {
         const { mutate, navigateTo } = this.props;
 
-        if (mutate) {
-            try {
-                await mutate(opts);
-                navigateTo("artist", { id: this.props.id });
-            } catch (e) {
-                this.setState({ error: e.message });
-            }
+        if (!mutate) {
+            return;
+        }
+
+        const opts = {
+            variables: {
+                input: buildArtistInput(state),
+            },
+        };
+
+        try {
+            await mutate(opts);
+            navigateTo("artist", { id: this.props.id });
+        } catch (e) {
+            this.setState({ error: e.message });
         }
     }
 }
+
+const buildArtistInput = (state: IArtistFormState): IArtistInput => {
+    const { artist } = state;
+
+    const names = state.names
+        .filter((name) => !name._delete)
+        .map((name) => ({
+            id: name.id,
+            isDefault: name.isDefault,
+            isOriginal: name.isOriginal,
+            locale: name.locale,
+            name: name.name,
+        }));
+
+    return {
+        id: artist.id,
+
+        country: artist.country,
+        disambiguation: artist.disambiguation,
+        endedOn: artist.endedOn,
+        kind: artist.kind,
+        startedOn: artist.startedOn,
+
+        names,
+    };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => (
     bindActionCreators({

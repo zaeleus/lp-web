@@ -1,14 +1,13 @@
 import * as React from "react";
 
 import { IArtist } from "../../queries/artist/FindArtistForEdit";
-import { IArtistInput } from "../../queries/artist/PatchArtist";
 import Names from "./Names";
 
 import "./index.css";
 
 export interface IProps {
     artist: IArtist;
-    onSubmit: any;
+    onSubmit(state: IState): void;
 }
 
 export interface IArtistState {
@@ -40,32 +39,8 @@ export interface IState {
 class ArtistForm extends React.Component<IProps, IState> {
     public constructor(props: IProps) {
         super(props);
-
         const { artist } = this.props;
-
-        const names = artist.names.map((name) => ({
-            id: name.id,
-
-            _delete: false,
-
-            isDefault: name.isDefault,
-            isOriginal: name.isOriginal,
-            locale: name.locale,
-            name: name.name,
-        }));
-
-        this.state = {
-            artist: {
-                id: artist.id,
-
-                country: artist.country,
-                disambiguation: artist.disambiguation,
-                endedOn: artist.endedOn,
-                kind: artist.kind,
-                startedOn: artist.startedOn,
-            },
-            names,
-        };
+        this.state = normalize(artist);
     }
 
     public render() {
@@ -240,38 +215,32 @@ class ArtistForm extends React.Component<IProps, IState> {
 
     private onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        const payload = {
-            variables: {
-                input: buildArtistInput(this.state),
-            },
-        };
-
-        this.props.onSubmit(payload);
+        this.props.onSubmit(this.state);
     }
 }
 
-const buildArtistInput = (state: IState): IArtistInput => {
-    const { artist } = state;
+const normalize = (artist: IArtist): IState => {
+    const names = artist.names.map((name) => ({
+        id: name.id,
 
-    const names = state.names
-        .filter((name) => !name._delete)
-        .map((name) => ({
-            id: name.id,
-            isDefault: name.isDefault,
-            isOriginal: name.isOriginal,
-            locale: name.locale,
-            name: name.name,
-        }));
+        _delete: false,
+
+        isDefault: name.isDefault,
+        isOriginal: name.isOriginal,
+        locale: name.locale,
+        name: name.name,
+    }));
 
     return {
-        id: artist.id,
+        artist: {
+            id: artist.id,
 
-        country: artist.country,
-        disambiguation: artist.disambiguation,
-        endedOn: artist.endedOn,
-        kind: artist.kind,
-        startedOn: artist.startedOn,
+            country: artist.country,
+            disambiguation: artist.disambiguation,
+            endedOn: artist.endedOn,
+            kind: artist.kind,
+            startedOn: artist.startedOn,
+        },
 
         names,
     };
