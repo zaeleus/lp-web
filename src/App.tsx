@@ -18,7 +18,7 @@ import Song from "./pages/Song";
 
 type Props = RouterState;
 
-class App extends React.Component<Props, {}> {
+class App extends React.Component<Props> {
     public render() {
         const { route } = this.props;
 
@@ -41,7 +41,7 @@ class App extends React.Component<Props, {}> {
                 content = <EditArtist id={params.id} />;
                 break;
             case "artists-memberships":
-                content = <ArtistMemberships id={params.id} />;
+                content = <ArtistMemberships foo={true} id={params.id} />;
                 break;
             case "artists-new":
                 content = <NewArtist />;

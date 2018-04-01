@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const Loading: React.StatelessComponent<{}> = () => (
+const Loading: React.StatelessComponent = () => (
     <h2>Loading...</h2>
 );
 

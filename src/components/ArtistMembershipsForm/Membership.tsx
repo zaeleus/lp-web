@@ -25,7 +25,7 @@ interface IStateProps {
 
 type Props = IDispatchProps & IOwnProps & IStateProps;
 
-class Membership extends React.Component<Props, {}> {
+class Membership extends React.Component<Props> {
     public render() {
         const { membership } = this.props;
 

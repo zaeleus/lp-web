@@ -12,7 +12,7 @@ interface IDispatchProps {
     navigateTo(name: string, params?: any, opts?: any): ActionNavigateTo;
 }
 
-class Header extends React.Component<IDispatchProps, {}> {
+class Header extends React.Component<IDispatchProps> {
     public search = (query: string): void => {
         this.props.navigateTo("search", { query });
     }

@@ -11,7 +11,7 @@ interface IStateProps {
 
 type Props = IStateProps;
 
-class ArtistMembershipsForm extends React.Component<Props, {}> {
+class ArtistMembershipsForm extends React.Component<Props> {
     public render() {
         const { artist } = this.props;
 

@@ -25,7 +25,7 @@ interface IResult {
 
 type Props = DataValue<IResult, IInputProps> & IDispatchProps & IInputProps;
 
-class ArtistMemberships extends React.Component<Props, {}> {
+class ArtistMemberships extends React.Component<Props> {
     public componentWillReceiveProps(props: Props) {
         const { artist, error, loading, setArtist } = props;
         if (loading || error || !artist) { return; }

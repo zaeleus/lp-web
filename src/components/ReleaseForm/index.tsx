@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const ReleaseForm: React.StatelessComponent<{}> = () => {
+const ReleaseForm: React.StatelessComponent = () => {
     return (
         <form className="release-form">
             <div className="group">
