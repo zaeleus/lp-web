@@ -78,6 +78,6 @@ const SearchArtists = gql`
     }
 `;
 
-export default graphql(SearchArtists, {
+export default graphql<IInputProps>(SearchArtists, {
     props: ({ data }) => ({ ...data }),
 })(Search);

@@ -92,6 +92,6 @@ const ShowArtist: React.StatelessComponent<Props> = ({ artist, error, loading })
     );
 };
 
-export default graphql(FindArtist, {
+export default graphql<IInputProps>(FindArtist, {
     props: ({ data }) => ({ ...data }),
 })(ShowArtist);

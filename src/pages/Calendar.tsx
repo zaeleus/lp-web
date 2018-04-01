@@ -114,6 +114,6 @@ const AlbumsByReleaseMonth = gql`
     }
 `;
 
-export default graphql(AlbumsByReleaseMonth, {
+export default graphql<IInputProps>(AlbumsByReleaseMonth, {
     props: ({ data }) => ({ ...data }),
 })(Calendar);

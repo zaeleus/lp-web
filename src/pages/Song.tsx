@@ -128,6 +128,6 @@ const FindSong = gql`
     }
 `;
 
-export default graphql(FindSong, {
+export default graphql<IInputProps>(FindSong, {
     props: ({ data }) => ({ ...data }),
 })(ShowSong);

@@ -137,6 +137,6 @@ const FindRelease = gql`
     }
 `;
 
-export default graphql(FindRelease, {
+export default graphql<IInputProps>(FindRelease, {
     props: ({ data }) => ({ ...data }),
 })(ShowRelease);
