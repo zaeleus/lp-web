@@ -1,7 +1,6 @@
 import * as React from "react";
 
-import { IArtistUrl } from "../../models/ArtistUrl";
-import Url from "./Url";
+import Url, { IArtistUrl } from "./Url";
 
 interface IProps {
     urls: IArtistUrl[];

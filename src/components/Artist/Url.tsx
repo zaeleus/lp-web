@@ -1,6 +1,9 @@
 import * as React from "react";
 
-import { IArtistUrl } from "../../models/ArtistUrl";
+export interface IArtistUrl {
+    url: string;
+    name: string;
+}
 
 interface IProps {
     url: IArtistUrl;
