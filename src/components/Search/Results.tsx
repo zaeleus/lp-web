@@ -1,21 +1,45 @@
 import * as React from "react";
 
-import { IAlbum } from "../../models/Album";
-import { IArtist } from "../../models/Artist";
-import { ISong } from "../../models/Song";
 import Link from "../Link";
 import Name from "../Name";
 
 import "./Results.css";
 
+interface INameable {
+    id: string;
+    name: string;
+    isDefault: boolean;
+}
+
+interface IArtist {
+    id: string;
+    names: INameable[];
+}
+
+interface IRelease {
+    id: string;
+    releasedOn: string;
+}
+
+interface IAlbum {
+    id: string;
+    names: INameable[];
+    defaultRelease: IRelease;
+}
+
+interface ISong {
+    id: string;
+    names: INameable[];
+}
+
 interface IProps {
-    albums: IAlbum[];
     artists: IArtist[];
+    albums: IAlbum[];
     songs: ISong[];
 }
 
 const Results: React.StatelessComponent<IProps> = ({ albums, artists, songs }) => {
-    const artistItems = artists.map((a: IArtist, i: number) => {
+    const artistItems = artists.map((a, i) => {
         return (
             <li key={i}>
                 <Link to="artist" params={{ id: a.id }}>
@@ -25,7 +49,7 @@ const Results: React.StatelessComponent<IProps> = ({ albums, artists, songs }) =
         );
     });
 
-    const albumItems = albums.map((a: IAlbum, i: number) => {
+    const albumItems = albums.map((a, i) => {
         return (
             <li key={i}>
                 [{a.defaultRelease.releasedOn}]{" "}
@@ -36,7 +60,7 @@ const Results: React.StatelessComponent<IProps> = ({ albums, artists, songs }) =
         );
     });
 
-    const songItems = songs.map((s: ISong, i: number) => {
+    const songItems = songs.map((s, i) => {
         return (
             <li key={i}>
                 <Link to="song" params={{ id: s.id }}>
