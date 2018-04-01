@@ -85,10 +85,8 @@ class EditArtist extends React.Component<Props, IState> {
         }
     }
 }
-
 const buildArtistInput = (state: IArtistFormState): IArtistInput => {
     const { artist } = state;
-
     const names = state.names
         .filter((name) => !name._delete)
         .map((name) => ({

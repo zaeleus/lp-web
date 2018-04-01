@@ -8,10 +8,7 @@ interface IProps {
 }
 
 const Urls: React.StatelessComponent<IProps> = ({ urls }) => {
-    const items = urls.map((u: IArtistUrl, i: number) => (
-        <Url key={i} url={u} />
-    ));
-
+    const items = urls.map((u, i) => <Url key={i} url={u} />);
     return <ul>{items}</ul>;
 };
 

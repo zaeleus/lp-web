@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IMembership } from "../../models/Membership";
+import { IMembership } from "../../queries/artist/FindArtist";
 import Membership from "./Membership";
 
 interface IProps {
@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const Memberships: React.StatelessComponent<IProps> = ({ memberships }) => {
-    const items = memberships.map((m: IMembership, i: number) => (
+    const items = memberships.map((m, i) => (
         <Membership key={i} membership={m} />
     ));
 

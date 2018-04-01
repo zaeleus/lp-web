@@ -1,4 +1,3 @@
-import gql from "graphql-tag";
 import * as React from "react";
 import { DataValue, graphql } from "react-apollo";
 
@@ -11,7 +10,7 @@ import Meta from "../components/Artist/Meta";
 import Urls from "../components/Artist/Urls";
 import Link from "../components/Link";
 import Loading from "../components/Loading";
-import { IArtist } from "../models/Artist";
+import FindArtist, { IArtist } from "../queries/artist/FindArtist";
 
 interface IInputProps {
     id: string;
@@ -92,66 +91,6 @@ const ShowArtist: React.StatelessComponent<Props> = ({ artist, error, loading })
         </div>
     );
 };
-
-const FindArtist = gql`
-    query FindArtist($id: ID!) {
-        artist(id: $id) {
-            id
-            kind
-            country
-            startedOn
-            endedOn
-            names {
-                name
-                isDefault
-                isOriginal
-            }
-            groupships {
-                group {
-                    id
-                    names {
-                        name
-                        isDefault
-                        isOriginal
-                    }
-                }
-            }
-            memberships {
-                artistCredit {
-                    names {
-                        name
-                        isDefault
-                        isOriginal
-                        artist {
-                            id
-                        }
-                    }
-                }
-            }
-            albums {
-                id
-                names {
-                    name
-                    isDefault
-                    isOriginal
-                }
-                defaultRelease {
-                    id
-                    country
-                    releasedOn
-                    artworkUrls {
-                        thumbnail
-                    }
-                }
-            }
-            urls {
-                id
-                url
-                name
-            }
-        }
-    }
-`;
 
 export default graphql(FindArtist, {
     props: ({ data }) => ({ ...data }),

@@ -1,14 +1,14 @@
 import * as React from "react";
 
-import { IMembership } from "../../models/Membership";
+import { IGroupship } from "../../queries/artist/FindArtist";
 import Groupship from "./Groupship";
 
 interface IProps {
-    groupships: IMembership[];
+    groupships: IGroupship[];
 }
 
 const Groupships: React.StatelessComponent<IProps> = ({ groupships }) => {
-    const items = groupships.map((m: IMembership, i: number) => (
+    const items = groupships.map((m, i) => (
         <Groupship key={i} groupship={m} />
     ));
 

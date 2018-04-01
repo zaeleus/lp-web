@@ -1,9 +1,13 @@
 import * as React from "react";
 
-import { IArtist } from "../../models/Artist";
+import { IArtistName } from "../../queries/artist/FindArtist";
 import Name from "../Name";
 
-interface IProps {
+interface IArtist {
+    names: IArtistName[];
+}
+
+export interface IProps {
     artist: IArtist;
 }
 

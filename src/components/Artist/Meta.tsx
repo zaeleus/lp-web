@@ -2,7 +2,7 @@ import * as React from "react";
 
 import "./Meta.css";
 
-import { IArtist } from "../../models/Artist";
+import { IArtist } from "../../queries/artist/FindArtist";
 
 interface IProps {
     artist: IArtist;

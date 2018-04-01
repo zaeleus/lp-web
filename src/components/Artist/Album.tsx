@@ -2,7 +2,7 @@ import * as React from "react";
 
 import Link from "../../components/Link";
 import Name from "../../components/Name";
-import { IAlbum } from "../../models/Album";
+import { IAlbum } from "../../queries/artist/FindArtist";
 
 interface IProps {
     album: IAlbum;
@@ -18,6 +18,7 @@ const Album: React.StatelessComponent<IProps> = ({ album }) => {
                     <img src={release.artworkUrls.thumbnail} />
                 </Link>
             </div>
+
             <div className="info">
                 <div className="released-on">
                     [{release.country}] {release.releasedOn}

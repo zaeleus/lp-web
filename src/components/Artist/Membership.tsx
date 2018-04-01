@@ -2,14 +2,14 @@ import * as React from "react";
 
 import Link from "../../components/Link";
 import Name from "../../components/Name";
-import { IMembership } from "../../models/Membership";
+import { IMembership } from "../../queries/artist/FindArtist";
 
 interface IProps {
     membership: IMembership;
 }
 
 const Membership: React.StatelessComponent<IProps> = ({ membership }) => {
-    const artistCredit = membership.artistCredit;
+    const { artistCredit } = membership;
 
     return (
         <li>

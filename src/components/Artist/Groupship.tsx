@@ -2,14 +2,14 @@ import * as React from "react";
 
 import Link from "../../components/Link";
 import Name from "../../components/Name";
-import { IMembership } from "../../models/Membership";
+import { IGroupship } from "../../queries/artist/FindArtist";
 
 interface IProps {
-    groupship: IMembership;
+    groupship: IGroupship;
 }
 
 const Membership: React.StatelessComponent<IProps> = ({ groupship }) => {
-    const group = groupship.group;
+    const { group } = groupship;
 
     return (
         <li>
