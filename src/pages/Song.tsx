@@ -1,4 +1,3 @@
-import gql from "graphql-tag";
 import * as React from "react";
 import { DataValue, graphql } from "react-apollo";
 
@@ -8,7 +7,7 @@ import Contributions from "../components/Song/Contributions";
 import Header from "../components/Song/Header";
 import Releases from "../components/Song/Releases";
 import Urls from "../components/Song/Urls";
-import { ISong } from "../models/Song";
+import FindSong, { ISong } from "../queries/FindSong";
 
 interface IInputProps {
     id: string;
@@ -58,75 +57,6 @@ const ShowSong: React.StatelessComponent<Props> = ({ error, loading, song }) => 
         </div>
     );
 };
-
-const FindSong = gql`
-    query FindSong($id: ID!) {
-        song(id: $id) {
-            id
-
-            names {
-                id
-                name
-                isDefault
-                isOriginal
-            }
-
-            artistCredit {
-                id
-                names {
-                    id
-                    position
-                    name
-                    locale
-                    isDefault
-                    isOriginal
-                    separator
-                    artist {
-                        id
-                    }
-                }
-            }
-
-            appearsOn {
-                id
-                album {
-                    id
-                    names {
-                        id
-                        name
-                        isDefault
-                        isOriginal
-                    }
-                }
-            }
-
-            contributions {
-                kind
-                artistCredit {
-                    id
-                    names {
-                        id
-                        position
-                        name
-                        locale
-                        isDefault
-                        isOriginal
-                        separator
-                        artist {
-                            id
-                        }
-                    }
-                }
-            }
-
-            urls {
-                id
-                url
-                name
-            }
-        }
-    }
-`;
 
 export default graphql<IInputProps>(FindSong, {
     props: ({ data }) => ({ ...data }),

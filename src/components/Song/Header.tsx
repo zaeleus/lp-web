@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ISong } from "../../models/Song";
+import { ISong } from "../../queries/FindSong";
 import ArtistCredit from "../ArtistCredit";
 import Name from "../Name";
 

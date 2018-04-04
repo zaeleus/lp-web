@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IRelease } from "../../models/Release";
+import { IRelease } from "../../queries/FindSong";
 import Link from "../Link";
 import Name from "../Name";
 
@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const Urls: React.StatelessComponent<IProps> = ({ releases }) => {
-    const items = releases.map((r: IRelease, i: number) => (
+    const items = releases.map((r, i) => (
         <li key={i}>
             <Link to="release" params={{ id: r.id }}>
                 <Name names={r.album.names} />
