@@ -3,7 +3,7 @@ import * as React from "react";
 import ArtistCredit from "../../components/ArtistCredit";
 import Link from "../../components/Link";
 import Name from "../../components/Name";
-import { IAlbum } from "../../models/Album";
+import { IAlbum } from "../../queries/GetCalendar";
 
 import "./MonthlyAlbum.css";
 

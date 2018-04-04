@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IArtist } from "../../models/Artist";
+import { IArtist} from "../../queries/GetCalendar";
 import Age from "../Age";
 import Date from "../Date";
 import Link from "../Link";

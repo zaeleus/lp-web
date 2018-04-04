@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IAlbum } from "../../models/Album";
+import { IAlbum } from "../../queries/GetCalendar";
 import MonthlyAlbum from "./MonthlyAlbum";
 
 import "./MonthlyAlbums.css";
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const MonthlyAlbums: React.StatelessComponent<IProps> = ({ albums }) => {
-    const items = albums.map((a: IAlbum, i: number) => (
+    const items = albums.map((a, i) => (
         <MonthlyAlbum key={i} album={a} />
     ));
 

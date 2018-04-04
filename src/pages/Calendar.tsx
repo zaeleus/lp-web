@@ -1,4 +1,3 @@
-import gql from "graphql-tag";
 import { YearMonth } from "js-joda";
 import * as React from "react";
 import { DataValue, graphql } from "react-apollo";
@@ -8,8 +7,7 @@ import Birthdays from "../components/Calendar/Birthdays";
 import MonthlyAlbums from "../components/Calendar/MonthlyAlbums";
 import Loading from "../components/Loading";
 import MonthlyCalendar from "../components/MonthlyCalendar";
-import { IAlbum } from "../models/Album";
-import { IArtist } from "../models/Artist";
+import GetCalendar, { IAlbum, IArtist } from "../queries/GetCalendar";
 
 interface IInputProps {
     date: string;
@@ -67,53 +65,6 @@ const Calendar: React.StatelessComponent<Props> = ({
     );
 };
 
-const AlbumsByReleaseMonth = gql`
-    query AlbumsByReleaseMonth($date: String!) {
-        albumsByReleaseMonth(date: $date) {
-            id
-            names {
-                name
-                isDefault
-                isOriginal
-            }
-            defaultRelease {
-                id
-                country
-                releasedOn
-                artworkUrls {
-                    thumbnail
-                }
-            }
-            artistCredit {
-                id
-                names {
-                    id
-                    position
-                    name
-                    locale
-                    isDefault
-                    isOriginal
-                    separator
-                    artist {
-                        id
-                    }
-                }
-            }
-        }
-
-        artistsByStartMonth(date: $date) {
-            id
-            startedOn
-            names {
-                id
-                name
-                isDefault
-                isOriginal
-            }
-        }
-    }
-`;
-
-export default graphql<IInputProps>(AlbumsByReleaseMonth, {
+export default graphql<IInputProps>(GetCalendar, {
     props: ({ data }) => ({ ...data }),
 })(Calendar);
