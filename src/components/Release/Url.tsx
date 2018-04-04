@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IReleaseUrl } from "../../models/ReleaseUrl";
+import { IReleaseUrl } from "../../queries/release/FindRelease";
 
 interface IProps {
     url: IReleaseUrl;

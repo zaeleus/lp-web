@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { IRelease } from "../../models/Release";
+import { ISibling } from "../../queries/release/FindRelease";
 import Link from "../Link";
 
 interface IProps {
-    release: IRelease;
+    release: ISibling;
 }
 
 const Sibling: React.StatelessComponent<IProps> = ({ release }) => (

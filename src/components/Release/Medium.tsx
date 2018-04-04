@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IMedium } from "../../models/Medium";
+import { IMedium } from "../../queries/release/FindRelease";
 import Alert from "../Alert";
 import Tracklist from "./Tracklist";
 

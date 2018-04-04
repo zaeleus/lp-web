@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import "./Meta.css";
-
-import { IRelease } from "../../models/Release";
+import { IRelease } from "../../queries/release/FindRelease";
 import Format from "./Format";
+
+import "./Meta.css";
 
 interface IProps {
     release: IRelease;

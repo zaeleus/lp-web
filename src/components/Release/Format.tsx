@@ -1,6 +1,8 @@
 import * as React from "react";
 
-import { IMedium } from "../../models/Medium";
+interface IMedium {
+    kind: string;
+}
 
 interface IProps {
     media: IMedium[];

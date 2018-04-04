@@ -1,4 +1,3 @@
-import gql from "graphql-tag";
 import * as React from "react";
 import { DataValue, graphql } from "react-apollo";
 
@@ -9,7 +8,7 @@ import Media from "../components/Release/Media";
 import Meta from "../components/Release/Meta";
 import Siblings from "../components/Release/Siblings";
 import Urls from "../components/Release/Urls";
-import { IRelease } from "../models/Release";
+import FindRelease, { IRelease } from "../queries/release/FindRelease";
 
 interface IInputProps {
     id: string;
@@ -53,89 +52,6 @@ const ShowRelease: React.StatelessComponent<Props> = ({ error, loading, release 
         </div>
     );
 };
-
-const FindRelease = gql`
-    query FindRelease($id: ID!) {
-        release(id: $id) {
-            id
-            releasedOn
-            country
-            catalogNumber
-            disambiguation
-            artworkUrls {
-                original
-                thumbnail
-            }
-            album {
-                id
-                kind
-                artistCredit {
-                    id
-                    names {
-                        id
-                        position
-                        name
-                        locale
-                        isDefault
-                        isOriginal
-                        separator
-                        artist {
-                            id
-                        }
-                    }
-                }
-                names {
-                    id
-                    name
-                    isDefault
-                    isOriginal
-                }
-            }
-            urls {
-                name
-                url
-            }
-            media {
-                id
-                position
-                kind
-                tracks {
-                    id
-                    position
-                    duration
-                    artistCredit {
-                        id
-                        names {
-                            id
-                            position
-                            name
-                            locale
-                            isDefault
-                            isOriginal
-                            separator
-                            artist {
-                                id
-                            }
-                        }
-                    }
-                    names {
-                        id
-                        name
-                        isDefault
-                        isOriginal
-                    }
-                    song {
-                        id
-                    }
-                }
-            }
-            siblings {
-                id
-                disambiguation
-            }
-        }
-    }
-`;
 
 export default graphql<IInputProps>(FindRelease, {
     props: ({ data }) => ({ ...data }),

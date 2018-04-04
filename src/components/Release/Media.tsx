@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IMedium } from "../../models/Medium";
+import { IMedium } from "../../queries/release/FindRelease";
 import Medium from "./Medium";
 
 interface IProps {
@@ -8,10 +8,7 @@ interface IProps {
 }
 
 const Media: React.StatelessComponent<IProps> = ({ media }) => {
-    const items = media.map((m: IMedium, i: number) => (
-        <Medium key={i} medium={m} />
-    ));
-
+    const items = media.map((m, i) => <Medium key={i} medium={m} />);
     return <div>{items}</div>;
 };
 

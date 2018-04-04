@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IRelease } from "../../models/Release";
+import { IRelease } from "../../queries/release/FindRelease";
 import ArtistCredit from "../ArtistCredit";
 import Name from "../Name";
 
