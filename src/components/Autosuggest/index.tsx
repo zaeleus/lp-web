@@ -1,7 +1,6 @@
 import * as React from "react";
 
-import { IArtist } from "../../models/Artist";
-import Suggestions from "./Suggestions";
+import Suggestions, { IArtist } from "./Suggestions";
 
 interface IState {
     activeIndex: number;

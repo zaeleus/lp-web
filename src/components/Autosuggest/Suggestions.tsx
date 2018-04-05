@@ -1,9 +1,20 @@
 import * as React from "react";
 
-import { IArtist } from "../../models/Artist";
 import Name from "../Name";
 
 import "./Suggestions.css";
+
+interface IArtistName {
+    id: string;
+    name: string;
+    isDefault: boolean;
+    isOriginal: boolean;
+}
+
+export interface IArtist {
+    id: string;
+    names: IArtistName[];
+}
 
 interface IProps {
     activeIndex: number;
