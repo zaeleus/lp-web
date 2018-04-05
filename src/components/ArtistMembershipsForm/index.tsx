@@ -1,17 +1,13 @@
 import * as React from "react";
-import { connect } from "react-redux";
 
-import { IArtistMembershipsArtistState } from "../../reducers/artist-memberships-artist";
-import { IArtistMembershipsFormState } from "../../reducers/artist-memberships-form";
+import { IArtist } from "../../queries/artist/memberships/FindArtist";
 import Roster from "./Roster";
 
-interface IStateProps {
-    artist: IArtistMembershipsArtistState;
+interface IProps {
+    artist: IArtist;
 }
 
-type Props = IStateProps;
-
-class ArtistMembershipsForm extends React.Component<Props> {
+class ArtistMembershipsForm extends React.Component<IProps> {
     public render() {
         const { artist } = this.props;
 
@@ -19,7 +15,7 @@ class ArtistMembershipsForm extends React.Component<Props> {
             <form onSubmit={this.onSubmit}>
                 <div className="group">
                     <label>Roster</label>
-                    <Roster membershipIds={artist.membershipIds} />
+                    <Roster memberships={artist.memberships} />
                 </div>
 
                 <div className="group">
@@ -34,10 +30,4 @@ class ArtistMembershipsForm extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (
-    { artistMembershipsForm }: { artistMembershipsForm: IArtistMembershipsFormState },
-) => ({
-    artist: artistMembershipsForm.artist,
-});
-
-export default connect(mapStateToProps)(ArtistMembershipsForm);
+export default ArtistMembershipsForm;

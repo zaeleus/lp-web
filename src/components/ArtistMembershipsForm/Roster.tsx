@@ -1,16 +1,17 @@
 import * as React from "react";
 
+import { IMembership } from "../../queries/artist/memberships/FindArtist";
 import Autosuggest from "../Autosuggest";
 import Memberships from "./Memberships";
 
 interface IProps {
-    membershipIds: string[];
+    memberships: IMembership[];
 }
 
-const Roster: React.StatelessComponent<IProps> = ({ membershipIds }) => (
+const Roster: React.StatelessComponent<IProps> = ({ memberships }) => (
     <div>
         <Autosuggest />
-        <Memberships membershipIds={membershipIds} />
+        <Memberships memberships={memberships} />
     </div>
 );
 

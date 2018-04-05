@@ -41,7 +41,7 @@ class App extends React.Component<Props> {
                 content = <EditArtist id={params.id} />;
                 break;
             case "artists-memberships":
-                content = <ArtistMemberships foo={true} id={params.id} />;
+                content = <ArtistMemberships id={params.id} />;
                 break;
             case "artists-new":
                 content = <NewArtist />;

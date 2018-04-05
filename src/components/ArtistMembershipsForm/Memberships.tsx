@@ -1,13 +1,17 @@
 import * as React from "react";
 
+import { IMembership } from "../../queries/artist/memberships/FindArtist";
 import Membership from "./Membership";
 
 interface IProps {
-    membershipIds: string[];
+    memberships: IMembership[];
 }
 
-const Memberships: React.StatelessComponent<IProps> = ({ membershipIds }) => {
-    const items = membershipIds.map((id, i) => <Membership key={i} id={id} />);
+const Memberships: React.StatelessComponent<IProps> = ({ memberships }) => {
+    const items = memberships.map((m, i) => (
+        <Membership key={i} membership={m} />
+    ));
+
     return <ul className="memberships">{items}</ul>;
 };
 

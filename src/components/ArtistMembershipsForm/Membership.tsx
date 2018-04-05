@@ -1,31 +1,15 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators, Dispatch } from "redux";
 
-import actionCreators from "../../actions/memberships";
-import { IArtistMembershipsFormState } from "../../reducers/artist-memberships-form";
-import { IMembershipState } from "../../reducers/memberships";
 import ArtistCredit from "./ArtistCredit";
 
+import { IMembership } from "../../queries/artist/memberships/FindArtist";
 import "./Membership.css";
 
-interface IDispatchProps {
-    removeMembership(id: string): void;
-    setEndedOn(id: string, endedOn: string): void;
-    setStartedOn(id: string, startedOn: string): void;
+interface IProps {
+    membership: IMembership;
 }
 
-interface IOwnProps {
-    id: string;
-}
-
-interface IStateProps {
-    membership: IMembershipState;
-}
-
-type Props = IDispatchProps & IOwnProps & IStateProps;
-
-class Membership extends React.Component<Props> {
+class Membership extends React.Component<IProps> {
     public render() {
         const { membership } = this.props;
 
@@ -35,7 +19,7 @@ class Membership extends React.Component<Props> {
                     <img src="https://via.placeholder.com/48x48" />
                 </div>
 
-                <ArtistCredit id={membership.artistCreditId} />
+                <ArtistCredit artistCredit={membership.artistCredit} />
 
                 <div className="dates">
                     <div className="started-on group">
@@ -66,32 +50,17 @@ class Membership extends React.Component<Props> {
     }
 
     private onEndedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-        this.props.setEndedOn(this.props.id, event.currentTarget.value);
+        // ...
     }
 
     private onRemoveClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
-        this.props.removeMembership(this.props.id);
+        // ...
     }
 
     private onStartedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-        this.props.setStartedOn(this.props.id, event.currentTarget.value);
+        // ...
     }
 }
 
-const mapStateToProps = (
-    { artistMembershipsForm }: { artistMembershipsForm: IArtistMembershipsFormState },
-    ownProps: IOwnProps,
-) => ({
-    membership: artistMembershipsForm.memberships[ownProps.id],
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<IArtistMembershipsFormState>) => (
-    bindActionCreators({
-        removeMembership: actionCreators.removeMembership,
-        setEndedOn: actionCreators.setEndedOn,
-        setStartedOn: actionCreators.setStartedOn,
-    }, dispatch)
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Membership);
+export default Membership;
