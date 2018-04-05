@@ -3,7 +3,7 @@ import * as React from "react";
 
 import Age from "./Age";
 
-it("calculates the duration between to dates in years", () => {
+test("calculates the duration between to dates in years", () => {
     let wrapper = shallow(<Age from="1989-05-07" to="2015-09-16" />);
     expect(wrapper.text()).toEqual("26");
 
