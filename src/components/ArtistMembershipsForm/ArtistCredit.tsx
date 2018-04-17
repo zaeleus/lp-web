@@ -1,13 +1,20 @@
 import * as React from "react";
 
-import { IArtistCredit } from "../../queries/artist/memberships/FindArtist";
+import {
+    IArtistCreditNamesState,
+    IArtistCreditState,
+} from "./index";
 
 interface IProps {
-    artistCredit: IArtistCredit;
+    artistCreditNames: IArtistCreditNamesState;
+    artistCredit: IArtistCreditState;
 }
 
-const ArtistCredit: React.StatelessComponent<IProps> = ({ artistCredit }) => {
-    const { names } = artistCredit;
+const ArtistCredit: React.StatelessComponent<IProps> = ({
+    artistCreditNames,
+    artistCredit,
+}) => {
+    const names = artistCredit.nameIds.map((id) => artistCreditNames[id]);
 
     const defaultName = names
         .filter((n) => n.isDefault)

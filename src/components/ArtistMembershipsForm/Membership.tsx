@@ -1,17 +1,29 @@
 import * as React from "react";
 
 import ArtistCredit from "./ArtistCredit";
+import {
+    IArtistCreditNamesState,
+    IArtistCreditsState,
+    IMembershipState,
+} from "./index";
 
-import { IMembership } from "../../queries/artist/memberships/FindArtist";
 import "./Membership.css";
 
 interface IProps {
-    membership: IMembership;
+    artistCreditNames: IArtistCreditNamesState;
+    artistCredits: IArtistCreditsState;
+    membership: IMembershipState;
+    onMembershipStartedOnChange(id: string, startedOn: string): void;
+    onMembershipEndedOnChange(id: string, endedOn: string): void;
+    removeMembership(id: string): void;
 }
 
 class Membership extends React.Component<IProps> {
     public render() {
-        const { membership } = this.props;
+        const { artistCreditNames, artistCredits, membership } = this.props;
+        const { artistCreditId } = membership;
+
+        const artistCredit = artistCredits[artistCreditId];
 
         return (
             <li>
@@ -19,7 +31,10 @@ class Membership extends React.Component<IProps> {
                     <img src="https://via.placeholder.com/48x48" />
                 </div>
 
-                <ArtistCredit artistCredit={membership.artistCredit} />
+                <ArtistCredit
+                    artistCreditNames={artistCreditNames}
+                    artistCredit={artistCredit}
+                />
 
                 <div className="dates">
                     <div className="started-on group">
@@ -50,16 +65,21 @@ class Membership extends React.Component<IProps> {
     }
 
     private onEndedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-        // ...
+        const { membership, onMembershipEndedOnChange } = this.props;
+        const endedOn = event.currentTarget.value;
+        onMembershipEndedOnChange(membership.id, endedOn);
     }
 
     private onRemoveClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
-        // ...
+        const { membership, removeMembership } = this.props;
+        removeMembership(membership.id);
     }
 
     private onStartedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-        // ...
+        const { membership, onMembershipStartedOnChange } = this.props;
+        const startedOn = event.currentTarget.value;
+        onMembershipStartedOnChange(membership.id, startedOn);
     }
 }
 
