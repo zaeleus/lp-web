@@ -1,4 +1,4 @@
-import { ApolloClient, HttpLink, InMemoryCache } from "apollo-client-preset";
+import ApolloClient from "apollo-boost";
 import * as React from "react";
 import { ApolloProvider } from "react-apollo";
 import { render } from "react-dom";
@@ -17,10 +17,8 @@ import configureStore from "./store";
 import "normalize.css/normalize.css";
 import "./index.css";
 
-const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: new HttpLink({ uri: "/graphql" }),
-});
+const client = new ApolloClient({ uri: "/graphql" });
+
 const router = createRouter(routes).usePlugin(browserPlugin());
 const store = configureStore(router);
 
