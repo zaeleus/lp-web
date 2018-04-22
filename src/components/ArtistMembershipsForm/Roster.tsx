@@ -1,44 +1,20 @@
 import * as React from "react";
 
 import Autosuggest from "../Autosuggest";
-import {
-    IArtistCreditNamesState,
-    IArtistCreditsState,
-    IMembershipsState,
-} from "./index";
+import { FormConsumer, IContextProps } from "./Context";
 import Memberships from "./Memberships";
 
-interface IProps {
-    artistCreditNames: IArtistCreditNamesState;
-    artistCredits: IArtistCreditsState;
-    membershipIds: string[];
-    memberships: IMembershipsState;
-    onMembershipStartedOnChange(id: string, startedOn: string): void;
-    onMembershipEndedOnChange(id: string, endedOn: string): void;
-    removeMembership(id: string): void;
-}
+const Consumer: React.StatelessComponent<IContextProps> = ({ state }) => {
+    return (
+        <div>
+            <Autosuggest />
+            <Memberships membershipIds={state.artist.membershipIds} />
+        </div>
+    );
+};
 
-const Roster: React.StatelessComponent<IProps> = ({
-    artistCredits,
-    artistCreditNames,
-    membershipIds,
-    memberships,
-    onMembershipStartedOnChange,
-    onMembershipEndedOnChange,
-    removeMembership,
-}) => (
-    <div>
-        <Autosuggest />
-        <Memberships
-            artistCreditNames={artistCreditNames}
-            artistCredits={artistCredits}
-            membershipIds={membershipIds}
-            memberships={memberships}
-            onMembershipStartedOnChange={onMembershipStartedOnChange}
-            onMembershipEndedOnChange={onMembershipEndedOnChange}
-            removeMembership={removeMembership}
-        />
-    </div>
+const Roster: React.StatelessComponent = () => (
+    <FormConsumer>{(value) => <Consumer {...value!} />}</FormConsumer>
 );
 
 export default Roster;

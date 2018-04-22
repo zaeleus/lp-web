@@ -1,26 +1,20 @@
 import * as React from "react";
 
 import ArtistCredit from "./ArtistCredit";
-import {
-    IArtistCreditNamesState,
-    IArtistCreditsState,
-    IMembershipState,
-} from "./index";
+import { FormConsumer, IContextProps, IMembershipState } from "./Context";
 
 import "./Membership.css";
 
 interface IProps {
-    artistCreditNames: IArtistCreditNamesState;
-    artistCredits: IArtistCreditsState;
     membership: IMembershipState;
-    onMembershipStartedOnChange(id: string, startedOn: string): void;
-    onMembershipEndedOnChange(id: string, endedOn: string): void;
-    removeMembership(id: string): void;
 }
 
-class Membership extends React.Component<IProps> {
+type ConsumerProps = IContextProps & IProps;
+
+class Consumer extends React.Component<ConsumerProps> {
     public render() {
-        const { artistCreditNames, artistCredits, membership } = this.props;
+        const { membership, state } = this.props;
+        const { artistCredits } = state;
         const { artistCreditId } = membership;
 
         const artistCredit = artistCredits[artistCreditId];
@@ -31,10 +25,7 @@ class Membership extends React.Component<IProps> {
                     <img src="https://via.placeholder.com/48x48" />
                 </div>
 
-                <ArtistCredit
-                    artistCreditNames={artistCreditNames}
-                    artistCredit={artistCredit}
-                />
+                <ArtistCredit artistCredit={artistCredit} />
 
                 <div className="dates">
                     <div className="started-on group">
@@ -65,22 +56,28 @@ class Membership extends React.Component<IProps> {
     }
 
     private onEndedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-        const { membership, onMembershipEndedOnChange } = this.props;
+        const { actions, membership } = this.props;
         const endedOn = event.currentTarget.value;
-        onMembershipEndedOnChange(membership.id, endedOn);
+        actions.onMembershipEndedOnChange(membership.id, endedOn);
     }
 
     private onRemoveClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
-        const { membership, removeMembership } = this.props;
-        removeMembership(membership.id);
+        const { actions, membership } = this.props;
+        actions.removeMembership(membership.id);
     }
 
     private onStartedOnChange = (event: React.FormEvent<HTMLInputElement>) => {
-        const { membership, onMembershipStartedOnChange } = this.props;
+        const { actions, membership } = this.props;
         const startedOn = event.currentTarget.value;
-        onMembershipStartedOnChange(membership.id, startedOn);
+        actions.onMembershipStartedOnChange(membership.id, startedOn);
     }
 }
+
+const Membership: React.StatelessComponent<IProps> = (props) => (
+    <FormConsumer>
+        {(value) => <Consumer {...props} {...value!} />}
+    </FormConsumer>
+);
 
 export default Membership;

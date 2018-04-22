@@ -1,19 +1,18 @@
 import * as React from "react";
 
-import {
-    IArtistCreditNamesState,
-    IArtistCreditState,
-} from "./index";
+import { FormConsumer, IArtistCreditState, IContextProps } from "./Context";
 
 interface IProps {
-    artistCreditNames: IArtistCreditNamesState;
     artistCredit: IArtistCreditState;
 }
 
-const ArtistCredit: React.StatelessComponent<IProps> = ({
-    artistCreditNames,
+type ConsumerProps = IContextProps & IProps;
+
+const Consumer: React.StatelessComponent<ConsumerProps> = ({
     artistCredit,
+    state,
 }) => {
+    const { artistCreditNames } = state;
     const names = artistCredit.nameIds.map((id) => artistCreditNames[id]);
 
     const defaultName = names
@@ -33,5 +32,11 @@ const ArtistCredit: React.StatelessComponent<IProps> = ({
         </div>
     );
 };
+
+const ArtistCredit: React.StatelessComponent<IProps> = (props) => (
+    <FormConsumer>
+        {(value) => <Consumer {...props} {...value!} />}
+    </FormConsumer>
+);
 
 export default ArtistCredit;
